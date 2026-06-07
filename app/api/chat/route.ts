@@ -1,4 +1,3 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { NextRequest } from 'next/server'
@@ -12,7 +11,6 @@ function getKnowledgeBase(): string {
 }
 
 export async function POST(req: NextRequest) {
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
   try {
     const { messages, lead } = await req.json()
 
@@ -34,32 +32,63 @@ Never make up pricing, timelines, or guarantees beyond what's in the knowledge b
 --- KNOWLEDGE BASE ---
 ${kb}`
 
-    const stream = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1024,
-      stream: true,
-      system: [
-        {
-          type: 'text',
-          text: systemPrompt,
-          cache_control: { type: 'ephemeral' },
-        },
-      ],
-      messages,
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...messages,
+        ],
+        stream: true,
+      }),
     })
+
+    if (!response.ok) {
+      const errText = await response.text()
+      throw new Error(`OpenAI API error: ${response.statusText} - ${errText}`)
+    }
 
     const encoder = new TextEncoder()
     const readable = new ReadableStream({
       async start(controller) {
+        const reader = response.body?.getReader()
+        if (!reader) {
+          controller.close()
+          return
+        }
+
+        const decoder = new TextDecoder()
+        let buffer = ''
+
         try {
-          for await (const event of stream) {
-            if (
-              event.type === 'content_block_delta' &&
-              event.delta.type === 'text_delta'
-            ) {
-              controller.enqueue(
-                encoder.encode(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`)
-              )
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+            buffer += decoder.decode(value, { stream: true })
+            const lines = buffer.split('\n')
+            buffer = lines.pop() || ''
+
+            for (const line of lines) {
+              const cleaned = line.trim()
+              if (!cleaned || cleaned === 'data: [DONE]') continue
+              if (cleaned.startsWith('data: ')) {
+                try {
+                  const parsed = JSON.parse(cleaned.slice(6))
+                  const content = parsed.choices?.[0]?.delta?.content
+                  if (content) {
+                    controller.enqueue(
+                      encoder.encode(`data: ${JSON.stringify({ text: content })}\n\n`)
+                    )
+                  }
+                } catch {
+                  // Skip invalid JSON chunks
+                }
+              }
             }
           }
           controller.enqueue(encoder.encode('data: [DONE]\n\n'))
