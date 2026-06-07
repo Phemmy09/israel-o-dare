@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const OWNER_EMAIL = 'izzytechub@gmail.com'
+const OWNER_EMAIL = 'izzy.marketing.hub@gmail.com'
 
 function esc(str: string): string {
   return String(str ?? '')
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
               </div>
             </div>
             <div style="padding:20px 32px;background:#0f0f0f;text-align:center;">
-              <p style="margin:0 0 8px;color:#525252;font-size:12px;">© ${year} Izzytechub · izzytechub@gmail.com · +1 424 546 0129</p>
+              <p style="margin:0 0 8px;color:#525252;font-size:12px;">© ${year} Izzytechub · izzy.marketing.hub@gmail.com · +1 424 546 0129</p>
               <p style="margin:0;color:#3f3f3f;font-size:11px;">You're receiving this because you started a chat at izzytechub.com</p>
             </div>
           </div>

@@ -243,19 +243,19 @@ export default function ChatWidget() {
   function renderMessage(msg: Message, idx: number) {
     const isBot = msg.role === 'assistant'
     return (
-      <div key={idx} className={`flex gap-2.5 ${isBot ? '' : 'flex-row-reverse'}`}>
+      <div key={idx} className={`flex gap-2.5 ${isBot ? '' : 'flex-row-reverse'} animate-slide-up`}>
         <div
-          className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${
-            isBot ? 'bg-red-600' : 'bg-neutral-700'
+          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-md ${
+            isBot ? 'bg-gradient-to-br from-red-600 to-red-500 shadow-red-900/20' : 'bg-neutral-800 border border-neutral-700'
           }`}
         >
-          {isBot ? <Bot className="w-4 h-4 text-white" /> : <User className="w-4 h-4 text-white" />}
+          {isBot ? <Bot className="w-4.5 h-4.5 text-white" /> : <User className="w-4.5 h-4.5 text-white" />}
         </div>
         <div
-          className={`max-w-[78%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
+          className={`max-w-[80%] px-4 py-3 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm ${
             isBot
-              ? 'bg-neutral-800 text-neutral-100 rounded-tl-sm'
-              : 'bg-red-600 text-white rounded-tr-sm'
+              ? 'bg-neutral-900/90 text-neutral-100 border border-neutral-800/80 rounded-tl-sm'
+              : 'bg-gradient-to-r from-red-600 to-red-500 text-white rounded-tr-sm shadow-red-900/10'
           }`}
           dangerouslySetInnerHTML={{
             __html: msg.content
@@ -272,7 +272,7 @@ export default function ChatWidget() {
       {/* Floating button */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-red-600 hover:bg-red-500 rounded-full shadow-lg shadow-red-900/40 flex items-center justify-center transition-all duration-200 hover:scale-105"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 rounded-full shadow-[0_4px_25px_rgba(239,68,68,0.35)] hover:shadow-[0_4px_35px_rgba(239,68,68,0.55)] flex items-center justify-center transition-all duration-300 hover:scale-105"
         aria-label="Open chat"
       >
         {open ? (
@@ -281,45 +281,48 @@ export default function ChatWidget() {
           <MessageCircle className="w-6 h-6 text-white" />
         )}
         {!open && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black" />
+          <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-green-500 rounded-full border-4 border-neutral-950 animate-pulse" />
         )}
       </button>
 
       {/* Chat panel */}
       {open && (
         <div
-          className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] bg-neutral-950 border border-neutral-800 rounded-2xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden"
+          className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] bg-neutral-950/85 backdrop-blur-xl border border-neutral-800/80 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] shadow-red-950/10 flex flex-col overflow-hidden animate-slide-up"
           style={{ height: '520px' }}
         >
           {/* Header */}
-          <div className="bg-red-600 px-4 py-3 flex items-center gap-3">
-            <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center">
+          <div className="bg-gradient-to-r from-red-600 to-red-500 px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-white font-semibold text-sm">Izzy — AI Assistant</p>
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-400 rounded-full" />
-                <span className="text-red-100 text-xs">Online</span>
+              <p className="text-white font-extrabold text-sm tracking-wide">Izzy — AI Assistant</p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-red-100 text-xs font-semibold uppercase tracking-wider">Online</span>
               </div>
             </div>
+            <button className="ml-auto w-7 h-7 bg-black/10 hover:bg-black/20 rounded-lg flex items-center justify-center text-white/80 hover:text-white transition-colors" onClick={() => setOpen(false)}>
+              <X className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-neutral-800">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-800/80">
             {messages.map((msg, idx) => renderMessage(msg, idx))}
 
             {/* Service picker */}
             {showServicePicker && (
-              <div className="flex flex-col gap-1.5 pl-9">
+              <div className="flex flex-col gap-2 pl-10 pr-2 animate-slide-up">
                 {SERVICES.map((s) => (
                   <button
                     key={s}
                     onClick={() => handleServiceSelect(s)}
-                    className="flex items-center gap-2 px-3 py-2 bg-neutral-800 hover:bg-red-600/20 border border-neutral-700 hover:border-red-500/50 rounded-xl text-sm text-neutral-300 hover:text-white transition-all text-left"
+                    className="flex items-center justify-between px-4 py-2.5 bg-neutral-900/80 hover:bg-red-950/20 border border-neutral-800/60 hover:border-red-500/30 rounded-xl text-xs sm:text-sm text-neutral-300 hover:text-white transition-all duration-200 text-left"
                   >
-                    <ChevronRight className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
-                    {s}
+                    <span>{s}</span>
+                    <ChevronRight className="w-4 h-4 text-red-500 flex-shrink-0" />
                   </button>
                 ))}
               </div>
@@ -327,11 +330,11 @@ export default function ChatWidget() {
 
             {loading && (
               <div className="flex gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center flex-shrink-0">
-                  <Bot className="w-4 h-4 text-white" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center flex-shrink-0">
+                  <Bot className="w-4.5 h-4.5 text-white" />
                 </div>
-                <div className="bg-neutral-800 px-3.5 py-2.5 rounded-2xl rounded-tl-sm">
-                  <Loader2 className="w-4 h-4 text-neutral-400 animate-spin" />
+                <div className="bg-neutral-900/90 border border-neutral-800/60 px-4 py-2.5 rounded-2xl rounded-tl-sm flex items-center">
+                  <Loader2 className="w-4 h-4 text-red-500 animate-spin" />
                 </div>
               </div>
             )}
@@ -339,7 +342,7 @@ export default function ChatWidget() {
           </div>
 
           {/* Input */}
-          <div className="border-t border-neutral-800 p-3 flex gap-2">
+          <div className="border-t border-neutral-900 bg-neutral-950 p-4 flex gap-2">
             <input
               ref={inputRef}
               type="text"
@@ -356,12 +359,12 @@ export default function ChatWidget() {
                   ? 'Phone or type "skip"'
                   : 'Ask me anything…'
               }
-              className="flex-1 bg-neutral-900 border border-neutral-700 rounded-xl px-3.5 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-red-500/60 disabled:opacity-50"
+              className="flex-1 bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-2 text-xs sm:text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-red-500/50 disabled:opacity-50 transition-colors duration-200"
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || loading || showServicePicker}
-              className="w-9 h-9 bg-red-600 hover:bg-red-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl flex items-center justify-center transition-colors"
+              className="w-10 h-10 bg-red-600 hover:bg-red-500 disabled:opacity-40 disabled:bg-neutral-800 disabled:cursor-not-allowed rounded-xl flex items-center justify-center shadow-md hover:shadow-red-900/20 transition-all duration-200"
             >
               <Send className="w-4 h-4 text-white" />
             </button>

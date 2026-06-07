@@ -19,8 +19,8 @@ export default function ContactPage() {
           </p>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Get In Touch</h1>
           <p className="text-neutral-400 text-lg">
-            Ready to transform your business? Fill out the form below to discuss your project,
-            consulting needs, or automation strategy.
+            Connect with Israel for contract jobs, partnerships, scholarships, or AI consulting.
+            Fill out the form below or reach out via our direct channels.
           </p>
         </div>
       </section>
@@ -40,10 +40,10 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-white font-bold mb-1">Email Us</h3>
                   <a
-                    href="mailto:izzytechub@gmail.com"
+                    href="mailto:izzy.marketing.hub@gmail.com"
                     className="text-neutral-400 hover:text-brand-400 text-sm transition-colors block"
                   >
-                    izzytechub@gmail.com
+                    izzy.marketing.hub@gmail.com
                   </a>
                 </div>
               </div>
@@ -93,6 +93,31 @@ export default function ContactPage() {
                   Form submissions are typically answered within 24 hours on business days.
                   WhatsApp is fastest for urgent matters.
                 </p>
+              </div>
+            </div>
+
+            {/* Social Links Panel */}
+            <div className="p-5 bg-neutral-900/30 border border-neutral-800/80 rounded-xl">
+              <p className="text-white font-semibold text-sm mb-3">Connect Globally</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/israel-dare-31a11318a', color: 'hover:text-blue-400 hover:border-blue-400/40' },
+                  { label: 'Upwork', href: 'https://www.upwork.com/freelancers/~010297ccb4983d90e7', color: 'hover:text-green-400 hover:border-green-400/40' },
+                  { label: 'X / Twitter', href: 'https://x.com/izzy_automation', color: 'hover:text-neutral-200 hover:border-neutral-400/40' },
+                  { label: 'Instagram', href: 'https://www.instagram.com/izzyautomation/', color: 'hover:text-pink-400 hover:border-pink-400/40' },
+                  { label: 'TikTok', href: 'https://www.tiktok.com/@mail_izzy?_r=1&_t=ZN-92X156ksQti', color: 'hover:text-rose-400 hover:border-rose-400/40' },
+                  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?viewas=100000686899395&id=61557767143485', color: 'hover:text-blue-500 hover:border-blue-500/40' }
+                ].map(({ label, href, color }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`px-3 py-1.5 bg-neutral-950 border border-neutral-800 rounded-lg text-neutral-400 text-xs transition-all duration-300 ${color}`}
+                  >
+                    {label}
+                  </a>
+                ))}
               </div>
             </div>
           </div>

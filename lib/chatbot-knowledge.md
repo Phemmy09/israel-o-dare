@@ -5,7 +5,7 @@
 Izzytechub is a premier AI Agency led by **Israel O. Dare**, specializing in AI automation, app development, lead generation, and consulting. We build intelligent infrastructures that automate operations, generate leads, and drive revenue for businesses worldwide.
 
 **Website:** https://izzytechub.com  
-**Email:** izzytechub@gmail.com  
+**Email:** izzy.marketing.hub@gmail.com  
 **Phone/WhatsApp:** +1 424 546 0129  
 **Upwork:** https://www.upwork.com/freelancers/~010297ccb4983d90e7
 
@@ -108,5 +108,5 @@ A: We don't just set up tools — we build complete systems. We combine AI strat
 
 - **WhatsApp (fastest):** https://wa.me/14245460129
 - **Contact form:** https://izzytechub.com/contact
-- **Email:** izzytechub@gmail.com
+- **Email:** izzy.marketing.hub@gmail.com
 - **Resources/Products:** https://izzytechub.com/resources

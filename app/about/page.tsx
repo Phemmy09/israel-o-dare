@@ -1,72 +1,118 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Flame, TrendingUp, Globe, Trophy, Users, ArrowRight, Briefcase } from 'lucide-react'
+import { Flame, TrendingUp, Award, Laptop, ShieldCheck, Music, Briefcase, Calendar, ChevronRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Israel O. Dare',
+  title: 'About Israel O. Dare | Founder of Izzytechub',
   description:
-    'Visionary Tech Lead, Digital Strategist, and Developer. Learn the journey behind Izzytechub — from adversity to $2M+ recovered for clients using AI.',
+    'From adversity to Top Rated Plus on Upwork (Top 3% worldwide). The journey of Israel O. Dare, founder of Izzytechub AI Automation agency.',
 }
 
 const stats = [
-  { icon: Trophy, value: '5+', label: 'Years Experience' },
-  { icon: Globe, value: 'Global', label: 'Client Reach' },
-  { icon: TrendingUp, value: 'Top 1%', label: 'Industry Talent' },
-  { icon: Users, value: '100+', label: 'Projects Delivered' },
+  { icon: ShieldCheck, value: 'Top 3%', label: 'Worldwide Upwork Talent' },
+  { icon: Award, value: 'First Class', label: 'Agricultural Eng. (FUTA)' },
+  { icon: Laptop, value: '100+', label: 'AI Systems Built' },
+  { icon: Music, value: '4+', label: 'Instruments Played' },
+]
+
+const skills = [
+  'AI Automation & Workflow Design',
+  'AI Agent Development & Deployment',
+  'AI Voice Agent Development',
+  'AI SDR & Sales Pipelines',
+  'Systems Thinking & Optimization',
+  'Email Marketing & Automation',
+  'Advanced Data Scraping',
+  'Full-Stack Web Development',
+]
+
+const tools = [
+  'n8n',
+  'Make.com',
+  'Zapier',
+  'GoHighLevel (GHL)',
+  'Claude Code & LLM APIs',
+  'Vapi & Retell AI',
+  'ElevenLabs',
+  'Supabase & Pinecone',
 ]
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="relative min-h-screen grid-bg overflow-hidden pt-20">
+      <div className="glow-blob top-[10%] left-[20%]" />
+      <div className="glow-blob top-[50%] right-[10%]" />
+
       {/* Hero */}
-      <section className="pt-24 pb-12 px-4 border-b border-neutral-900 bg-black">
+      <section className="relative py-20 px-4 z-10">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Image */}
-            <div className="relative order-2 lg:order-1">
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800 max-w-sm mx-auto lg:mx-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Image panel */}
+            <div className="relative group mx-auto lg:mx-0">
+              <div className="absolute inset-0 bg-gradient-to-tr from-red-600 to-red-500 rounded-3xl blur-[20px] opacity-10" />
+              <div className="relative aspect-[3/4] w-full max-w-sm rounded-3xl overflow-hidden bg-neutral-900 border border-neutral-800/80 shadow-2xl">
                 <Image
-                  src="https://oaohufpuxlpmmacrxcdq.supabase.co/storage/v1/object/public/Izzytechub%20Files/0476ebad-f2a3-49e7-96c2-c9cfe2391db5%20(1).jpg"
-                  alt="Israel O. Dare"
+                  src="/izzy.jpg"
+                  alt="Israel O. Dare Profile"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-top filter grayscale-[10%] group-hover:grayscale-0 transition-all duration-500"
                   sizes="(max-width: 1024px) 384px, 384px"
                   priority
                 />
               </div>
+              <div className="absolute -bottom-6 -left-6 glass-panel border border-neutral-800 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-500">
+                  <span className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
+                </div>
+                <div>
+                  <p className="text-white font-bold text-xs uppercase tracking-wider">Status</p>
+                  <p className="text-neutral-400 text-xs">Open for Hard Problems</p>
+                </div>
+              </div>
             </div>
 
             {/* Bio */}
-            <div className="order-1 lg:order-2">
-              <p className="text-brand-400 text-sm font-semibold uppercase tracking-wider mb-3">Premier · Israel Dare</p>
-              <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
+            <div>
+              <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Founder Spotlight</p>
+              <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 leading-tight">
                 Israel O. Dare
               </h1>
-              <p className="text-xl text-brand-400 font-medium mb-6">
-                Visionary Tech Lead, Digital Strategist &amp; Developer
+              <p className="text-xl text-red-400 font-bold mb-6 tracking-wide">
+                Chief AI Architect &amp; Systems Engineer
               </p>
-              <p className="text-neutral-300 leading-relaxed mb-4">
-                I help businesses and entrepreneurs unlock exponential growth by harnessing the power of Artificial
-                Intelligence. I've been helping businesses scale for 5+ years, transforming challenges into opportunities
-                through intelligent automation and strategic thinking.
+
+              {/* Raw Quote */}
+              <div className="p-6 bg-red-950/10 border border-red-500/10 rounded-2xl mb-8">
+                <p className="text-neutral-300 text-sm md:text-base leading-relaxed italic font-light">
+                  "I watched television for the first time at twelve. Got my first phone at sixteen — it was stolen weeks later. Where I grew up, owning a laptop made you a suspect, not a student. Today, I build systems that process hundreds of thousands of dollars on autopilot. Easy work bores me. Bring me the hard stuff."
+                </p>
+              </div>
+
+              <p className="text-neutral-400 text-sm md:text-base mb-6 leading-relaxed font-light">
+                I recently graduated from school and lost my father in a fatal car accident — my mother was hospitalized in the same crash. Overnight, I went from being a student to being the one everyone depended on. I had no safety net, no connections, and no startup capital. Just a laptop and a decision: figure it out or fall apart.
               </p>
-              <p className="text-neutral-400 leading-relaxed mb-8">
-                My story is not typical — it is a testament to resilience, strategy, and the relentless pursuit of
-                excellence. From adversity to innovation, every step has been deliberate and purposeful.
+              <p className="text-neutral-400 text-sm md:text-base mb-8 leading-relaxed font-light">
+                I chose AI. I taught myself everything — automation, voice agents, workflow design, CRM systems — and I started building for survival. Today, I'm rated <strong>Top Rated Plus on Upwork (Top 3% worldwide)</strong>. I don't build simple chatbots; I construct robust systems that resolve operational bottlenecks your team has given up on.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/contact" className="btn-primary inline-flex items-center gap-2 group">
-                  Work With Me
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://Calendly.com/izzy-marketing-hub/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary inline-flex items-center gap-2 group text-xs uppercase tracking-wider font-bold"
+                >
+                  Book 30m Booking Call
+                  <Calendar className="w-4 h-4" />
+                </a>
                 <a
                   href="https://www.upwork.com/freelancers/~010297ccb4983d90e7"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary inline-flex items-center gap-2"
+                  className="btn-secondary inline-flex items-center gap-2 text-xs uppercase tracking-wider"
                 >
-                  <Briefcase className="w-4 h-4" /> Upwork Profile
+                  <Briefcase className="w-4 h-4 text-red-500" /> Upwork Profile
                 </a>
               </div>
             </div>
@@ -74,126 +120,194 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-12 px-4 border-b border-neutral-900">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Stats Grid */}
+      <section className="py-12 px-4 border-y border-neutral-900 bg-neutral-950/20 relative z-10">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map(({ icon: Icon, value, label }) => (
-            <div key={value} className="p-6 bg-neutral-900/50 border border-neutral-800 rounded-xl text-center">
-              <div className="w-10 h-10 mx-auto bg-brand-900/50 rounded-full flex items-center justify-center mb-3">
-                <Icon className="w-5 h-5 text-brand-500" />
+            <div key={label} className="p-6 glass-panel border border-neutral-800/60 rounded-2xl text-center card-hover">
+              <div className="w-10 h-10 mx-auto bg-red-950/30 border border-red-500/20 rounded-xl flex items-center justify-center mb-4">
+                <Icon className="w-5 h-5 text-red-500" />
               </div>
-              <p className="text-3xl font-bold text-white">{value}</p>
-              <p className="text-neutral-500 text-sm mt-1">{label}</p>
+              <p className="text-2xl font-black text-white">{value}</p>
+              <p className="text-neutral-500 text-xs uppercase tracking-wider mt-1">{label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Journey */}
-      <section className="py-20 px-4 border-b border-neutral-900">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">My Journey</h2>
+      {/* Timeline Story */}
+      <section className="py-24 px-4 relative z-10 bg-black/40">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-16">The Timeline</h2>
 
-          <div className="space-y-14">
-            {/* Chapter 1 */}
-            <div>
-              <h3 className="text-xl font-bold text-white flex items-center gap-3 mb-4">
-                <Flame className="text-brand-500 w-5 h-5 shrink-0" />
-                Forged in Fire
-              </h3>
-              <div className="pl-8 space-y-4 text-neutral-300 leading-relaxed">
-                <p>
-                  My path into technology wasn't paved with gold; it was forged in fire. I was a bright student,
-                  consistently top of my class and full of promise. But life has a way of testing your resolve. In a
-                  devastating turn of events, I lost my father in a fatal motor accident, and my mother was left
-                  hospitalized.
-                </p>
-                <p>
-                  In an instant, my world collapsed. I was a student with immense potential but zero source of income.
-                  The bills were mounting, and the pressure was overwhelming. I could have given up — most would have.
-                  But I chose to fight. I chose technology.
-                </p>
-                <p>
-                  I taught myself programming, digital marketing, and eventually AI, not from a place of comfort but out
-                  of sheer necessity. Every late night, every skill I gained, was fuel for survival and then for
-                  building something bigger than myself.
+          <div className="relative timeline-line pl-8 sm:pl-0 space-y-12">
+            {/* 1 */}
+            <div className="relative md:flex items-start justify-between md:gap-16">
+              <div className="md:w-1/2 md:text-right pr-8 hidden md:block">
+                <span className="px-3 py-1 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono">
+                  Adversity &amp; Focus
+                </span>
+              </div>
+              <div className="absolute left-[15px] md:left-1/2 transform -translate-x-[25px] md:-translate-x-1/2 w-4.5 h-4.5 rounded-full bg-red-600 border-4 border-neutral-950 z-20" />
+              <div className="md:w-1/2 md:pl-8">
+                <span className="inline-block md:hidden px-3 py-0.5 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono mb-2">
+                  Adversity &amp; Focus
+                </span>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-3">
+                  <Flame className="w-4 h-4 text-red-500 shrink-0" /> Forged In Grief
+                </h3>
+                <p className="text-neutral-400 text-sm leading-relaxed font-light">
+                  During my final year at the Federal University of Technology, Akure, my father was tragically lost in a motor accident, and my mother was left hospitalized. Standing as the newly forced head of my family at 22 with zero income, I faced a crossroads. Staring at MATLAB script, I chose not to crumble. I chose survival through technology.
                 </p>
               </div>
             </div>
 
-            {/* Chapter 2 */}
-            <div>
-              <h3 className="text-xl font-bold text-white flex items-center gap-3 mb-4">
-                <TrendingUp className="text-brand-500 w-5 h-5 shrink-0" />
-                The Power of Lean Automation
-              </h3>
-              <div className="pl-8 space-y-4 text-neutral-300 leading-relaxed">
-                <p>
-                  Necessity drove me to automation. I realized early on that the only way to do more with less was to
-                  build systems that worked while I slept. This philosophy — lean, intelligent automation — became the
-                  cornerstone of everything I now build.
+            {/* 2 */}
+            <div className="relative md:flex items-start justify-between md:gap-16">
+              <div className="md:w-1/2 md:pr-8 md:text-right order-1 md:order-2">
+                <span className="inline-block md:hidden px-3 py-0.5 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono mb-2">
+                  FUTA Engineering
+                </span>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2 md:justify-end mb-3">
+                  Academic Rigor <Award className="w-4 h-4 text-red-500 shrink-0" />
+                </h3>
+                <p className="text-neutral-400 text-sm leading-relaxed font-light">
+                  I maintained a First-Class performance while teaching myself AI tools and freelancing. I graduated with **First Class Honours in Agricultural &amp; Environmental Engineering (Top 3%)** in 2023. My final year research focused on **Optimizing Yam Atmospheric Storage using Gaussian Regression modeling** — building my baseline for high-precision mathematical models.
                 </p>
-                <p>
-                  I began working with clients on automating their workflows and quickly saw the transformative effect:
-                  businesses were saving hundreds of hours per month and dramatically increasing their revenue without
-                  additional employees.
+              </div>
+              <div className="absolute left-[15px] md:left-1/2 transform -translate-x-[25px] md:-translate-x-1/2 w-4.5 h-4.5 rounded-full bg-red-600 border-4 border-neutral-950 z-20" />
+              <div className="md:w-1/2 md:pl-8 text-left hidden md:block order-2 md:order-1">
+                <span className="px-3 py-1 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono">
+                  FUTA Engineering
+                </span>
+              </div>
+            </div>
+
+            {/* 3 */}
+            <div className="relative md:flex items-start justify-between md:gap-16">
+              <div className="md:w-1/2 md:text-right pr-8 hidden md:block">
+                <span className="px-3 py-1 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono">
+                  Social Impact
+                </span>
+              </div>
+              <div className="absolute left-[15px] md:left-1/2 transform -translate-x-[25px] md:-translate-x-1/2 w-4.5 h-4.5 rounded-full bg-red-600 border-4 border-neutral-950 z-20" />
+              <div className="md:w-1/2 md:pl-8">
+                <span className="inline-block md:hidden px-3 py-0.5 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono mb-2">
+                  Social Impact
+                </span>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2 mb-3">
+                  <Laptop className="w-4 h-4 text-red-500 shrink-0" /> Founding APEXIUM
+                </h3>
+                <p className="text-neutral-400 text-sm leading-relaxed font-light">
+                  In 2024, I founded **APEXIUM** to bridge the digital divide. Teaching rural youth AI automation, I demonstrated bot-building in community halls in Ondo State. When a 16-year-old student asked to build a yams-selling optimization bot, it proved that redistributing access to technology changes lives permanently.
                 </p>
               </div>
             </div>
 
-            {/* Chapter 3 */}
-            <div>
-              <h3 className="text-xl font-bold text-white flex items-center gap-3 mb-4">
-                <TrendingUp className="text-brand-500 w-5 h-5 shrink-0" />
-                Scaling to $500K+
-              </h3>
-              <div className="pl-8 space-y-4 text-neutral-300 leading-relaxed">
-                <p>
-                  My work with <strong className="text-white">Digital Mavericks Media</strong> stands as a testament
-                  to what's possible when you combine strategy with extreme automation. They needed a machine, not just
-                  a marketing plan.
+            {/* 4 */}
+            <div className="relative md:flex items-start justify-between md:gap-16">
+              <div className="md:w-1/2 md:pr-8 md:text-right order-1 md:order-2">
+                <span className="inline-block md:hidden px-3 py-0.5 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono mb-2">
+                  Global Client Growth
+                </span>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2 md:justify-end mb-3">
+                  Top Rated Plus <Briefcase className="w-4 h-4 text-red-500 shrink-0" />
+                </h3>
+                <p className="text-neutral-400 text-sm leading-relaxed font-light">
+                  Today, I direct **Izzytechub**, deploying enterprise-grade automations across the US, UK, Europe, and Africa. From building AI voice reservation systems to reducing customer support loads by 68% for institutions (Babcock and ABU), our workflows recover hundreds of thousands of dollars in lost opportunities.
                 </p>
-                <ul className="space-y-3">
-                  {[
-                    'Generated over 10,000 qualified leads in less than 3 months',
-                    'Improved lead-to-close ratio by over 40% with intelligent follow-up sequences',
-                    'Drove over $500K in attributable revenue through AI-led growth campaigns',
-                    'Drove over 90,000 quality leads across all channels',
-                    'Generated $800,000 in revenue',
-                  ].map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="text-brand-500 font-bold mt-0.5 shrink-0">→</span>
-                      <span>{item}</span>
-                    </li>
+              </div>
+              <div className="absolute left-[15px] md:left-1/2 transform -translate-x-[25px] md:-translate-x-1/2 w-4.5 h-4.5 rounded-full bg-red-600 border-4 border-neutral-950 z-20" />
+              <div className="md:w-1/2 md:pl-8 text-left hidden md:block order-2 md:order-1">
+                <span className="px-3 py-1 bg-red-950/20 border border-red-500/20 rounded-lg text-red-400 text-xs font-mono">
+                  Global Client Growth
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills & Musical Side */}
+      <section className="py-24 px-4 relative z-10 bg-neutral-950/30 border-t border-neutral-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Core Competency List */}
+            <div className="glass-panel border border-neutral-800/80 p-8 rounded-3xl flex flex-col justify-between">
+              <div>
+                <h3 className="text-2xl font-black text-white mb-6">Capabilities</h3>
+                <div className="space-y-4">
+                  {skills.map((skill) => (
+                    <div key={skill} className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 text-xs shrink-0 mt-0.5">✓</span>
+                      <span className="text-neutral-300 text-sm font-light leading-relaxed">{skill}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Tools List */}
+            <div className="glass-panel border border-neutral-800/80 p-8 rounded-3xl flex flex-col justify-between">
+              <div>
+                <h3 className="text-2xl font-black text-white mb-6">Tools &amp; Tech</h3>
+                <div className="space-y-4">
+                  {tools.map((tool) => (
+                    <div key={tool} className="flex items-center gap-2.5">
+                      <span className="w-2 h-2 bg-red-500 rounded-full shrink-0" />
+                      <span className="text-neutral-300 text-sm font-light leading-relaxed">{tool}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Musical Side */}
+            <div className="glass-panel border border-neutral-800/80 p-8 rounded-3xl flex flex-col justify-between">
+              <div>
+                <h3 className="text-2xl font-black text-white mb-4 flex items-center gap-2">
+                  <Music className="w-6 h-6 text-red-500" /> Mathematical Harmony
+                </h3>
+                <p className="text-neutral-400 text-sm leading-relaxed font-light mb-6">
+                  Outside of coding, I'm an accomplished self-taught multi-instrumentalist playing **Violin, Viola, Cello, and Piano**. I coordinated campus orchestras and large-scale concerts from 2019 to 2021. For me, music represents the same logical elegance as code: structured patterns, frequencies, and harmony cooperating to build a beautiful result.
+                </p>
+              </div>
+              <div className="p-4 bg-red-950/10 border border-red-500/10 rounded-2xl flex items-center justify-between gap-4">
+                <span className="text-neutral-200 text-xs sm:text-sm font-semibold">"Music is data that makes you feel."</span>
+                <span className="text-red-400 text-xs font-mono font-bold">4 Instruments</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Impact */}
-      <section className="py-20 px-4">
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-gradient-to-br from-brand-900/20 to-neutral-900 border border-brand-800/30 rounded-3xl p-10 text-center">
-            <h2 className="text-2xl font-bold text-white mb-2">The Impact Today</h2>
-            <p className="text-5xl font-black text-brand-500 mb-4">$2,000,000+</p>
-            <p className="text-neutral-300 mb-6 text-lg">In lost revenue recovered for clients using AI.</p>
-            <p className="text-neutral-400 leading-relaxed max-w-xl mx-auto text-sm">
-              My journey from a grieving student with no income to a leader in the AI space has taught me one thing:
-              Challenges are just opportunities in disguise. I now dedicate my life to helping businesses turn their
-              own challenges into unparalleled growth.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="btn-primary inline-flex items-center gap-2 group">
-                Start Your Journey
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
+      {/* Portfolio CTA */}
+      <section className="py-24 px-4 border-t border-neutral-900 bg-black">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-extrabold text-white mb-4">View My Full Work Records</h2>
+          <p className="text-neutral-400 mb-8 max-w-xl mx-auto font-light">
+            I maintain complete transparency of my contracts and project logs. Check out my Upwork history or download my digital credentials file.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://drive.google.com/file/d/1PFVyB7Oae8ujpNNfSOVWGli45tIbh6Q2/view?usp=drivesdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center justify-center gap-2"
+            >
+              Download PDF Portfolio ↗
+            </a>
+            <a
+              href="https://Calendly.com/izzy-marketing-hub/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary inline-flex items-center justify-center gap-2"
+            >
+              Schedule Meeting 📅
+            </a>
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
