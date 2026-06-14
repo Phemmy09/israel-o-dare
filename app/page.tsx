@@ -8,45 +8,109 @@ import {
   Bot,
   Cpu,
   BarChart3,
-  Mic,
-  Workflow,
   MessageSquare,
   Star,
   ChevronRight,
   Play,
   Database,
-  PhoneCall,
   ShieldCheck,
   Zap,
   CheckCircle,
   Target,
-  TrendingUp,
+  GraduationCap,
+  BookOpen,
+  Calendar,
 } from 'lucide-react'
+
+const stats = [
+  { value: '50+', label: 'Global Projects Done' },
+  { value: 'First Class', label: 'B.Eng. Honours (FUTA)' },
+  { value: 'Top Rated Plus', label: 'Talent on Upwork (Top 3%)' },
+  { value: '100+', label: 'AI Workflows Deployed' },
+]
 
 const services = [
   {
     icon: Cpu,
-    title: 'AI Automation',
-    description: 'Save hundreds of manual hours. We architect autonomous n8n, Make, and Zapier agentic workflows that connect your team\'s stack and scale operations.',
-    href: '/services',
+    title: 'AI Automation & Workflows',
+    description: 'Saving hundreds of manual hours. I architect autonomous, enterprise-grade workflows using n8n, Make, and Zapier to sync databases, automate reports, and scale operations.',
+    href: '/projects',
   },
   {
     icon: Bot,
-    title: 'AI App Development',
-    description: 'Custom SaaS platforms, web applications, and mobile apps built in Next.js/React and integrated with LLMs (GPT-4, Claude, Gemini).',
-    href: '/services',
+    title: 'Custom AI App Development',
+    description: 'Full-stack web applications and SaaS platforms built in Next.js/React, integrated with LLMs (Claude, GPT-4, Gemini) and Supabase pgvector database indexing.',
+    href: '/projects',
   },
   {
-    icon: BarChart3,
-    title: 'AI Consulting & Audits',
-    description: 'Identify automation gaps in your operations, assess AI readiness, and receive a customized technical roadmap to optimize your business.',
-    href: '/services',
+    icon: Target,
+    title: 'Lead Gen & SDR Pipelines',
+    description: 'Automated contact directory scrapers and outbound email systems. Custom LLM copywriters verify deliverability, send personalized sequences, and auto-book strategy calls.',
+    href: '/projects',
   },
   {
+    icon: BookOpen,
+    title: 'Academic & Systems Research',
+    description: 'Mathematical and environmental modeling. Applying Gaussian Process Regression, thermal analysis, and sustainable engineering to solve complex agricultural storage bottlenecks.',
+    href: '/research',
+  },
+]
+
+const caseStudies = [
+  {
+    id: 'edutech-rag',
+    title: 'Edutech Global AI Ecosystem',
+    category: 'Knowledge Base (RAG)',
+    techStack: ['Next.js', 'Supabase pgvector', 'OpenRouter', 'Claude 3.5 Sonnet', 'Zoho CRM'],
+    problem: 'Academic admissions staff at Babcock and ABU overwhelmed by repeating identical queries from thousands of prospective students.',
+    solution: 'Designed an embeddable React chat widget IIFE with a Next.js admin dashboard. Trained on institutional knowledge via text-embedding-3-small, query results are served by Claude 3.5 Sonnet on Vercel Serverless, escalating unresolved tickets to staff and syncing leads to Zoho.',
+    impact: 'Reduced inbound support desks load by 68% for two universities, resolving queries in under 5 seconds on WhatsApp and Web.',
+    proofUrl: 'https://edutechbabcockabu.vercel.app/',
     icon: MessageSquare,
-    title: 'Digital Resources',
-    description: 'Grab battle-tested templates, eBooks, and courses developed by Israel O. Dare to jumpstart your AI automation or agency business.',
-    href: '/resources',
+  },
+  {
+    id: 'roof-auto',
+    title: 'Roof Auto: Ingestion Engine',
+    category: 'AI Agents & Automation',
+    techStack: ['Next.js', 'Supabase', 'Anthropic API', 'Tailwind CSS'],
+    problem: 'Roofing crew allocations and material calculations locked in slow, manual parsing of complex Eagle View contracts and documents.',
+    solution: 'Constructed an automated document parser that feeds technical PDF data directly to Anthropic LLMs, extracting structured JSON representing project coordinates to calculate materials and sync state triggers.',
+    impact: 'Reduced ingestion processing times from hours to 40 seconds on full autopilot with 100% database schema accuracy.',
+    proofUrl: 'https://roof-auto2.vercel.app/',
+    icon: Database,
+  },
+  {
+    id: 'mamaguard',
+    title: 'MamaGuard AI Advisory',
+    category: 'Full-Stack Health Tech',
+    techStack: ['FastAPI', 'SQLite', 'React', 'Vite', 'Anthropic API'],
+    problem: 'Asynchronous maternal health data tracking spreads across paper records, leading to delayed notifications of clinical risks.',
+    solution: 'Developed an advisory health portal for God\'s Covenant Hospital. Built on a concurrent Python FastAPI backend, using aiosqlite for database execution, integrated with Claude to identify prenatal warnings.',
+    impact: 'Enabled concurrent voice and text prenatal record queries, streamlining hospital diagnostic flows.',
+    proofUrl: 'https://gods-covenant-hospital.vercel.app/',
+    icon: Bot,
+  },
+  {
+    id: 'oracle-intelligence',
+    title: 'Oracle: Personal Intelligence',
+    category: 'Autonomous Scraping',
+    techStack: ['Next.js', 'Supabase Auth & DB', 'Scrapy', 'RLS Constraints'],
+    problem: 'Wasting productive hours filtering noise from social platforms to find relevant tech job and academic scholarship updates.',
+    solution: 'Built an autonomous curation engine that runs web scrapers to filter noise and consolidate job, scholarship, and news leads into a unified daily tasks hub. Fixed PostgreSQL RLS constraints to ensure multi-tenant security.',
+    impact: 'Saved up to 12 hours weekly by serving a unified daily intelligence feed with direct email/password access.',
+    proofUrl: 'https://oracle-black-six.vercel.app/',
+    icon: ShieldCheck,
+  },
+  {
+    id: 'postharvest-gpr',
+    title: 'Yam Atmospheric GPR Model',
+    category: 'Academic Research Thesis',
+    techStack: ['MATLAB', 'Gaussian Process Regression', 'Thermodynamic modeling'],
+    problem: 'Post-harvest spoilage claims up to 40% of smallholder tropical root crop yields due to passive, unmonitored storage conditions.',
+    solution: 'Modeled thermodynamic decay rates of white yams (Dioscorea rotundata) as a function of size and temperature using a non-parametric Bayesian Gaussian Process Regression model. Predicted atmospheric thresholds to extend crop shelf-life.',
+    impact: 'Demonstrated GPR modeling accuracy to optimize environmental storage, laying the groundwork for IoT bio-digital preservation.',
+    proofUrl: '/research',
+    icon: GraduationCap,
   },
 ]
 
@@ -72,136 +136,6 @@ const testimonials = [
     content:
       "Izzy overdelivered and gave me way more than I expected. I came in thinking I was just getting an AI appointment setter, but he set me up with way more than that. He took the time to make sure everything was customized to my needs.",
   },
-  {
-    id: 4,
-    name: 'John Santangelo',
-    role: 'CEO & Founder',
-    content:
-      "I've worked with many technical consultants, but Izzy stands out. He didn't just build a bot; he built a comprehensive system that actually understands our business logic. The ROI was evident within the first week of deployment.",
-  },
-  {
-    id: 5,
-    name: 'Fredrick Bahr',
-    role: 'Principal, Sunrun Energy Partner',
-    content:
-      "Our lead handling process was manual and slow before Izzy stepped in. He implemented an AI workflow that qualifies leads instantly and schedules appointments without human intervention. Massive uptick in conversion rates.",
-  },
-  {
-    id: 6,
-    name: 'Tony Flores',
-    role: 'Founder, One Nation Energy',
-    content:
-      "Technical mastery combined with strategic vision. Izzy helped us automate our client onboarding and support systems. The result is a smoother customer experience and significantly less administrative overhead.",
-  },
-]
-
-const stats = [
-  { value: '$300K+', label: 'Solar Panel Sales (60 Days)' },
-  { value: '900+', label: 'Automated Bookings (4 Months)' },
-  { value: '500K+', label: 'Followers Grown (30 Days)' },
-  { value: '68%', label: 'Support Load Saved (2 Schools)' },
-]
-
-const caseStudies = [
-  {
-    id: 'voice-receptionist',
-    title: 'Twilio AI Voice Receptionist',
-    category: 'AI Agents & Voice',
-    techStack: ['n8n', 'FastAPI', 'OpenAI API', 'Twilio'],
-    problem: 'High-volume services business losing hot inbound leads to voicemail or delayed follow-ups after hours.',
-    solution: 'Built a centralized n8n webhook routing engine combined with FastAPI that dynamically screens calls. Integrates OpenAI structured outputs to extract names, emails, and schedule intents from live transcripts in real-time, instantly syncing them to GoHighLevel CRM.',
-    impact: 'Reduced lead loss to zero, booking 43 additional consultation calls in the first month without human intervention.',
-    proofUrl: 'https://screenrec.com/share/cvVtKorgFz',
-    icon: PhoneCall,
-  },
-  {
-    id: 'reservation-engine',
-    title: 'Vapi Reservation Booking Engine',
-    category: 'AI Agents & Voice',
-    techStack: ['Vapi', 'Airtable', 'FastAPI', 'Make.com'],
-    problem: 'Manual room and table management is prone to double-bookings, missed reservations, and staff overhead.',
-    solution: 'Constructed an intelligent voice booking agent that parses calendar slot structures in real-time. Automatically checks capacity limits and syncs reservation details instantly to Airtable.',
-    impact: 'Handled over 900+ bookings automatically in 4 months on full autopilot with 100% database accuracy.',
-    proofUrl: 'https://screenrec.com/share/5QSMJVrEZA',
-    icon: Mic,
-  },
-  {
-    id: 'rag-pm',
-    title: 'Conversational Project Manager (RAG)',
-    category: 'Knowledge Base (RAG)',
-    techStack: ['ElevenLabs', 'Pinecone Vector DB', 'OpenAI Embeddings', 'Next.js'],
-    problem: 'On-site engineers wasting hours searching through hundreds of pages of project blueprint documents and historical logs.',
-    solution: 'Designed a high-speed Conversational AI agent with a long-term "company memory". Integrated Pinecone Vector DB with OpenAI Embeddings, enabling the voice agent to perform sub-second document retrieval and speak the answer. Supports speech interruption and mid-flow redirections.',
-    impact: 'Saved engineers an average of 4.5 hours per week of manual document searching, reducing lookup errors by 92%.',
-    proofUrl: 'https://screenrec.com/share/dJAiU96XWY',
-    icon: Database,
-  },
-  {
-    id: 'ai-sdr-outreach',
-    title: 'AI SDR Prospecting & Lead Scraper',
-    category: 'Lead Gen & Outbound',
-    techStack: ['Apollo.io', 'Hunter.io', 'n8n', 'Make.com'],
-    problem: 'Sales teams wasting extensive hours manual searching and copy-pasting client databases and writing hyper-personalized emails.',
-    solution: 'Constructed automated workflow pipelines integrating Apollo & Hunter APIs with custom LLM copywriting models to scrape target lists, verify deliverability, and trigger custom sequences.',
-    impact: 'Generated 90+ qualified strategy call appointments in 4 months with 0 manual email drafting.',
-    proofUrl: 'https://screenrec.com/share/JgRaclO61U',
-    icon: Target,
-  },
-  {
-    id: 'ghl-crm-automation',
-    title: 'GoHighLevel CRM Lead Pipelines',
-    category: 'Lead Gen & Outbound',
-    techStack: ['GoHighLevel', 'Make.com', 'Slack', 'Zapier'],
-    problem: 'Lead leakage and delayed response times because of manual data entry between lead generation ads and CRM systems.',
-    solution: 'Designed a multi-app automation sync that instantly routes incoming Facebook/Google leads, triggers SMS/email follow-ups, and notifies the team via Slack.',
-    impact: 'Dropped response time to under 90 seconds, securing over $300K in client pipeline value.',
-    proofUrl: 'https://screenrec.com/share/zQP9pHAYLE',
-    icon: Zap,
-  },
-  {
-    id: 'social-media-automation',
-    title: 'Viral Content Automation Engine',
-    category: 'Social Media & Branding',
-    techStack: ['Make.com', 'OpenAI API', 'TikTok API', 'Instagram API'],
-    problem: 'Manually scripting, editing, scheduling, and publishing content across multiple social platforms daily slows growth.',
-    solution: 'Built an autonomous content repurposing system that drafts hooks, optimizes captions for SEO, generates video frames, and schedules updates.',
-    impact: 'Grew client accounts by 500,000+ organic followers in just 30 days on full autopilot.',
-    proofUrl: 'https://screenrec.com/share/CKi2eDz03I',
-    icon: TrendingUp,
-  },
-  {
-    id: 'customer-support-reducer',
-    title: 'Academic Admissions Support Bot',
-    category: 'Smart Chatbots',
-    techStack: ['n8n', 'Supabase', 'OpenAI Assistant API', 'WhatsApp'],
-    problem: 'Admissions staff at Babcock and ABU overwhelmed during peak enrollment seasons with thousands of repeated user queries.',
-    solution: 'Architected a WhatsApp-based Q&A chatbot backed by a Supabase vector database containing institutional procedures, tuition fees, and admission criteria.',
-    impact: 'Reduced inbound support desks load by 68% for two universities while resolving user inquiries in under 5 seconds.',
-    proofUrl: 'https://screenrec.com/share/l9Sdm7zr0t',
-    icon: MessageSquare,
-  },
-  {
-    id: 'lead-hygiene',
-    title: 'Automated Lead & Phone Validator',
-    category: 'Lead Hygiene & Security',
-    techStack: ['n8n', 'APIs', 'GoHighLevel CRM', 'Python'],
-    problem: 'Wasting significant marketing budget sending SMS/calls to invalid, VOIP, or fake landline phone numbers submitted in lead funnels.',
-    solution: 'Architected a multi-branch validation engine that intercepts leads post-submission. Runs deep carrier lookups to sort numbers into Mobile, Landline, VOIP, or Suspicious/Fake. VOIP and invalid numbers are flagged, and "Bot Clickers" are auto-marked DND in GoHighLevel.',
-    impact: 'Saved over 35% on SMS marketing costs and secured client email sender domains from spam blacklisting.',
-    proofUrl: 'https://screenrec.com/share/RZNmPoLzX4',
-    icon: ShieldCheck,
-  },
-  {
-    id: 'knowledge-curator',
-    title: 'Enterprise Document Vector Curator',
-    category: 'Knowledge Base (RAG)',
-    techStack: ['Supabase', 'FastAPI', 'Next.js', 'pgvector'],
-    problem: 'Operational manuals, legal databases, and reference logs spread across isolated drives, causing delayed search speeds.',
-    solution: 'Developed a central database search application that chunks, indexes, and vectorizes files using pgvector, enabling semantic natural language Q&A.',
-    impact: 'Enabled sub-second Q&A over 5,000+ pages of reference material with precise source citations.',
-    proofUrl: 'https://screenrec.com/share/BhbqrHie5x',
-    icon: Database,
-  },
 ]
 
 export default function HomePage() {
@@ -210,43 +144,38 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen grid-bg overflow-hidden">
-      {/* Background blobs */}
-      <div className="glow-blob top-[20%] left-[10%]" />
-      <div className="glow-blob top-[60%] right-[5%]" />
+      {/* Background glowing blobs */}
+      <div className="glow-blob top-[20%] left-[10%] bg-red-600/10" />
+      <div className="glow-blob top-[60%] right-[5%] bg-red-500/15" />
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center justify-center px-4 pt-24 pb-16 overflow-hidden">
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-neutral-900/60 border border-neutral-800 rounded-full text-red-400 text-xs font-semibold uppercase tracking-wider mb-8 shadow-md">
             <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-            Empowering Global Businesses With Autonomous AI
+            Bridging High-Precision AI &amp; Scientific Research
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-8 leading-tight">
-            Scalable AI Systems.<br />
-            <span className="gradient-text">
-              Custom App Development.
+          <h1 className="text-5xl md:text-7.5xl font-black text-white tracking-tight mb-8 leading-tight">
+            Israel O. Dare<br />
+            <span className="gradient-text bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">
+              Systems Architect &amp; Researcher
             </span>
           </h1>
 
-          <p className="text-base md:text-xl text-neutral-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-            We build intelligent infrastructures that automate repetitive tasks, qualify leads, and drive revenue.
-            Led by Principal Consultant <span className="text-white font-semibold underline decoration-red-500 decoration-2">Israel O. Dare</span>.
+          <p className="text-base md:text-xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+            I engineer high-performance AI automation workflows, full-stack SaaS platforms, and predictive computational models. 
+            Rated <span className="text-white font-semibold underline decoration-red-500 decoration-2">Top Rated Plus on Upwork (Top 3%)</span> and graduated with <span className="text-white font-semibold">First-Class Honours</span> in Engineering.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/services" className="btn-primary flex items-center justify-center gap-2 group">
-              Explore Our Services
+            <Link href="/projects" className="btn-primary flex items-center justify-center gap-2 group">
+              View Portfolios
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a
-              href="https://Calendly.com/izzy-marketing-hub/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary flex items-center justify-center gap-2"
-            >
-              Book Strategy Consultation
-            </a>
+            <Link href="/research" className="btn-secondary flex items-center justify-center gap-2">
+              Explore Research Papers
+            </Link>
           </div>
 
           {/* Stats */}
@@ -261,14 +190,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Bento Services */}
+      {/* Core Capabilities */}
       <section className="py-24 px-4 border-t border-neutral-900/80 relative bg-neutral-950/40">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Enterprise Capability</p>
-            <h2 className="section-heading mb-4">Core AI Infrastructure</h2>
-            <p className="section-sub max-w-2xl mx-auto">
-              We transition your business from manual operational chaos into an automated, highly-scalable revenue engine.
+            <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Core Expertise</p>
+            <h2 className="section-heading mb-4 text-3xl md:text-5xl font-black text-white">Engineering &amp; Science</h2>
+            <p className="section-sub max-w-2xl mx-auto text-neutral-400 font-light">
+              I deploy robust systems designed to remove operational bottlenecks for businesses and apply statistical regression to solve agricultural constraints.
             </p>
           </div>
 
@@ -287,7 +216,7 @@ export default function HomePage() {
                   <p className="text-neutral-400 text-sm leading-relaxed font-light">{description}</p>
                 </div>
                 <div className="mt-8 flex items-center gap-1.5 text-red-400 text-xs font-bold uppercase tracking-wider opacity-60 group-hover:opacity-100 transition-opacity">
-                  Learn more <ChevronRight className="w-4 h-4" />
+                  Explore Details <ChevronRight className="w-4 h-4" />
                 </div>
               </Link>
             ))}
@@ -299,10 +228,10 @@ export default function HomePage() {
       <section className="py-24 px-4 border-t border-neutral-900/80 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Engineering Showcase</p>
-            <h2 className="section-heading mb-4">Detailed Case Studies</h2>
-            <p className="section-sub max-w-xl mx-auto">
-              Inspect the exact logic, tech stacks, and metrics of AI systems we have built and deployed for clients.
+            <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Interactive Showcase</p>
+            <h2 className="section-heading mb-4 text-3xl md:text-5xl font-black text-white">Featured Projects &amp; Research</h2>
+            <p className="section-sub max-w-xl mx-auto text-neutral-400 font-light">
+              Inspect the exact logic, tech stacks, and real-world metrics of systems I have built and published.
             </p>
           </div>
 
@@ -337,7 +266,7 @@ export default function HomePage() {
             {/* Selected Tab Content Detail */}
             <div className="lg:col-span-2 glass-panel border border-neutral-800/80 rounded-3xl p-8 sm:p-10 shadow-glow relative overflow-hidden">
               <div className="absolute top-0 right-0 px-5 py-2 bg-red-950/20 border-b border-l border-red-500/20 rounded-bl-xl text-red-400 text-xs font-semibold">
-                Client Architecture
+                Architecture &amp; Data
               </div>
               <h3 className="text-2xl font-black text-white mb-2">{activeData.title}</h3>
               <p className="text-red-500 text-xs font-bold uppercase tracking-wider mb-6">{activeData.category}</p>
@@ -352,12 +281,12 @@ export default function HomePage() {
 
               <div className="space-y-6">
                 <div className="p-4 bg-neutral-950/60 border border-neutral-900/80 rounded-2xl">
-                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-neutral-400 mb-2">The Bottleneck</h4>
+                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-neutral-400 mb-2">The Bottleneck / Objective</h4>
                   <p className="text-neutral-300 text-sm leading-relaxed font-light">{activeData.problem}</p>
                 </div>
 
                 <div className="p-4 bg-neutral-950/60 border border-neutral-900/80 rounded-2xl">
-                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-neutral-400 mb-2">The AI Solution</h4>
+                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-neutral-400 mb-2">The Solution</h4>
                   <p className="text-neutral-300 text-sm leading-relaxed font-light">{activeData.solution}</p>
                 </div>
 
@@ -367,7 +296,7 @@ export default function HomePage() {
                       <Zap className="w-4.5 h-4.5" />
                     </div>
                     <div>
-                      <h4 className="text-xs uppercase tracking-widest font-extrabold text-red-400 mb-1">Measured Business Impact</h4>
+                      <h4 className="text-xs uppercase tracking-widest font-extrabold text-red-400 mb-1">Measured Impact</h4>
                       <p className="text-neutral-200 text-sm font-bold leading-relaxed">{activeData.impact}</p>
                     </div>
                   </div>
@@ -378,7 +307,7 @@ export default function HomePage() {
                       rel="noopener noreferrer"
                       className="btn-outline text-xs px-4 py-2 border border-red-500/35 text-white rounded-xl hover:bg-red-500/15 flex items-center gap-1.5 shrink-0 self-start sm:self-auto transition-all duration-300"
                     >
-                      <Play className="w-3.5 h-3.5 fill-white" /> Watch Walkthrough
+                      <Play className="w-3.5 h-3.5 fill-white" /> Live Build / Page
                     </a>
                   )}
                 </div>
@@ -388,7 +317,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Founder Spotlight & Video */}
+      {/* Founder Spotlight Quote */}
       <section className="py-24 px-4 border-t border-neutral-900/80 bg-neutral-950/30">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -396,32 +325,30 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-500 rounded-3xl blur-[30px] opacity-10 group-hover:opacity-20 transition-opacity" />
               <div className="aspect-[4/5] relative rounded-3xl overflow-hidden bg-neutral-900 border border-neutral-800/80 shadow-2xl">
                 <Image
-                  src="/izzy_pose.jpg"
-                  alt="Israel O. Dare"
+                  src="/images/DGF_6811 copy.jpg"
+                  alt="Israel O. Dare Profile"
                   fill
                   className="object-cover object-top filter grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 glass-panel text-white px-6 py-4 rounded-2xl shadow-xl border border-red-500/20">
-                <p className="text-2xl font-black text-red-500">$2,000,000+</p>
-                <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wider">Client Revenue Recovered</p>
+                <p className="text-2xl font-black text-red-500">First-Class</p>
+                <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wider">Engineering Systems Thinker</p>
               </div>
             </div>
 
             <div>
-              <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Meet The Founder</p>
-              <h2 className="section-heading mb-6">Engineering Business Growth</h2>
+              <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Personal Ideology</p>
+              <h2 className="section-heading mb-6 text-3xl md:text-5xl font-black text-white">Engineering Real Solutions</h2>
               <blockquote className="text-neutral-200 text-lg font-light leading-relaxed mb-6 border-l-4 border-red-500 pl-6 italic">
-                "We don't just write code; we solve business problems. My mission is to help companies leverage
-                the full power of Artificial Intelligence to automate mundane tasks, generate qualified leads,
-                and build scalable software solutions."
+                "I watched television for the first time at twelve. Got my first phone at sixteen. Staring at tragedy during my university days, I chose MATLAB and computational systems. Easy work bores me. Bring me the hard stuff."
               </blockquote>
               <p className="text-neutral-400 text-sm md:text-base mb-8 leading-relaxed font-light">
-                Israel O. Dare is a Tech Lead and AI Automation Specialist who helps businesses transition into the AI era. Combining engineering discipline with modern automation stack mastery, he constructs scalable systems that drive organic business efficiency.
+                Israel O. Dare is a Systems Engineer, AI Automation Specialist, and Multi-instrumentalist. Graduated with First-Class Honours in Agricultural and Environmental Engineering from the Federal University of Technology, Akure, he applies rigorous computational modeling to agribusiness storage optimization, while deploying enterprise workflows for international companies.
               </p>
               <Link href="/about" className="btn-primary inline-flex items-center gap-2 group">
-                Read His Story
+                Read My Story
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -432,10 +359,10 @@ export default function HomePage() {
       {/* Explainer Video */}
       <section className="py-24 px-4 border-t border-neutral-900/80 bg-black">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Capability Explainer</p>
-          <h2 className="section-heading mb-4">See What We Can Do</h2>
-          <p className="section-sub max-w-xl mx-auto mb-10">
-            Watch Israel break down exactly how custom AI agents and workflows function and how they apply to business growth.
+          <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Project Walkthrough</p>
+          <h2 className="section-heading mb-4 text-3xl md:text-5xl font-black text-white">See My Work In Action</h2>
+          <p className="section-sub max-w-xl mx-auto text-neutral-400 font-light mb-10">
+            Watch me break down how custom AI agents, document processing pipelines, and vector database retrieval systems function.
           </p>
 
           <div className="relative aspect-video rounded-3xl overflow-hidden bg-neutral-900 border border-neutral-800/80 shadow-2xl group cursor-pointer shadow-red-950/10">
@@ -453,10 +380,10 @@ export default function HomePage() {
       <section className="py-24 px-4 border-t border-neutral-900/80 bg-neutral-950/20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Verified Experience</p>
-            <h2 className="section-heading mb-4">Client Success Stories</h2>
-            <p className="section-sub max-w-xl mx-auto">
-              Read what clients say about working with Israel O. Dare on n8n automation and custom software integrations.
+            <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Client Trust</p>
+            <h2 className="section-heading mb-4 text-3xl md:text-5xl font-black text-white">Client Success Stories</h2>
+            <p className="section-sub max-w-xl mx-auto text-neutral-400 font-light">
+              Read verified feedback from founders and agencies about working with me on automation integrations.
             </p>
           </div>
 
@@ -489,27 +416,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Action Banner */}
+      {/* Call To Action */}
       <section className="py-24 px-4 border-t border-neutral-900/80 bg-black relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.05)_0%,transparent_60%)] pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="bg-gradient-to-br from-neutral-900/60 to-neutral-950/80 border border-neutral-800/80 rounded-3xl p-12 shadow-glow-lg">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">Ready to Scale with AI?</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">Let's build something beautiful</h2>
             <p className="text-neutral-400 text-sm sm:text-base mb-8 max-w-xl mx-auto font-light leading-relaxed">
-              Book a strategy call. Let's identify the manual bottlenecks in your pipeline and build an automated solution.
+              Book a strategy call to solve database race conditions, configure secure multi-agent workflows, or discuss post-harvest agricultural modeling.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="https://Calendly.com/izzy-marketing-hub/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary inline-flex items-center justify-center gap-2 group"
+                className="btn-primary inline-flex items-center justify-center gap-2 group text-xs uppercase tracking-wider font-bold"
               >
-                Book a Free Call
+                Book a Strategy Call
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
-              <Link href="/resources" className="btn-secondary inline-flex items-center justify-center gap-2">
-                Browse Blueprints
+              <Link href="/contact" className="btn-secondary inline-flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                Send Direct Message
               </Link>
             </div>
           </div>

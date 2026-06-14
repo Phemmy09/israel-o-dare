@@ -61,13 +61,12 @@ export default function Footer() {
               <div className="w-9 h-9 bg-gradient-to-br from-red-600 to-red-500 rounded-xl flex items-center justify-center shadow-[0_0_10px_rgba(239,68,68,0.2)]">
                 <Zap className="w-5 h-5 text-white" />
               </div>
-              <span className="font-extrabold text-lg tracking-tight">
-                <span className="text-red-500">izzy</span>
-                <span className="text-white">techub</span>
+              <span className="font-extrabold text-lg tracking-tight text-white">
+                Israel <span className="text-red-500">O. Dare</span>
               </span>
             </Link>
             <p className="text-neutral-400 text-sm leading-relaxed max-w-xs">
-              The premier agency for enterprise AI automation, consulting, and app development. We engineer systems that drive growth.
+              Systems engineer and AI architect bridging the gap between industry automation and academic agricultural research.
             </p>
             <div className="flex gap-2">
               {[
@@ -99,13 +98,13 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-4">Services</h3>
+            <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-4">Explore</h3>
             <ul className="space-y-2.5">
               {[
-                { name: 'AI Automation', href: '/services' },
-                { name: 'AI App Development', href: '/services' },
-                { name: 'AI Consulting', href: '/services' },
-                { name: 'Digital Resources', href: '/resources' },
+                { name: 'Home Portfolio', href: '/' },
+                { name: 'Detailed Projects', href: '/projects' },
+                { name: 'Academic Research', href: '/research' },
+                { name: 'Daily Blog', href: '/blog' },
               ].map((s) => (
                 <li key={s.name}>
                   <Link
@@ -121,12 +120,12 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-4">Company</h3>
+            <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-4">Bio &amp; Contact</h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'About Israel O. Dare', href: '/about' },
-                { label: 'Contact Us', href: '/contact' },
-                { label: 'News & Daily Logs', href: '/news' },
+                { label: 'About My Journey', href: '/about' },
+                { label: 'Get in Touch', href: '/contact' },
+                { label: 'Tech News & Logs', href: '/news' },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <Link href={href} className="text-neutral-400 hover:text-white text-sm transition-colors duration-200">
@@ -195,7 +194,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-neutral-500 text-sm">© {new Date().getFullYear()} Izzytechub. All rights reserved.</p>
+          <p className="text-neutral-500 text-sm">© {new Date().getFullYear()} Israel O. Dare. All rights reserved.</p>
           <div className="flex gap-6">
             <span className="text-neutral-600 text-xs">Developed with Precision</span>
           </div>

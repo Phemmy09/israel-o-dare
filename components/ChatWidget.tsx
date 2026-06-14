@@ -18,16 +18,14 @@ interface Lead {
 type LeadStep = 'name' | 'email' | 'phone' | 'service' | 'done'
 
 const SERVICES = [
-  'AI Automation',
-  'App Development',
-  'Lead Generation',
-  'AI Consulting',
-  'Sales Funnel Design',
-  'Social Media Automation',
-  'Other',
+  'AI Systems & Automation',
+  'Custom App/SaaS Dev',
+  'Lead Gen/Outbound SDR',
+  'Academic/Systems Research',
+  'Other / Consultation',
 ]
 
-const BOT_INTRO = `Hi there! 👋 I'm Izzy, your AI assistant for Izzytechub.
+const BOT_INTRO = `Hi there! 👋 I'm Israel's AI assistant.
 
 Before we dive in, I'd love to know a bit about you so I can give you the best help. It'll only take a moment!
 
@@ -92,7 +90,7 @@ export default function ChatWidget() {
         service: completedLead.service,
         transcript,
         messageCount: messagesRef.current.length,
-        source: 'izzytechub.com chatbot',
+        source: 'israelodare.com chatbot',
         reportedAt: new Date().toISOString(),
       }),
     }).catch(() => { /* Silent */ })
@@ -213,7 +211,7 @@ export default function ChatWidget() {
     setTimeout(() => {
       addMessage(
         'assistant',
-        `Perfect! I've noted your interest in **${service}**. 🚀\n\nYou're all set — ask me anything about Izzytechub's services, pricing, process, or anything else. I'm here to help!`
+        `Perfect! I've noted your interest in **${service}**. 🚀\n\nYou're all set — ask me anything about Israel's engineering work, research, or projects. I'm here to help!`
       )
     }, 300)
   }
@@ -297,7 +295,7 @@ export default function ChatWidget() {
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-white font-extrabold text-sm tracking-wide">Izzy — AI Assistant</p>
+              <p className="text-white font-extrabold text-sm tracking-wide">Israel's AI Assistant</p>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                 <span className="text-red-100 text-xs font-semibold uppercase tracking-wider">Online</span>

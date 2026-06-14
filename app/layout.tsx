@@ -6,23 +6,34 @@ import ChatWidget from '@/components/ChatWidget'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Izzytechub | AI Automation & Consulting Agency',
-    template: '%s | Izzytechub',
+    default: 'Israel O. Dare | Systems Engineer & AI Architect',
+    template: '%s | Israel O. Dare',
   },
   description:
-    'Premier AI Agency for Automation, App Development, Lead Generation, and Consulting. Led by Israel O. Dare. We build intelligent systems that scale your business.',
-  keywords: ['AI automation', 'AI consulting', 'app development', 'lead generation', 'Israel Dare', 'izzytechub'],
+    'Official personal, professional, and academic portfolio of Israel O. Dare. Chief AI Architect, Systems Engineer, and First-Class Agricultural Engineering graduate.',
+  keywords: [
+    'Israel O. Dare',
+    'Israel Oluwafemi Dare',
+    'Systems Engineer',
+    'AI Automation Architect',
+    'n8n Expert',
+    'Agricultural Engineering Research',
+    'FUTA First Class Graduate',
+    'Upwork Top Rated Plus Freelancer',
+    'Gaussian Process Regression Storage',
+    'Bio-Digital Agriculture'
+  ],
   openGraph: {
-    title: 'Izzytechub | AI Automation & Consulting Agency',
-    description: 'We build intelligent infrastructures that automate operations, generate leads, and drive revenue.',
+    title: 'Israel O. Dare | Systems Engineer & AI Architect',
+    description: 'Bridging the gap between high-precision AI/systems engineering and academic agricultural research.',
     url: 'https://izzytechub.com',
-    siteName: 'Izzytechub',
+    siteName: 'Israel O. Dare',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Izzytechub | AI Automation & Consulting Agency',
-    description: 'We build intelligent infrastructures that automate operations, generate leads, and drive revenue.',
+    title: 'Israel O. Dare | Systems Engineer & AI Architect',
+    description: 'Bridging the gap between high-precision AI/systems engineering and academic agricultural research.',
   },
   robots: { index: true, follow: true },
 }

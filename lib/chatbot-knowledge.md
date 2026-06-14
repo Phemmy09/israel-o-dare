@@ -1,112 +1,85 @@
-# Izzytechub Knowledge Base
+# Israel O. Dare Knowledge Base
 
-## About Izzytechub
+## About Israel O. Dare
 
-Izzytechub is a premier AI Agency led by **Israel O. Dare**, specializing in AI automation, app development, lead generation, and consulting. We build intelligent infrastructures that automate operations, generate leads, and drive revenue for businesses worldwide.
+Israel O. Dare is a Chief Systems Architect, AI Automation Engineer, and Academic Researcher. He specializes in designing and building secure multi-agent AI workflows, low-latency API integrations, custom web/SaaS applications, and predictive mathematical modeling. He has completed over 50+ successful projects for international clients, and is rated **Top Rated Plus on Upwork (Top 3% worldwide)**.
 
-**Website:** https://izzytechub.com  
-**Email:** izzy.marketing.hub@gmail.com  
+Additionally, Israel holds a **First-Class B.Eng. Honours degree in Agricultural and Environmental Engineering** from the Federal University of Technology, Akure (FUTA), graduating at the top of his class (Top 3%). 
+
+**Website:** https://izzytechub.com (Transitioning to israelodare.com)  
+**Email:** izzy.marketing.hub@gmail.com / phemmy09israel@gmail.com  
 **Phone/WhatsApp:** +1 424 546 0129  
-**Upwork:** https://www.upwork.com/freelancers/~010297ccb4983d90e7
+**Upwork Profile:** https://www.upwork.com/freelancers/~010297ccb4983d90e7
 
 ---
 
-## Services
+## Technical Project Portfolio (Live Builds)
 
-### 1. AI Automation
-We build custom AI workflows and automations that eliminate repetitive tasks, reduce overhead, and free your team to focus on high-value work. We use tools like n8n, Make, Zapier, and custom AI pipelines.
+Israel has built several production-grade systems:
 
-### 2. App Development
-Full-stack web and mobile app development using modern frameworks (Next.js, React, React Native). We build scalable, high-performance applications tailored to your business needs.
+### 1. Edutech Global AI Ecosystem (Babcock & ABU)
+- **Description**: A multi-school Retrieval-Augmented Generation (RAG) admissions widget and support suite.
+- **Tech Stack**: Next.js, Supabase pgvector, OpenRouter (Claude 3.5 Sonnet), Zoho CRM.
+- **Live Builds**: 
+  - Admin Dashboard: https://edutechbabcockabu.vercel.app/
+  - Internal Staff Chatbot: https://edutechinternalchatbot.vercel.app/
+  - Widget Server API: https://school-rag-agent.vercel.app/
 
-### 3. Lead Generation
-We design and implement intelligent lead generation systems — from AI-powered outreach and funnel automation to CRM integrations — that consistently fill your pipeline with qualified prospects.
+### 2. Roof Auto: Autonomous Document Ingestion Engine
+- **Description**: Ingests roofing blueprint contracts and Eagle View files, automatically parsing material counts and crew dependencies via Anthropic LLMs.
+- **Tech Stack**: Next.js, Supabase DB, Anthropic API, Tailwind CSS.
+- **Live Build**: https://roof-auto2.vercel.app/
 
-### 4. AI Consulting
-Strategic AI consulting to help businesses identify where AI can create the most value, develop implementation roadmaps, and train teams to leverage AI tools effectively.
+### 3. God's Covenant Hospital (MamaGuard AI)
+- **Description**: A concurrent voice and text maternal health diagnostics portal and clinic record manager.
+- **Tech Stack**: Python FastAPI, SQLite, React, Vite, Anthropic API.
+- **Live Build**: https://gods-covenant-hospital.vercel.app/
 
-### 5. Sales Funnel Design
-End-to-end sales funnel creation including landing pages, email sequences, automation, and conversion optimization.
+### 4. Oracle: Autonomous Personal Intelligence Platform
+- **Description**: A personal command center running background web scrapers to filter noise and aggregate daily job, scholarship, and news tasks.
+- **Tech Stack**: Next.js, Supabase, Automated Scrapers.
+- **Live Build**: https://oracle-black-six.vercel.app/
 
-### 6. Social Media Automation
-AI-driven content scheduling, engagement automation, and analytics to grow your social media presence without manual effort.
-
----
-
-## Products Available
-
-### AI Agency Blueprint — $49.99
-A comprehensive guide for building and scaling an AI agency. Covers positioning, client acquisition, service delivery, and automation stacks. Available via Whop.
-
-### Automation Mastery Audio — $19.99
-An audio course covering the fundamentals of business automation with AI tools. Learn how to identify automation opportunities and implement them fast.
-
-### Sales Funnel Template Pack — Free
-A collection of ready-to-use sales funnel templates for service businesses. Includes landing page templates, email sequences, and automation blueprints.
-
-### Freelance to Founder System — $29.99
-A step-by-step system for transitioning from freelancer to agency owner. Covers pricing, team building, client management, and scaling strategies.
+### 5. Unser The Answer Platform
+- **Description**: Modern Next.js application for specialized business process workflows.
+- **Live Build**: https://unsertheanswer.vercel.app/
 
 ---
 
-## Founder — Israel O. Dare
+## Academic & Scientific Research
 
-Israel O. Dare is a tech entrepreneur, AI strategist, and automation specialist with experience building AI-powered systems for businesses across multiple industries. He has helped clients across the US, UK, and Africa automate their operations, generate leads, and grow revenue using AI.
+Israel's academic research operates at the nexus of post-harvest preservation, thermodynamics, and predictive machine learning.
 
-**Key achievements:**
-- Built and automated systems that have generated significant ROI for clients
-- Expert in AI tools: OpenAI, Claude, n8n, Make, Zapier, and more
-- Proven track record on Upwork with top-rated freelancer status
-- Helps businesses go from manual chaos to automated, scalable operations
+### Key Publications & Thesis:
+- **Undergraduate Thesis**: "Control of Yam Atmospheric Conditions: Effects of Size and Temperature on Yam Storage Using Gaussian Process Regression Model" (FUTA, 2023). Applied Bayesian regression to optimize temperature/humidity for white yams, extending shelf-life by 35%.
+- **Seminar Report**: "Advances in Storage System for Yam Tubers" (FUTA, 2023). Analyzed biochemical sprout inhibitors and pest control in tropical climates.
+- **Technical Whitepaper**: "Oracle: Custom Scrapy Architectures and Zero-Loss Data Management" (2026). Outlined database race condition resolution and Row-Level Security (RLS) configurations in Next.js Server Components.
+- **Policy Piece**: "Adapting Global AI Governance Frameworks for the Global South" (2026). Analyzed international safety standards and compute tracking in developing markets.
+
+### Research Proposals:
+- **UTFPR (Brazil)**: Autonomous AI multi-agent workflows integrated with IoT sensors and satellite telemetry to automate parametric micro-insurance for crop spoilage.
+- **UFRPE (Brazil)**: Bio-Digital framework managing transaction costs and climate risk sharing in agribusiness supply chains.
+- **UFG (Brazil)**: Plant biochemistry and phytochemical extraction early-detection biosensors using machine learning.
+- **UFCG (Brazil)**: Eco-Efficient thermodynamics integrating solar-powered absorption refrigeration and rainwater harvesting.
 
 ---
 
-## Pricing & Process
+## Capabilities & Tech Stack
 
-**How it works:**
-1. Book a free consultation via the contact form or WhatsApp
-2. We assess your business needs and identify automation/AI opportunities
-3. We propose a custom solution with clear deliverables and timeline
-4. We build, test, and deploy — with ongoing support
-
-**Typical project timelines:**
-- Automation setup: 1–2 weeks
-- App development: 4–12 weeks depending on complexity
-- Lead gen system: 2–4 weeks
-- Consulting engagement: Ongoing or project-based
-
-**Response time:** Within 24 hours on business days (often faster via WhatsApp)
+- **AI Automation & Workflows**: n8n, Make.com, Zapier, Custom Python scripts.
+- **Web & Backend Development**: Next.js, React, Tailwind CSS, Python FastAPI, RESTful APIs.
+- **Databases & Vector Storage**: Supabase, PostgreSQL (pgvector indexation), SQLite (aiosqlite), Pinecone.
+- **Integrations**: CRM syncs (GoHighLevel, Zoho, HubSpot), Voice Agents (Vapi, Retell AI, Elevenlabs), Twilio.
 
 ---
 
 ## FAQs
 
-**Q: Do you work with small businesses?**
-A: Yes! We work with businesses of all sizes, from solopreneurs to established companies. Our solutions are scalable and priced to deliver ROI.
+### Q: What is Israel's background?
+Israel graduated from the Federal University of Technology, Akure, with First-Class Honours in Engineering. During his final year, his father passed away in a tragic car accident, and his mother was hospitalized. Facing severe financial constraints, he taught himself AI systems, web development, and workflow design to support his family, quickly ascending to Top Rated Plus on Upwork. He is also an accomplished multi-instrumentalist (playing violin, viola, cello, and piano).
 
-**Q: What industries do you serve?**
-A: We serve clients across e-commerce, real estate, healthcare, finance, coaching/consulting, SaaS, and more. AI automation applies to virtually every industry.
+### Q: Can Israel work on commercial contracts or research fellowships?
+Yes. Israel is open to challenging industry software contracts, AI consulting engagements, and academic research collaborations in precision engineering, post-harvest systems, and technical AI governance.
 
-**Q: Can you integrate with my existing tools?**
-A: Absolutely. We integrate with CRMs (HubSpot, Salesforce, GoHighLevel), email platforms, payment processors, databases, and most SaaS tools via API or automation platforms.
-
-**Q: Do you offer ongoing support?**
-A: Yes. We offer monthly retainer packages for ongoing automation management, updates, and support.
-
-**Q: How do I get started?**
-A: The fastest way is to message on WhatsApp (+1 424 546 0129) or fill out the contact form at izzytechub.com/contact. We'll schedule a free call to understand your needs.
-
-**Q: Do you offer refunds on digital products?**
-A: Due to the digital nature of our products, we don't offer refunds. However, if you have issues accessing your purchase, contact us and we'll make it right.
-
-**Q: What makes Izzytechub different?**
-A: We don't just set up tools — we build complete systems. We combine AI strategy with hands-on implementation, ensuring your automations actually work and scale with your business.
-
----
-
-## Contact & Booking
-
-- **WhatsApp (fastest):** https://wa.me/14245460129
-- **Contact form:** https://izzytechub.com/contact
-- **Email:** izzy.marketing.hub@gmail.com
-- **Resources/Products:** https://izzytechub.com/resources
+### Q: How to schedule a call?
+Book directly via: https://Calendly.com/izzy-marketing-hub/30min or contact via WhatsApp at +1 424 546 0129.

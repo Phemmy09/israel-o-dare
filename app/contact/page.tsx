@@ -3,9 +3,9 @@ import { Mail, Phone, MessageCircle, Clock } from 'lucide-react'
 import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
+  title: 'Contact Israel O. Dare',
   description:
-    'Ready to transform your business with AI? Contact Izzytechub to discuss your project, consulting needs, or automation strategy.',
+    'Get in touch with Israel O. Dare for professional AI consulting, custom systems engineering contracts, or research collaborations.',
 }
 
 export default function ContactPage() {

@@ -8,9 +8,10 @@ import { Menu, X, Zap } from 'lucide-react'
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'AI Services', href: '/services' },
-  { label: 'Resources', href: '/resources' },
-  { label: 'News & Logs', href: '/news' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Research', href: '/research' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Tech News', href: '/news' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -44,9 +45,8 @@ export default function Navbar() {
             <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-red-500 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.3)] group-hover:shadow-[0_0_20px_rgba(239,68,68,0.5)] group-hover:scale-105 transition-all duration-300">
               <Zap className="w-5 h-5 text-white fill-white/10" />
             </div>
-            <span className="font-extrabold text-xl tracking-tight">
-              <span className="text-red-500">izzy</span>
-              <span className="text-white">techub</span>
+            <span className="font-extrabold text-xl tracking-tight text-white">
+              Israel <span className="text-red-500">O. Dare</span>
             </span>
           </Link>
 
@@ -79,7 +79,7 @@ export default function Navbar() {
               href="/contact"
               className="px-5 py-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-300 shadow-[0_4px_15px_rgba(239,68,68,0.2)] hover:shadow-[0_4px_25px_rgba(239,68,68,0.4)] hover:scale-[1.02]"
             >
-              Work With Izzy
+              Contact / Hire
             </Link>
           </div>
 
@@ -119,7 +119,7 @@ export default function Navbar() {
                 href="/contact"
                 className="block w-full text-center px-4 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white font-bold rounded-xl transition-all"
               >
-                Work With Izzy
+                Contact / Hire
               </Link>
             </div>
           </div>
