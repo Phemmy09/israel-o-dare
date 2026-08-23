@@ -2,15 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #030303;
-  --text: #f5f5f7;
-  --brand-neon: #ef4444;
-  --brand-glow: rgba(239, 68, 68, 0.15);
-  --glass: rgba(10, 10, 12, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --bg: #070709;
+  --surface: #0f0f13;
+  --surface-elevated: #16161d;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text-primary: #ffffff;
+  --text-secondary: #e4e4e7;
+  --text-muted: #71717a;
+  --carmine: #dc2626;
+  --cobalt: #2563eb;
 }
 
 * {
@@ -20,132 +24,104 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--bg);
+  color-scheme: dark;
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background-color: var(--bg);
-  color: var(--text);
+  color: var(--text-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
-}
-
-/* Custom Webkit Scrollbar */
+/* Custom Minimalist Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050507;
+  background: #070709;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f1f23;
-  border-radius: 99px;
-  border: 2px solid #050507;
+  background: #1e1e26;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ef4444;
+  background: #dc2626;
 }
 
-/* Custom Text Selection */
+/* Luxury Editorial Text Selection */
 ::selection {
-  background: rgba(239, 68, 68, 0.3);
+  background: #dc2626;
   color: #ffffff;
 }
 
-/* Dynamic Radial Blur Spots */
-.glow-blob {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--brand-glow) 0%, rgba(0,0,0,0) 70%);
-  filter: blur(40px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Animated Grid Background */
-.grid-bg {
+/* Subtle Hairline Grid Layer */
+.editorial-grid {
   background-image: 
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0),
-    linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-  background-size: 24px 24px, 120px 120px, 120px 120px;
-  background-position: center;
-}
-
-/* Custom Glow Classes */
-.shadow-glow {
-  box-shadow: 0 0 25px rgba(239, 68, 68, 0.15);
-}
-
-.shadow-glow-lg {
-  box-shadow: 0 0 50px rgba(239, 68, 68, 0.25);
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
 }
 
 @layer utilities {
-  .text-glow {
-    text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+  .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
   }
-  .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-white to-neutral-400;
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
-  .gradient-text-gold {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-300 to-white;
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
   }
-  .glass-panel {
-    background: var(--glass);
-    backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid var(--glass-border);
+  
+  /* Editorial Typography Utilities */
+  .display-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    @apply font-normal tracking-tight-editorial leading-[0.95];
   }
-  .card-hover {
-    @apply hover:border-red-500/35 hover:-translate-y-1 hover:shadow-[0_12px_30px_-10px_rgba(239,68,68,0.15)] transition-all duration-300;
-  }
-  .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-semibold rounded-xl transition-all duration-300 shadow-[0_4px_20px_rgba(239,68,68,0.3)] hover:shadow-[0_4px_30px_rgba(239,68,68,0.55)] hover:scale-[1.02] active:scale-[0.98];
-  }
-  .btn-secondary {
-    @apply px-6 py-3 bg-neutral-900/80 backdrop-blur-md border border-neutral-800 hover:border-neutral-600 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-neutral-800/80 active:scale-[0.98];
-  }
-  .btn-outline {
-    @apply px-6 py-3 border border-red-500/20 hover:border-red-500/60 bg-red-950/10 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-red-950/20;
-  }
-  .section-heading {
-    @apply text-3xl md:text-5xl font-extrabold text-white tracking-tight;
-  }
-  .section-sub {
-    @apply text-neutral-400 text-base md:text-lg font-light leading-relaxed;
-  }
-}
 
-/* Border Beam Animation keyframes */
-@keyframes borderBeam {
-  0%, 100% {
-    offset-distance: 0%;
+  .editorial-lead {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    @apply text-xl md:text-2xl font-light italic leading-relaxed text-zinc-300;
   }
-  50% {
-    offset-distance: 100%;
-  }
-}
 
-/* Timeline Custom Lines */
-.timeline-line::before {
-  content: '';
-  position: absolute;
-  left: 15px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, #ef4444 0%, #262626 100%);
-}
-@media (min-width: 768px) {
-  .timeline-line::before {
-    left: 50%;
-    transform: translateX(-50%);
+  .meta-tag {
+    @apply font-mono text-[10px] tracking-luxury uppercase text-zinc-400 font-medium;
+  }
+
+  .hairline-border {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hairline-b {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hairline-t {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hairline-r {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hairline-l {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Luxury Buttons */
+  .btn-luxury {
+    @apply inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-white text-black font-sans text-xs uppercase tracking-luxury font-bold transition-all duration-300 hover:bg-zinc-200 active:scale-[0.99];
+  }
+
+  .btn-luxury-outline {
+    @apply inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-transparent border border-white/20 text-white font-sans text-xs uppercase tracking-luxury font-medium transition-all duration-300 hover:border-white hover:bg-white/5 active:scale-[0.99];
+  }
+
+  .btn-luxury-carmine {
+    @apply inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-red-600 text-white font-sans text-xs uppercase tracking-luxury font-bold transition-all duration-300 hover:bg-red-500 active:scale-[0.99];
   }
 }
-

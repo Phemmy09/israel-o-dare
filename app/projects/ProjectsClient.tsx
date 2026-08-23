@@ -465,19 +465,19 @@ export default function ProjectsClient() {
   })
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      {/* Filtering Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 mb-12 relative z-20">
+    <div className="space-y-12">
+      {/* Filtering & Search Bar */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 pb-8 border-b border-white/[0.08]">
         {/* Category selector */}
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 border ${
+              className={`px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all ${
                 category === cat
-                  ? 'bg-red-600 border-red-500/20 text-white shadow-md shadow-red-900/20'
-                  : 'bg-neutral-900/40 border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700'
+                  ? 'bg-white text-black font-bold'
+                  : 'bg-noir-900 border border-white/10 text-zinc-400 hover:text-white hover:border-white/30'
               }`}
             >
               {cat}
@@ -491,59 +491,67 @@ export default function ProjectsClient() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search 50 projects..."
-            className="w-full bg-neutral-900/60 border border-neutral-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-red-500/50 transition-colors"
+            placeholder="Search systems & scripts..."
+            className="w-full bg-noir-900 border border-white/10 pl-10 pr-4 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white transition-colors font-sans"
           />
-          <Search className="w-4.5 h-4.5 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
         </div>
       </div>
 
       {/* Counter */}
-      <p className="text-neutral-500 text-sm mb-8">
-        Showing <span className="text-white font-bold">{filtered.length}</span> of {projects.length} project items
+      <p className="font-mono text-xs text-zinc-400">
+        SHOWING <span className="text-white font-bold">{filtered.length}</span> OF {projects.length} SYSTEMS DEPLOYMENTS
       </p>
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <div className="text-center py-24 bg-neutral-950/20 border border-neutral-900 rounded-3xl p-8">
-          <Folder className="w-10 h-10 text-neutral-800 mx-auto mb-4" />
-          <p className="text-neutral-500 text-sm">No items found matching the search criteria.</p>
+        <div className="text-center py-24 bg-noir-900 border border-white/[0.08] p-8 space-y-3">
+          <Folder className="w-8 h-8 text-zinc-600 mx-auto" />
+          <p className="font-sans text-sm text-zinc-400">No systems found matching the search criteria.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((proj) => (
             <div
               key={proj.title}
-              className="group bg-neutral-950/40 border border-neutral-800/80 hover:border-red-500/35 p-6 rounded-2xl transition-all duration-300 flex flex-col justify-between shadow-lg relative overflow-hidden card-hover"
+              className="bg-noir-900 border border-white/[0.08] hover:border-white/30 p-8 space-y-6 transition-all duration-300 flex flex-col justify-between group"
             >
-              {/* Category Badge */}
-              <div className="absolute top-0 right-0 px-3 py-1 bg-red-950/20 border-b border-l border-red-500/15 rounded-bl-xl text-[9px] text-red-400 font-bold uppercase tracking-wider">
-                {proj.category}
-              </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between pb-4 border-b border-white/[0.06]">
+                  <span className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 bg-black border border-white/10 text-red-400">
+                    {proj.category}
+                  </span>
+                  {proj.liveUrl && (
+                    <span className="font-mono text-[9px] text-green-400 uppercase tracking-wider">
+                      ● Live System
+                    </span>
+                  )}
+                </div>
 
-              <div>
-                {/* Title */}
-                <h3 className="text-lg font-bold text-white mb-2 leading-snug tracking-wide group-hover:text-red-400 transition-colors pt-2">
+                <h3 className="font-serif text-xl sm:text-2xl text-white group-hover:text-zinc-100 leading-snug">
                   {proj.title}
                 </h3>
-                {/* Description */}
-                <p className="text-neutral-400 text-xs sm:text-sm font-light leading-relaxed mb-4 line-clamp-3">
+
+                <p className="font-sans text-xs sm:text-sm text-zinc-400 font-light leading-relaxed line-clamp-3">
                   {proj.description}
                 </p>
 
                 {/* Tech tags */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
+                <div className="flex flex-wrap gap-1.5 pt-2">
                   {proj.techStack.map((tech) => (
-                    <span key={tech} className="px-2 py-0.5 bg-neutral-900/60 border border-neutral-800/60 text-[9px] text-neutral-400 font-mono rounded">
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 bg-black border border-white/10 text-[9px] text-zinc-300 font-mono"
+                    >
                       {tech}
                     </span>
                   ))}
                 </div>
 
                 {/* Features */}
-                <ul className="space-y-2 mb-6 border-t border-neutral-900/40 pt-4">
+                <ul className="space-y-2 pt-4 border-t border-white/[0.06]">
                   {proj.features.map((f, i) => (
-                    <li key={i} className="flex items-start gap-2 text-[11px] text-neutral-300 font-light">
+                    <li key={i} className="flex items-start gap-2 text-xs text-zinc-300 font-light">
                       <CheckCircle className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </li>
@@ -552,9 +560,12 @@ export default function ProjectsClient() {
               </div>
 
               {/* Bottom location info & link */}
-              <div className="pt-4 border-t border-neutral-900 flex items-center justify-between text-xs mt-auto">
-                <span className="text-[10px] text-neutral-500 font-mono flex items-center gap-1 max-w-[70%] truncate" title={proj.location}>
-                  <Terminal className="w-3 h-3 text-red-500/60 shrink-0" />
+              <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs mt-auto">
+                <span
+                  className="text-[10px] text-zinc-400 font-mono flex items-center gap-1.5 max-w-[70%] truncate"
+                  title={proj.location}
+                >
+                  <Terminal className="w-3 h-3 text-red-500 shrink-0" />
                   {proj.location.split('/').pop() || proj.location}
                 </span>
 
@@ -563,12 +574,14 @@ export default function ProjectsClient() {
                     href={proj.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-red-400 hover:text-red-300 font-bold uppercase tracking-wider flex items-center gap-1 transition-colors group-hover:translate-x-0.5"
+                    className="font-mono text-xs text-white hover:text-red-400 font-bold uppercase tracking-wider flex items-center gap-1 transition-colors"
                   >
-                    Live <ExternalLink className="w-3 h-3" />
+                    Inspect <ExternalLink className="w-3 h-3 text-red-500" />
                   </a>
                 ) : (
-                  <span className="text-neutral-600 font-mono text-[9px] uppercase tracking-wider">Local Script</span>
+                  <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-wider">
+                    Local Build
+                  </span>
                 )}
               </div>
             </div>

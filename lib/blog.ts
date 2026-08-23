@@ -1,14 +1,15 @@
 import fs from 'fs'
 import path from 'path'
 import { parseMarkdown, BlogPost } from './markdown'
+export { type Memo, curatedMemos, getMemos } from './memos'
 
 export function getBlogPosts(): BlogPost[] {
   const blogDir = path.join(process.cwd(), 'content/blog')
-  
+
   if (!fs.existsSync(blogDir)) {
     return []
   }
-  
+
   try {
     const files = fs.readdirSync(blogDir)
     const posts = files
@@ -17,16 +18,16 @@ export function getBlogPosts(): BlogPost[] {
         const slug = file.replace(/\.md$/, '')
         const fullPath = path.join(blogDir, file)
         const fileContents = fs.readFileSync(fullPath, 'utf8')
-        
+
         // Match frontmatter block: --- [yaml] --- [content]
         const match = fileContents.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]*)$/)
         const metadata: Record<string, string> = {}
         let mdContent = fileContents
-        
+
         if (match) {
           const frontmatter = match[1]
           mdContent = match[2]
-          
+
           frontmatter.split(/\r?\n/).forEach((line) => {
             const parts = line.split(':')
             if (parts.length >= 2) {
@@ -36,7 +37,7 @@ export function getBlogPosts(): BlogPost[] {
             }
           })
         }
-        
+
         return {
           slug,
           title: metadata.title || 'Untitled Post',
@@ -47,7 +48,7 @@ export function getBlogPosts(): BlogPost[] {
           content: parseMarkdown(mdContent),
         }
       })
-      
+
     return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   } catch (error) {
     console.error('Error loading blog posts:', error)

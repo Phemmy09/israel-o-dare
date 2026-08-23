@@ -13,7 +13,7 @@ function esc(str: string): string {
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY ?? 'placeholder')
-  const FROM_ADDRESS = process.env.RESEND_FROM ?? 'Izzytechub <onboarding@resend.dev>'
+  const FROM_ADDRESS = process.env.RESEND_FROM ?? 'Israel Dare <onboarding@resend.dev>'
 
   try {
     const { name, email, phone, service } = await req.json()
@@ -24,39 +24,33 @@ export async function POST(req: NextRequest) {
 
     const safeName = esc(name)
     const safeEmail = esc(email)
-    const safePhone = esc(phone || '')
+    const safePhone = esc(phone || 'Not provided')
     const safeService = esc(service)
     const year = new Date().getFullYear()
 
-    // 1️⃣  Notify owner — independent try/catch
+    // 1️⃣ Notify owner
     try {
       await resend.emails.send({
         from: FROM_ADDRESS,
         to: OWNER_EMAIL,
         replyTo: email,
-        subject: `New Chatbot Lead: ${service} — ${name}`,
+        subject: `New Concierge Lead: ${service} — ${name}`,
         html: `
-          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#f5f5f5;border-radius:12px;overflow:hidden;">
-            <div style="background:#dc2626;padding:24px 32px;">
-              <h1 style="margin:0;font-size:20px;color:#fff;">🤖 New Chatbot Lead</h1>
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#070709;color:#f5f5f5;border:1px solid #27272a;border-radius:8px;overflow:hidden;">
+            <div style="background:#000;border-bottom:1px solid #27272a;padding:24px 32px;">
+              <h1 style="margin:0;font-size:18px;letter-spacing:0.15em;text-transform:uppercase;color:#fff;">ISRAEL DARE · CONCIERGE LEAD</h1>
             </div>
             <div style="padding:32px;">
-              <p style="color:#a3a3a3;margin:0 0 24px;line-height:1.6;">A new visitor just completed the chatbot lead form on <strong style="color:#fff;">izzytechub.com</strong>.</p>
-              <table style="width:100%;border-collapse:collapse;">
-                <tr><td style="padding:10px 0;color:#a3a3a3;width:140px;">Name</td><td style="padding:10px 0;color:#fff;font-weight:600;">${safeName}</td></tr>
-                <tr><td style="padding:10px 0;color:#a3a3a3;">Email</td><td style="padding:10px 0;"><a href="mailto:${safeEmail}" style="color:#ef4444;">${safeEmail}</a></td></tr>
-                <tr><td style="padding:10px 0;color:#a3a3a3;">Phone</td><td style="padding:10px 0;color:#fff;">${safePhone || 'Not provided'}</td></tr>
-                <tr><td style="padding:10px 0;color:#a3a3a3;">Service</td><td style="padding:10px 0;color:#ef4444;font-weight:600;">${safeService}</td></tr>
-                <tr><td style="padding:10px 0;color:#a3a3a3;">Source</td><td style="padding:10px 0;color:#fff;">Website Chatbot</td></tr>
-                <tr><td style="padding:10px 0;color:#a3a3a3;">Time</td><td style="padding:10px 0;color:#fff;">${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} PT</td></tr>
+              <p style="color:#a1a1aa;margin:0 0 24px;font-size:14px;">A new prospect has initialized a consultation session via the Executive Concierge widget.</p>
+              <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                <tr><td style="padding:10px 0;color:#71717a;width:140px;">Name</td><td style="padding:10px 0;color:#fff;font-weight:600;">${safeName}</td></tr>
+                <tr><td style="padding:10px 0;color:#71717a;">Email</td><td style="padding:10px 0;"><a href="mailto:${safeEmail}" style="color:#ef4444;">${safeEmail}</a></td></tr>
+                <tr><td style="padding:10px 0;color:#71717a;">Phone</td><td style="padding:10px 0;color:#fff;">${safePhone}</td></tr>
+                <tr><td style="padding:10px 0;color:#71717a;">Focus Domain</td><td style="padding:10px 0;color:#ef4444;font-weight:600;">${safeService}</td></tr>
               </table>
               <div style="margin-top:24px;">
-                <a href="mailto:${safeEmail}" style="display:inline-block;padding:12px 24px;background:#dc2626;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;margin-right:12px;">Reply to ${safeName}</a>
-                <a href="https://wa.me/14245460129" style="display:inline-block;padding:12px 24px;background:#16a34a;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;">Open WhatsApp</a>
+                <a href="mailto:${safeEmail}" style="display:inline-block;padding:12px 24px;background:#fff;color:#000;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">Reply to ${safeName} ↗</a>
               </div>
-            </div>
-            <div style="padding:16px 32px;background:#0f0f0f;text-align:center;color:#525252;font-size:12px;">
-              Lead captured via izzytechub.com chatbot
             </div>
           </div>
         `,
@@ -65,47 +59,37 @@ export async function POST(req: NextRequest) {
       console.error('Chat-lead route — owner email failed:', err)
     }
 
-    // 2️⃣  Confirmation email to the lead — independent try/catch
+    // 2️⃣ Auto-confirmation email to lead
     try {
       await resend.emails.send({
         from: FROM_ADDRESS,
         to: email,
-        subject: `We've received your request, ${name}! ✅`,
+        subject: `Executive Consultation Registered — Israel Dare Office ✅`,
         html: `
-          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0a0a0a;color:#f5f5f5;border-radius:12px;overflow:hidden;">
-            <div style="background:#dc2626;padding:24px 32px;">
-              <h1 style="margin:0;font-size:22px;color:#fff;">
-                <span style="font-weight:300;">izzy</span><strong>techub</strong>
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#070709;color:#f5f5f5;border:1px solid #27272a;border-radius:8px;overflow:hidden;">
+            <div style="background:#000;border-bottom:1px solid #27272a;padding:24px 32px;">
+              <h1 style="margin:0;font-size:16px;letter-spacing:0.2em;text-transform:uppercase;color:#fff;">
+                ISRAEL DARE
               </h1>
+              <p style="margin:4px 0 0;font-size:10px;color:#71717a;letter-spacing:0.15em;text-transform:uppercase;font-family:monospace;">
+                SYSTEMS · SPATIAL IP · RESEARCH
+              </p>
             </div>
             <div style="padding:32px;">
-              <h2 style="color:#fff;margin:0 0 12px;">Hey ${safeName}, we got your request! 🚀</h2>
-              <p style="color:#a3a3a3;line-height:1.7;margin:0 0 16px;">
-                Thanks for reaching out to Izzytechub! We've received your inquiry about
-                <strong style="color:#ef4444;">${safeService}</strong> and our team will review it shortly.
+              <h2 style="color:#fff;margin:0 0 12px;font-size:20px;">Greetings ${safeName},</h2>
+              <p style="color:#a1a1aa;line-height:1.7;margin:0 0 16px;font-size:14px;">
+                Thank you for connecting with the office of <strong>Israel Dare</strong>. Your focus area (<strong>${safeService}</strong>) has been noted.
               </p>
-              <p style="color:#a3a3a3;line-height:1.7;margin:0 0 24px;">
-                One of our representatives will reach out to you directly within
-                <strong style="color:#fff;">24 hours</strong> on business days.
-                For faster replies, message us on WhatsApp — we're usually very quick there!
+              <p style="color:#a1a1aa;line-height:1.7;margin:0 0 24px;font-size:14px;">
+                To lock in a 30-minute direct strategic briefing, you may book directly below or connect on WhatsApp.
               </p>
-              <div style="background:#171717;border-radius:8px;padding:20px;margin-bottom:24px;">
-                <p style="margin:0 0 12px;color:#a3a3a3;font-size:13px;text-transform:uppercase;letter-spacing:0.05em;">Your Request Summary</p>
-                <table style="width:100%;border-collapse:collapse;">
-                  <tr><td style="padding:6px 0;color:#737373;font-size:13px;width:100px;">Name</td><td style="padding:6px 0;color:#f5f5f5;font-size:13px;">${safeName}</td></tr>
-                  <tr><td style="padding:6px 0;color:#737373;font-size:13px;">Email</td><td style="padding:6px 0;color:#f5f5f5;font-size:13px;">${safeEmail}</td></tr>
-                  ${safePhone ? `<tr><td style="padding:6px 0;color:#737373;font-size:13px;">Phone</td><td style="padding:6px 0;color:#f5f5f5;font-size:13px;">${safePhone}</td></tr>` : ''}
-                  <tr><td style="padding:6px 0;color:#737373;font-size:13px;">Service</td><td style="padding:6px 0;color:#ef4444;font-size:13px;font-weight:600;">${safeService}</td></tr>
-                </table>
-              </div>
               <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                <a href="https://wa.me/14245460129" style="display:inline-block;padding:12px 24px;background:#16a34a;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;">Chat on WhatsApp</a>
-                <a href="https://izzytechub.com/resources" style="display:inline-block;padding:12px 24px;background:#171717;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;border:1px solid #333;">Browse Resources</a>
+                <a href="https://Calendly.com/izzy-marketing-hub/30min" style="display:inline-block;padding:12px 24px;background:#fff;color:#000;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">Book Strategy Call 📅</a>
+                <a href="https://wa.me/14245460129" style="display:inline-block;padding:12px 24px;background:#16a34a;color:#fff;text-decoration:none;font-weight:700;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">WhatsApp Hotline</a>
               </div>
             </div>
-            <div style="padding:20px 32px;background:#0f0f0f;text-align:center;">
-              <p style="margin:0 0 8px;color:#525252;font-size:12px;">© ${year} Izzytechub · izzy.marketing.hub@gmail.com · +1 424 546 0129</p>
-              <p style="margin:0;color:#3f3f3f;font-size:11px;">You're receiving this because you started a chat at izzytechub.com</p>
+            <div style="padding:20px 32px;background:#000;border-top:1px solid #18181b;text-align:center;">
+              <p style="margin:0 0 8px;color:#71717a;font-size:11px;font-family:monospace;">© ${year} ISRAEL DARE · izzy.marketing.hub@gmail.com</p>
             </div>
           </div>
         `,
@@ -117,6 +101,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error('Chat lead API error:', err)
-    return NextResponse.json({ error: 'Failed to send emails.' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to record lead.' }, { status: 500 })
   }
 }

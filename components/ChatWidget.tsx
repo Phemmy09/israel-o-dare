@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { MessageCircle, X, Send, Bot, User, Loader2, ChevronRight } from 'lucide-react'
+import { MessageSquare, X, Send, Loader2, ArrowRight } from 'lucide-react'
+import Logo from './Logo'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -18,18 +19,18 @@ interface Lead {
 type LeadStep = 'name' | 'email' | 'phone' | 'service' | 'done'
 
 const SERVICES = [
-  'AI Systems & Automation',
-  'Custom App/SaaS Dev',
-  'Lead Gen/Outbound SDR',
-  'Academic/Systems Research',
-  'Other / Consultation',
+  'Autonomous Systems & Engineering',
+  'Drone Photogrammetry & Spatial Models',
+  'High-Concurrency SaaS Architecture',
+  'Academic & Environmental Research',
+  'Private Advisory & Consultation',
 ]
 
-const BOT_INTRO = `Hi there! 👋 I'm Israel's AI assistant.
+const BOT_INTRO = `Welcome to the private digital salon of **Israel Dare**.
 
-Before we dive in, I'd love to know a bit about you so I can give you the best help. It'll only take a moment!
+I am Israel's executive concierge. I can brief you on his active engineering builds, research publications, advisory availability, or coordinate a direct line with him.
 
-What's your **first name**?`
+To begin, may I have your **full name and title**?`
 
 const WEBHOOK_URL = process.env.NEXT_PUBLIC_NEWSLETTER_WEBHOOK as string
 const WHATSAPP_DELAY_MS = 5 * 60 * 1000 // 5 minutes
@@ -47,7 +48,6 @@ export default function ChatWidget() {
 
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  // Keep a live ref to messages so the delayed WhatsApp report captures the full transcript
   const messagesRef = useRef<Message[]>(messages)
   const whatsappTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const whatsappSentRef = useRef(false)
@@ -61,312 +61,296 @@ export default function ChatWidget() {
   }, [messages, loading])
 
   useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 100)
+    if (open) setTimeout(() => inputRef.current?.focus(), 150)
   }, [open])
 
-  // Clean up timer on unmount (safety)
   useEffect(() => () => { if (whatsappTimerRef.current) clearTimeout(whatsappTimerRef.current) }, [])
 
   const addMessage = (role: Message['role'], content: string) => {
     setMessages((prev) => [...prev, { role, content }])
   }
 
-  const sendWhatsAppReport = useCallback((completedLead: Lead) => {
+  const sendWebhookReport = useCallback(async (currentLead: Lead, currentMessages: Message[]) => {
     if (whatsappSentRef.current) return
     whatsappSentRef.current = true
 
-    const transcript = messagesRef.current
-      .map((m) => `[${m.role === 'user' ? completedLead.name : 'Izzy (AI)'}]: ${m.content}`)
-      .join('\n\n')
-
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'chatbot_report',
-        name: completedLead.name,
-        email: completedLead.email,
-        phone: completedLead.phone || 'Not provided',
-        service: completedLead.service,
-        transcript,
-        messageCount: messagesRef.current.length,
-        source: 'israelodare.com chatbot',
-        reportedAt: new Date().toISOString(),
-      }),
-    }).catch(() => { /* Silent */ })
-  }, [])
-
-  function scheduleWhatsAppReport(completedLead: Lead) {
-    if (whatsappTimerRef.current) return // already scheduled
-    whatsappTimerRef.current = setTimeout(() => sendWhatsAppReport(completedLead), WHATSAPP_DELAY_MS)
-  }
-
-  async function sendLeadEmails(completedLead: Lead) {
     try {
-      await fetch('/api/chat-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(completedLead),
-      })
-    } catch {
-      // Silent — don't block user experience
-    }
-  }
+      const transcript = currentMessages
+        .map((m) => `${m.role === 'user' ? 'Client' : 'Concierge'}: ${m.content}`)
+        .join('\n\n')
 
-  async function streamResponse(userMessages: Message[], currentLead: Lead) {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/chat', {
+      await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: userMessages.map((m) => ({ role: m.role, content: m.content })),
-          lead: currentLead,
+          source: 'Israel Dare Executive Concierge',
+          type: 'EXECUTIVE_LEAD',
+          timestamp: new Date().toISOString(),
+          lead: {
+            name: currentLead.name || 'Anonymous',
+            email: currentLead.email || 'N/A',
+            phone: currentLead.phone || 'N/A',
+            service: currentLead.service || 'General Inquiry',
+          },
+          transcript,
         }),
       })
-
-      if (!res.ok || !res.body) throw new Error('Stream failed')
-
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder()
-      let assistantText = ''
-
-      setMessages((prev) => [...prev, { role: 'assistant', content: '' }])
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        const chunk = decoder.decode(value)
-        const lines = chunk.split('\n')
-        for (const line of lines) {
-          if (!line.startsWith('data: ')) continue
-          const data = line.slice(6).trim()
-          if (data === '[DONE]') break
-          try {
-            const parsed = JSON.parse(data)
-            if (parsed.text) {
-              assistantText += parsed.text
-              setMessages((prev) => {
-                const updated = [...prev]
-                updated[updated.length - 1] = { role: 'assistant', content: assistantText }
-                return updated
-              })
-            }
-          } catch {
-            // Skip malformed chunks
-          }
-        }
-      }
     } catch {
-      addMessage('assistant', 'Sorry, I ran into an issue. Please try again or reach us on WhatsApp: +1 424 546 0129')
+      // Non-blocking
+    }
+  }, [])
+
+  const scheduleWhatsAppReport = useCallback(
+    (currentLead: Lead) => {
+      if (whatsappTimerRef.current) clearTimeout(whatsappTimerRef.current)
+      whatsappTimerRef.current = setTimeout(() => {
+        sendWebhookReport(currentLead, messagesRef.current)
+      }, WHATSAPP_DELAY_MS)
+    },
+    [sendWebhookReport]
+  )
+
+  const handleLeadCollection = (userText: string) => {
+    const text = userText.trim()
+
+    if (leadStep === 'name') {
+      const updatedLead = { ...lead, name: text }
+      setLead(updatedLead)
+      setLeadStep('email')
+      addMessage('user', text)
+      setTimeout(() => {
+        addMessage(
+          'assistant',
+          `Pleasure to connect, **${text}**. What is the best **business email address** to reach you at?`
+        )
+      }, 400)
+      return
+    }
+
+    if (leadStep === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(text)) {
+        addMessage('user', text)
+        setTimeout(() => {
+          addMessage(
+            'assistant',
+            'Please provide a valid email address so Israel\'s office can send documentation.'
+          )
+        }, 300)
+        return
+      }
+      const updatedLead = { ...lead, email: text }
+      setLead(updatedLead)
+      setLeadStep('phone')
+      addMessage('user', text)
+      setTimeout(() => {
+        addMessage(
+          'assistant',
+          'Thank you. If you would like priority SMS or WhatsApp confirmation, please share your **direct phone / WhatsApp number** (or type "skip").'
+        )
+      }, 400)
+      return
+    }
+
+    if (leadStep === 'phone') {
+      const isSkip = text.toLowerCase() === 'skip'
+      const updatedLead = { ...lead, phone: isSkip ? 'N/A' : text }
+      setLead(updatedLead)
+      setLeadStep('service')
+      addMessage('user', text)
+      setTimeout(() => {
+        addMessage(
+          'assistant',
+          `Understood. Which domain of Israel Dare's work corresponds to your inquiry? Select below or describe your requirement:`
+        )
+        setShowServicePicker(true)
+      }, 400)
+      return
+    }
+  }
+
+  const handleServiceSelect = (selectedService: string) => {
+    const updatedLead = { ...lead, service: selectedService }
+    setLead(updatedLead)
+    setLeadStep('done')
+    setShowServicePicker(false)
+    addMessage('user', `Focus Area: ${selectedService}`)
+
+    sendWebhookReport(updatedLead, [
+      ...messagesRef.current,
+      { role: 'user', content: `Selected: ${selectedService}` },
+    ])
+    scheduleWhatsAppReport(updatedLead)
+
+    setTimeout(() => {
+      addMessage(
+        'assistant',
+        `Excellent. Your brief for **${selectedService}** has been registered.
+
+How can I assist you further right now? You can ask about Israel's engineering stack, research papers on Gaussian Process Regression & drone photogrammetry, or schedule a strategy call directly.`
+      )
+    }, 500)
+  }
+
+  const handleSend = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!input.trim() || loading) return
+
+    const userText = input.trim()
+    setInput('')
+
+    if (leadStep !== 'done') {
+      handleLeadCollection(userText)
+      return
+    }
+
+    addMessage('user', userText)
+    setLoading(true)
+
+    try {
+      const allMessages = [...messagesRef.current, { role: 'user' as const, content: userText }]
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: allMessages, lead }),
+      })
+
+      if (!res.ok) throw new Error('Failed to fetch response')
+      const data = await res.json()
+      addMessage('assistant', data.reply || "Israel's schedule is currently open for strategic contracts. Please book via Calendly or email izzy.marketing.hub@gmail.com.")
+    } catch {
+      addMessage(
+        'assistant',
+        "Thank you for your message. Israel's direct office has received your note. You may also reach out via WhatsApp at +1 424 546 0129."
+      )
     } finally {
       setLoading(false)
     }
   }
 
-  async function handleLeadStep(value: string) {
-    addMessage('user', value)
-
-    if (leadStep === 'name') {
-      const updated = { ...lead, name: value.trim() }
-      setLead(updated)
-      setLeadStep('email')
-      setTimeout(() => addMessage('assistant', `Nice to meet you, **${updated.name}**! 😊\n\nWhat's your **email address**? (So we can follow up with you)`), 300)
-    } else if (leadStep === 'email') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!emailRegex.test(value.trim())) {
-        setTimeout(() => addMessage('assistant', "Hmm, that doesn't look like a valid email. Could you double-check it?"), 300)
-        return
-      }
-      const updated = { ...lead, email: value.trim() }
-      setLead(updated)
-      setLeadStep('phone')
-      setTimeout(() => addMessage('assistant', `Got it! 📧\n\nWhat's the best **phone number** to reach you? (You can type "skip" to skip this)`), 300)
-    } else if (leadStep === 'phone') {
-      const phone = value.toLowerCase() === 'skip' ? '' : value.trim()
-      const updated = { ...lead, phone }
-      setLead(updated)
-      setLeadStep('service')
-      setTimeout(() => {
-        addMessage('assistant', 'Almost there! 🎯\n\nWhich service are you most interested in?')
-        setShowServicePicker(true)
-      }, 300)
-    }
-  }
-
-  async function handleServiceSelect(service: string) {
-    const completedLead = { ...lead, service }
-    setLead(completedLead)
-    setLeadStep('done')
-    setShowServicePicker(false)
-
-    addMessage('user', service)
-
-    // Send confirmation + owner notification emails immediately
-    sendLeadEmails(completedLead)
-
-    // Schedule WhatsApp report after 5 minutes with full transcript
-    scheduleWhatsAppReport(completedLead)
-
-    setTimeout(() => {
-      addMessage(
-        'assistant',
-        `Perfect! I've noted your interest in **${service}**. 🚀\n\nYou're all set — ask me anything about Israel's engineering work, research, or projects. I'm here to help!`
-      )
-    }, 300)
-  }
-
-  async function handleSend() {
-    const value = input.trim()
-    if (!value || loading) return
-    setInput('')
-
-    if (leadStep !== 'done') {
-      await handleLeadStep(value)
-      return
-    }
-
-    addMessage('user', value)
-    const updatedMessages: Message[] = [...messages, { role: 'user', content: value }]
-    await streamResponse(updatedMessages, lead)
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSend()
-    }
-  }
-
-  function renderMessage(msg: Message, idx: number) {
-    const isBot = msg.role === 'assistant'
-    return (
-      <div key={idx} className={`flex gap-2.5 ${isBot ? '' : 'flex-row-reverse'} animate-slide-up`}>
-        <div
-          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-md ${
-            isBot ? 'bg-gradient-to-br from-red-600 to-red-500 shadow-red-900/20' : 'bg-neutral-800 border border-neutral-700'
-          }`}
-        >
-          {isBot ? <Bot className="w-4.5 h-4.5 text-white" /> : <User className="w-4.5 h-4.5 text-white" />}
-        </div>
-        <div
-          className={`max-w-[80%] px-4 py-3 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-sm ${
-            isBot
-              ? 'bg-neutral-900/90 text-neutral-100 border border-neutral-800/80 rounded-tl-sm'
-              : 'bg-gradient-to-r from-red-600 to-red-500 text-white rounded-tr-sm shadow-red-900/10'
-          }`}
-          dangerouslySetInnerHTML={{
-            __html: msg.content
-              .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-              .replace(/\n/g, '<br>'),
-          }}
-        />
-      </div>
-    )
-  }
-
   return (
     <>
-      {/* Floating button */}
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 rounded-full shadow-[0_4px_25px_rgba(239,68,68,0.35)] hover:shadow-[0_4px_35px_rgba(239,68,68,0.55)] flex items-center justify-center transition-all duration-300 hover:scale-105"
-        aria-label="Open chat"
-      >
-        {open ? (
-          <X className="w-6 h-6 text-white" />
-        ) : (
-          <MessageCircle className="w-6 h-6 text-white" />
-        )}
+      {/* Floating Concierge Trigger */}
+      <div className="fixed bottom-6 right-6 z-40">
         {!open && (
-          <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-green-500 rounded-full border-4 border-neutral-950 animate-pulse" />
-        )}
-      </button>
-
-      {/* Chat panel */}
-      {open && (
-        <div
-          className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)] bg-neutral-950/85 backdrop-blur-xl border border-neutral-800/80 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] shadow-red-950/10 flex flex-col overflow-hidden animate-slide-up"
-          style={{ height: '520px' }}
-        >
-          {/* Header */}
-          <div className="bg-gradient-to-r from-red-600 to-red-500 px-5 py-4 flex items-center gap-3">
-            <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
-              <Bot className="w-5 h-5 text-white" />
+          <button
+            onClick={() => setOpen(true)}
+            className="flex items-center gap-3 px-5 py-3.5 bg-black border border-white/20 text-white hover:border-white shadow-2xl hover:bg-noir-900 transition-all duration-300 group"
+            aria-label="Open Israel Dare Executive Concierge"
+          >
+            <div className="relative">
+              <Logo variant="monogram" size="sm" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-600 animate-pulse-subtle" />
             </div>
-            <div>
-              <p className="text-white font-extrabold text-sm tracking-wide">Israel's AI Assistant</p>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-red-100 text-xs font-semibold uppercase tracking-wider">Online</span>
+            <div className="text-left hidden sm:block">
+              <p className="font-sans font-bold text-[11px] uppercase tracking-[0.16em] text-white">
+                Executive Concierge
+              </p>
+              <p className="font-mono text-[9px] text-zinc-400">Direct Office Access</p>
+            </div>
+          </button>
+        )}
+      </div>
+
+      {/* Luxury Concierge Modal */}
+      {open && (
+        <div className="fixed bottom-6 right-6 z-50 w-[92vw] sm:w-[420px] h-[580px] max-h-[85vh] bg-noir-950 border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden animate-slide-up">
+          {/* Header */}
+          <div className="p-4 sm:p-5 bg-black border-b border-white/[0.08] flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Logo variant="monogram" size="sm" />
+              <div>
+                <p className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-white">
+                  Israel Dare
+                </p>
+                <p className="font-mono text-[9px] text-zinc-400">
+                  Concierge · Verified Assistant
+                </p>
               </div>
             </div>
-            <button className="ml-auto w-7 h-7 bg-black/10 hover:bg-black/20 rounded-lg flex items-center justify-center text-white/80 hover:text-white transition-colors" onClick={() => setOpen(false)}>
+            <button
+              onClick={() => setOpen(false)}
+              className="p-1.5 text-zinc-400 hover:text-white border border-transparent hover:border-white/20 transition-all"
+              aria-label="Close Concierge"
+            >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-800/80">
-            {messages.map((msg, idx) => renderMessage(msg, idx))}
+          {/* Messages Feed */}
+          <div className="flex-1 overflow-y-auto p-5 space-y-4 font-sans text-xs">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[85%] p-3.5 ${
+                    msg.role === 'user'
+                      ? 'bg-white text-black font-medium'
+                      : 'bg-noir-900 border border-white/[0.08] text-zinc-300 leading-relaxed font-light'
+                  }`}
+                >
+                  <p className="whitespace-pre-line">{msg.content}</p>
+                </div>
+              </div>
+            ))}
 
-            {/* Service picker */}
+            {/* Service Picker */}
             {showServicePicker && (
-              <div className="flex flex-col gap-2 pl-10 pr-2 animate-slide-up">
+              <div className="space-y-2 pt-2 animate-fade-in">
+                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-400">
+                  Select Focus Area:
+                </p>
                 {SERVICES.map((s) => (
                   <button
                     key={s}
                     onClick={() => handleServiceSelect(s)}
-                    className="flex items-center justify-between px-4 py-2.5 bg-neutral-900/80 hover:bg-red-950/20 border border-neutral-800/60 hover:border-red-500/30 rounded-xl text-xs sm:text-sm text-neutral-300 hover:text-white transition-all duration-200 text-left"
+                    className="w-full text-left p-2.5 bg-black hover:bg-zinc-900 border border-white/10 hover:border-white/40 text-zinc-300 hover:text-white font-mono text-[11px] transition-all flex items-center justify-between"
                   >
                     <span>{s}</span>
-                    <ChevronRight className="w-4 h-4 text-red-500 flex-shrink-0" />
+                    <ArrowRight className="w-3 h-3 text-red-500" />
                   </button>
                 ))}
               </div>
             )}
 
             {loading && (
-              <div className="flex gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center flex-shrink-0">
-                  <Bot className="w-4.5 h-4.5 text-white" />
-                </div>
-                <div className="bg-neutral-900/90 border border-neutral-800/60 px-4 py-2.5 rounded-2xl rounded-tl-sm flex items-center">
-                  <Loader2 className="w-4 h-4 text-red-500 animate-spin" />
-                </div>
+              <div className="flex items-center gap-2 text-zinc-500 font-mono text-[10px]">
+                <Loader2 className="w-3 h-3 animate-spin text-red-500" />
+                <span>Formulating response...</span>
               </div>
             )}
             <div ref={bottomRef} />
           </div>
 
-          {/* Input */}
-          <div className="border-t border-neutral-900 bg-neutral-950 p-4 flex gap-2">
+          {/* Input Box */}
+          <form onSubmit={handleSend} className="p-3.5 bg-black border-t border-white/[0.08] flex gap-2">
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              disabled={loading || showServicePicker}
               placeholder={
                 leadStep === 'name'
-                  ? 'Your first name…'
+                  ? 'Your full name...'
                   : leadStep === 'email'
-                  ? 'your@email.com'
+                  ? 'Your business email...'
                   : leadStep === 'phone'
-                  ? 'Phone or type "skip"'
-                  : 'Ask me anything…'
+                  ? 'Your phone or WhatsApp (or "skip")...'
+                  : 'Inquire or ask a question...'
               }
-              className="flex-1 bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-2 text-xs sm:text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-red-500/50 disabled:opacity-50 transition-colors duration-200"
+              className="flex-1 bg-noir-900 border border-white/10 px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white transition-colors"
             />
             <button
-              onClick={handleSend}
-              disabled={!input.trim() || loading || showServicePicker}
-              className="w-10 h-10 bg-red-600 hover:bg-red-500 disabled:opacity-40 disabled:bg-neutral-800 disabled:cursor-not-allowed rounded-xl flex items-center justify-center shadow-md hover:shadow-red-900/20 transition-all duration-200"
+              type="submit"
+              disabled={loading || !input.trim()}
+              className="px-4 py-2.5 bg-white text-black hover:bg-zinc-200 disabled:opacity-30 text-xs font-bold transition-all"
+              aria-label="Send message"
             >
-              <Send className="w-4 h-4 text-white" />
+              <Send className="w-3.5 h-3.5" />
             </button>
-          </div>
+          </form>
         </div>
       )}
     </>

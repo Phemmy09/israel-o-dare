@@ -1,257 +1,228 @@
 import type { Metadata } from 'next'
 import {
-  BookOpen,
   GraduationCap,
-  Award,
-  ArrowUpRight,
-  Database,
+  BookOpen,
+  Plane,
+  Layers,
   Cpu,
-  ShieldAlert,
-  Flame,
   Globe,
-  Settings
+  Settings,
+  Database,
+  ArrowUpRight,
+  ShieldCheck,
+  Award,
 } from 'lucide-react'
+import Logo from '@/components/Logo'
 
 export const metadata: Metadata = {
-  title: 'Academic & Systems Research | Israel O. Dare',
-  description: 'Academic research papers, proposals, and engineering whitepapers by Israel O. Dare. Covers Gaussian Process Regression agricultural modeling, precision farming, and AI governance.',
+  title: 'Academic & Systems Research | ISRAEL DARE',
+  description:
+    'Academic research publications, thesis, proposals, and software engineering whitepapers by Israel Dare. Specializing in autonomous aerial photogrammetry, Gaussian Process Regression, bio-thermodynamics, and sovereign environmental systems.',
 }
 
-const academicWorks = [
+const eliteNiches = [
   {
-    title: 'Control of Yam Atmospheric Conditions: Effects of Size and Temperature on Yam Storage Using Gaussian Regression Model',
-    type: 'Final Year B.Eng. Thesis',
-    institution: 'Federal University of Technology, Akure (FUTA)',
-    date: 'August 2023',
-    icon: GraduationCap,
-    abstract: 'Root tubers continue to respire and generate heat after harvest, leading to high spoilage rates under passive storage. This research developed a thermodynamic atmospheric modeling system applying Gaussian Process Regression (GPR) to map non-linear interactions of crop size, ambient temperature, and humidity, optimizing parameters to extend yam shelf-life.',
-    methodology: 'Bayesian non-parametric GPR modeling, sensory metrics analysis, and thermodynamic decay rate profiling in simulated storage chambers.',
-    results: 'Created mathematically rigorous confidence bounds for spoilage risk indices, proving that dynamic ventilation offsets post-harvest crop rot by up to 35%.'
+    number: '01',
+    title: 'Autonomous Aerial Photogrammetry & Spatial Digital Twins',
+    category: 'Robotics · Computer Vision · NeRFs',
+    abstract:
+      'Developing autonomous multi-rotor UAV flight algorithms equipped with dual-band RTK-GPS and multispectral LiDAR payloads. Ingests dense point clouds through Structure-from-Motion (SfM) and 3D Gaussian Splatting to construct centimeter-accurate volumetric digital twins of complex agro-ecological topography.',
+    nexus: 'Autonomous Aerospace Robotics, Dense Point Clouds, 3D Gaussian Splatting, Spatial Autocorrelation.',
   },
   {
-    title: 'Advances in Storage System for Yam Tubers',
-    type: 'Academic Seminar Report',
-    institution: 'Federal University of Technology, Akure (FUTA)',
-    date: 'November 2023',
-    icon: BookOpen,
-    abstract: 'An analytical review of global post-harvest preservation systems for tropical tubers. Investigates structural design parameters of modern storage facilities, environmental constraints, biochemical sprout inhibitors, and organic pest control methodologies.',
-    methodology: 'Literature synthesis of 45+ post-harvest studies, comparative efficiency tracking of ventilated pit vs refrigeration systems.',
-    results: 'Proposed a combined structural audit index relating storage design variables to pest prevention rates, advising local smallholders on optimal configurations.'
-  }
-]
-
-const researchProposals = [
-  {
-    title: 'Precision Agri-Engineering & Multi-Agent AI (UTFPR Proposal)',
-    focus: 'Precision AI, Internet of Things, Parametric Insurance',
-    abstract: 'Investigates how decentralized multi-agent AI networks can automate critical operations within smallholder agribusiness value chains. Proposes integrating low-cost IoT soil/crop sensors and satellite telemetry to dynamically predict post-harvest crop spoilage, automate parametric micro-insurance payouts, and coordinate crop shipping coordinates.',
-    nexus: 'Precision Agri-Engineering, Cloud-Native Workflows, Blockchain Micro-Insurance.'
+    number: '02',
+    title: 'Gaussian Process Regression for Crop Thermodynamics (Thesis)',
+    category: 'FUTA B.Eng. Thesis · First Class Honours (2023)',
+    abstract:
+      'Modeled the non-linear thermodynamic respiration and heat-dissipation dynamics of white yams (Dioscorea rotundata) as a function of tuber size, ambient humidity, and temperature. Implemented non-parametric Bayesian Gaussian Process Regression (GPR) to establish explicit confidence intervals, proving dynamic atmospheric airflow offsets crop decay by up to 35%.',
+    nexus: 'Non-Parametric Bayesian Modeling, Post-Harvest Physics, Thermodynamic Decay, Confidence Bounds.',
   },
   {
+    number: '03',
+    title: 'Decentralized Multi-Agent AI & Parametric Telemetry (UTFPR Proposal)',
+    category: 'Precision Engineering · Smart Contracts · IoT',
+    abstract:
+      'Investigates how decentralized multi-agent autonomous software networks can automate critical infrastructure within agricultural value chains. Proposes coupling edge IoT micro-climate telemetry and UAV remote sensing to predict spoilage indices and trigger automated parametric micro-insurance payouts.',
+    nexus: 'Cyber-Physical Edge Systems, Multi-Agent Swarms, Parametric Insurance Smart Contracts.',
+  },
+  {
+    number: '04',
     title: 'Bio-Digital Supply Chain & Agribusiness Administration (UFRPE Proposal)',
-    focus: 'Agribusiness Logistics, Developmental Economics',
-    abstract: 'Explores sustainable agronomic risk coordination. Proposes a bio-digital framework that manages transaction costs, models weather volatility, and secures market pricing for smallholder cooperatives in emerging markets, comparing logistical structures between Brazil and Nigeria.',
-    nexus: 'Supply Chain Optimization, Economic Risk Sharing, Cooperative Governance.'
+    category: 'Developmental Economics · Agronomics · Risk Arbitrage',
+    abstract:
+      'Explores algorithmic risk coordination and transaction cost minimization in tropical agrarian markets. Proposes a bio-digital framework comparing supply chain logistics between Brazil and West Africa to mitigate climate volatility and secure cooperative pricing.',
+    nexus: 'Transaction Cost Economics, Supply Chain Telemetry, Cooperative Governance.',
   },
   {
-    title: 'Yam Post-Harvest Biochemistry & Machine Learning (UFG Proposal)',
-    focus: 'Plant Pathology, Biosensors, Predictive Regression',
-    abstract: 'Studies the biochemical pathways governing microbial decay in white yams (Dioscorea rotundata) under storage. Proposes a "Bio-Digital Preservation System" combining organic phytochemical bio-preservatives with electrochemical early-detection biosensors and machine learning regression algorithms to intercept rot before visual signs occur.',
-    nexus: 'Food Biochemistry, Organic Plant Preservatives, Early-Detection Biosensors.'
+    number: '05',
+    title: 'Phytochemical Biosensors & ML Pathology Interception (UFG Proposal)',
+    category: 'Plant Biochemistry · Biosensors · Machine Learning',
+    abstract:
+      'Studies biochemical pathways governing microbial pathogen proliferation in tropical root crops. Proposes a "Bio-Digital Preservation Protocol" combining organic phytochemical bio-preservatives with electrochemical early-detection biosensors and machine learning regression algorithms to intercept rot before visual signs manifest.',
+    nexus: 'Electrochemical Biosensors, Phytochemical Preservation, Predictive Machine Learning.',
   },
   {
+    number: '06',
     title: 'Solar Absorption Eco-Efficient Storage Systems (UFCG Proposal)',
-    focus: 'Thermodynamics, Sustainable Engineering, Optimization',
-    abstract: 'Designs low-carbon storage infrastructures for semi-arid zones. Proposes a multi-variable engineering framework integrating solar-powered absorption cooling cycles, rainwater collection systems, and local biomass waste utilization to stabilize tuber storage environments.',
-    nexus: 'Water-Energy-Food Nexus, Solar Absorption Refrigeration, Thermodynamic Balance.'
-  }
+    category: 'Thermodynamics · Sustainable Engineering · Zero-Carbon',
+    abstract:
+      'Designs low-carbon storage infrastructures for semi-arid zones. Proposes a multi-variable engineering framework integrating solar-powered absorption cooling cycles, rainwater collection systems, and local biomass waste utilization to stabilize tuber storage environments.',
+    nexus: 'Water-Energy-Food Nexus, Solar Absorption Refrigeration, Thermodynamic Balance.',
+  },
 ]
 
 const whitepapers = [
   {
     title: 'MamaGuard AI: Scalable Full-Stack Architectures for Asynchronous Maternity Health Monitoring',
-    type: 'Technical Case Study (2025)',
-    icon: Settings,
-    summary: 'Documented the technical architecture of a concurrent voice and text prenatal diagnostic advisor built on a lightweight Python FastAPI backend, utilizing aiosqlite for non-blocking database transactions and Claude for diagnostic scanning.',
-    link: 'https://gods-covenant-hospital.vercel.app/'
+    type: 'Technical Systems Whitepaper (2025)',
+    summary:
+      'Documented the engineering architecture of a concurrent voice and text prenatal diagnostic advisor built on a lightweight Python FastAPI backend, utilizing aiosqlite for non-blocking database transactions and Claude for diagnostic scanning.',
+    link: 'https://gods-covenant-hospital.vercel.app/',
   },
   {
     title: 'Oracle: Custom Scrapy Architectures and Zero-Loss Data Management',
-    type: 'Technical Whitepaper (2026)',
-    icon: Database,
-    summary: 'Analyzed database race conditions and Row Level Security (RLS) constraints in Next.js Server Components. Detailed custom scraping models that capture jobs and scholarships while bypassing heavy client-side scripts.',
-    link: 'https://oracle-black-six.vercel.app/'
+    type: 'Software Engineering Whitepaper (2026)',
+    summary:
+      'Analyzed database race conditions and Row Level Security (RLS) constraints in Next.js Server Components. Detailed custom scraping models that capture jobs and scholarships while bypassing heavy client-side scripts.',
+    link: 'https://oracle-black-six.vercel.app/',
   },
   {
     title: 'Adapting Global AI Governance Frameworks for the Global South',
-    type: 'Policy Essay / EOI (2026)',
-    icon: Globe,
-    summary: 'Assessed global AI safety standards, compute tracking methodologies, and the unique risk profiles of low-code agentic workflows and local automations in developing economies.'
-  }
+    type: 'Policy Essay & Strategic Brief (2026)',
+    summary:
+      'Assessed international AI safety benchmarks, compute tracking methodologies, and the unique risk profiles of low-code agentic workflows and sovereign environmental automation in emerging economies.',
+  },
 ]
 
 export default function ResearchPage() {
   return (
-    <div className="relative min-h-screen grid-bg overflow-hidden pt-20">
-      {/* Background blobs */}
-      <div className="glow-blob top-[10%] left-[15%] bg-red-600/10" />
-      <div className="glow-blob top-[60%] right-[10%] bg-red-500/15" />
-
+    <div className="bg-noir-950 text-zinc-100 min-h-screen pt-28 sm:pt-36 pb-24 font-sans">
       {/* Hero */}
-      <section className="bg-black/40 pt-20 pb-16 px-4 border-b border-neutral-900 relative z-10 text-center">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">Academic Foundation</p>
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6">
-            Research &amp; <span className="text-red-500 text-glow">Whitepapers</span>
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 pb-16 border-b border-white/[0.08]">
+        <div className="max-w-4xl space-y-6">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-red-500 font-semibold">
+            ACADEMIC FOUNDATION &amp; SYSTEMS RESEARCH
+          </p>
+          <h1 className="font-serif text-5xl sm:text-7xl text-white tracking-tight leading-[0.95] font-normal">
+            Autonomous Systems, <span className="italic font-light">Bio-Thermodynamics</span> &amp; Spatial Intelligence
           </h1>
-          <p className="text-base md:text-xl text-neutral-400 max-w-2xl mx-auto font-light">
-            Academic thesis, seminar reports, sustainable agri-engineering proposals, and technical software whitepapers.
+          <p className="font-sans text-base sm:text-xl text-zinc-300 font-light leading-relaxed max-w-2xl">
+            Where mathematical rigor meets physical engineering: undergraduate engineering thesis, international doctoral research proposals, and software architecture whitepapers.
           </p>
         </div>
       </section>
 
-      {/* Thesis & Seminar */}
-      <section className="py-20 px-4 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-12 border-b border-neutral-900 pb-4">
-            <GraduationCap className="w-8 h-8 text-red-500" />
-            <h2 className="text-2xl font-black text-white">University Publications</h2>
+      {/* 1. ELITE RESEARCH INITIATIVES & PROPOSALS */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-24 sm:py-32 border-b border-white/[0.08]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-white/[0.08]">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-red-500 font-semibold mb-2">
+              DISCIPLINES
+            </p>
+            <h2 className="font-serif text-4xl sm:text-5xl text-white">
+              Primary Research Initiatives
+            </h2>
           </div>
+          <p className="font-sans text-xs sm:text-sm text-zinc-400 max-w-sm font-light">
+            Focusing on generational, futuristic niches at the intersection of AI, autonomous drones, spatial modeling, and environmental physics.
+          </p>
+        </div>
 
-          <div className="space-y-8">
-            {academicWorks.map((work) => {
-              const WorkIcon = work.icon
-              return (
-                <div
-                  key={work.title}
-                  className="bg-neutral-950/60 border border-neutral-800/80 p-8 rounded-3xl relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 px-4 py-1.5 bg-red-950/20 border-b border-l border-red-500/20 text-[10px] text-red-400 font-bold uppercase tracking-wider">
-                    {work.type}
-                  </div>
-
-                  <div className="flex gap-4 items-start mb-6">
-                    <div className="w-10 h-10 bg-red-950/30 border border-red-500/20 rounded-xl flex items-center justify-center shrink-0">
-                      <WorkIcon className="w-5 h-5 text-red-500" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white tracking-wide">{work.title}</h3>
-                      <p className="text-neutral-500 text-xs mt-1 font-semibold uppercase tracking-wider">
-                        {work.institution} · {work.date}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 text-sm font-light">
-                    <div className="p-4 bg-neutral-900/40 border border-neutral-900 rounded-2xl">
-                      <strong className="text-neutral-300 font-semibold block mb-1 uppercase text-xs tracking-wider">Abstract</strong>
-                      <p className="text-neutral-400 leading-relaxed">{work.abstract}</p>
-                    </div>
-                    <div className="p-4 bg-neutral-900/40 border border-neutral-900 rounded-2xl">
-                      <strong className="text-neutral-300 font-semibold block mb-1 uppercase text-xs tracking-wider">Methodology &amp; Computational Setup</strong>
-                      <p className="text-neutral-400 leading-relaxed">{work.methodology}</p>
-                    </div>
-                    <div className="p-4 bg-red-950/5 border border-red-500/10 rounded-2xl">
-                      <strong className="text-red-400 font-bold block mb-1 uppercase text-xs tracking-wider">Research Results</strong>
-                      <p className="text-neutral-300 leading-relaxed font-normal">{work.results}</p>
-                    </div>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12">
+          {eliteNiches.map((item) => (
+            <div
+              key={item.number}
+              className="bg-noir-900 border border-white/[0.08] p-8 sm:p-10 space-y-6 flex flex-col justify-between hover:border-white/30 transition-all duration-300 group"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between pb-4 border-b border-white/[0.06]">
+                  <span className="font-mono text-2xl text-zinc-600 group-hover:text-red-500 transition-colors">
+                    {item.number}
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 bg-black border border-white/10 text-red-400">
+                    {item.category}
+                  </span>
                 </div>
-              )
-            })}
-          </div>
+
+                <h3 className="font-serif text-2xl sm:text-3xl text-white group-hover:text-zinc-100 leading-snug">
+                  {item.title}
+                </h3>
+
+                <p className="font-sans text-xs sm:text-sm text-zinc-300 font-light leading-relaxed">
+                  {item.abstract}
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-white/[0.06] font-mono text-[10px] text-zinc-500">
+                <span className="text-zinc-400 font-semibold uppercase">Interdisciplinary Nexus:</span> {item.nexus}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Research Proposals */}
-      <section className="py-20 px-4 border-t border-neutral-900/80 bg-neutral-950/20 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-12 border-b border-neutral-900 pb-4">
-            <Cpu className="w-8 h-8 text-red-500" />
-            <h2 className="text-2xl font-black text-white">Active Research Proposals</h2>
+      {/* 2. TECHNICAL WHITEPAPERS & CASE STUDIES */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-24 sm:py-32 border-b border-white/[0.08]">
+        <div className="space-y-12 max-w-5xl mx-auto">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-red-500 font-semibold">
+              ENGINEERING WHITEPAPERS
+            </p>
+            <h2 className="font-serif text-4xl sm:text-5xl text-white">
+              Technical Architecture Whitepapers
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {researchProposals.map((prop) => (
+          <div className="space-y-6">
+            {whitepapers.map((wp) => (
               <div
-                key={prop.title}
-                className="bg-neutral-950/50 border border-neutral-900/80 hover:border-red-500/20 p-6 rounded-3xl transition-all duration-300 flex flex-col justify-between card-hover"
+                key={wp.title}
+                className="bg-noir-900 border border-white/[0.08] p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:border-white/30 transition-all duration-300"
               >
-                <div>
-                  <span className="text-[10px] text-red-400 font-bold uppercase tracking-wider font-mono">
-                    Focus: {prop.focus}
+                <div className="space-y-2 max-w-2xl">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-red-400 font-bold">
+                    {wp.type}
                   </span>
-                  <h3 className="text-lg font-bold text-white mt-2 mb-4 tracking-wide leading-snug">{prop.title}</h3>
-                  <p className="text-neutral-400 text-xs sm:text-sm font-light leading-relaxed mb-6">{prop.abstract}</p>
+                  <h3 className="font-serif text-2xl text-white">{wp.title}</h3>
+                  <p className="font-sans text-xs sm:text-sm text-zinc-400 font-light leading-relaxed">
+                    {wp.summary}
+                  </p>
                 </div>
-                <div className="pt-4 border-t border-neutral-900/60 text-xs text-neutral-500 font-light">
-                  <span className="font-semibold text-neutral-400">Interdisciplinary Nexus:</span> {prop.nexus}
-                </div>
+
+                {wp.link && (
+                  <a
+                    href={wp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-luxury text-[10px] py-2.5 px-4 inline-flex items-center gap-1.5 shrink-0"
+                  >
+                    Inspect Build <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Technical Essays & Whitepapers */}
-      <section className="py-20 px-4 border-t border-neutral-900/80 relative z-10 bg-black">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-12 border-b border-neutral-900 pb-4">
-            <Globe className="w-8 h-8 text-red-500" />
-            <h2 className="text-2xl font-black text-white">Technical Essays &amp; Whitepapers</h2>
-          </div>
-
-          <div className="space-y-6">
-            {whitepapers.map((wp) => {
-              const WpIcon = wp.icon
-              return (
-                <div
-                  key={wp.title}
-                  className="p-6 bg-neutral-950/60 border border-neutral-900/80 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 hover:border-red-500/25 transition-all duration-300"
-                >
-                  <div className="flex gap-4 items-start">
-                    <div className="w-10 h-10 bg-red-950/30 border border-red-500/20 rounded-xl flex items-center justify-center shrink-0">
-                      <WpIcon className="w-5 h-5 text-red-500" />
-                    </div>
-                    <div>
-                      <span className="text-[9px] text-red-400 font-mono font-bold uppercase tracking-wider">
-                        {wp.type}
-                      </span>
-                      <h3 className="text-base font-bold text-white tracking-wide mt-1 leading-snug">{wp.title}</h3>
-                      <p className="text-neutral-400 text-xs sm:text-sm font-light leading-relaxed mt-1 max-w-2xl">{wp.summary}</p>
-                    </div>
-                  </div>
-
-                  {wp.link && (
-                    <a
-                      href={wp.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shrink-0 hover:bg-neutral-850 hover:border-red-500/30 transition-all"
-                    >
-                      View Live <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Downloader and contact */}
-      <section className="py-20 px-4 border-t border-neutral-900 bg-neutral-950/40 text-center relative z-10">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-white mb-4">Request Academic CV &amp; Transcripts</h2>
-          <p className="text-neutral-400 text-sm max-w-lg mx-auto mb-8 font-light">
-            I am open to discussions regarding PhD positions, agricultural research collaborations, and fellowships.
+      {/* 3. ACADEMIC DOSSIER & CV INQUIRY */}
+      <section className="py-24 px-5 sm:px-8 bg-black text-center">
+        <div className="max-w-3xl mx-auto space-y-6">
+          <Logo variant="monogram" size="lg" className="mx-auto" />
+          <h2 className="font-serif text-4xl sm:text-5xl text-white">
+            Academic Collaboration &amp; Fellowships
+          </h2>
+          <p className="font-sans text-sm text-zinc-400 font-light max-w-xl mx-auto leading-relaxed">
+            Israel Dare welcomes academic discourse regarding doctoral research fellowships, autonomous drone photogrammetry trials, and precision bio-thermodynamic collaborations.
           </p>
-          <a
-            href="mailto:phemmy09israel@gmail.com?subject=Academic%20Inquiry%20-%20Israel%20O.%20Dare"
-            className="btn-primary inline-flex items-center gap-2 text-xs uppercase tracking-wider font-bold"
-          >
-            Email Academic Request
-          </a>
+          <div className="pt-2">
+            <a
+              href="mailto:phemmy09israel@gmail.com?subject=Academic%20Research%20Inquiry%20-%20Israel%20Dare"
+              className="btn-luxury"
+            >
+              Request Full Academic Dossier &amp; Transcripts ↗
+            </a>
+          </div>
         </div>
       </section>
     </div>

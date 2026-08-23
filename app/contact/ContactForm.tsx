@@ -1,17 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { Send, Loader2, CheckCircle } from 'lucide-react'
+import { Send, Loader2, CheckCircle2 } from 'lucide-react'
 
 const SERVICES = [
-  'AI Automation',
-  'AI App Development',
-  'AI Lead Generation',
-  'AI Consulting & Audit',
-  'Intelligent Voice Agents',
-  'Smart Chatbots',
-  'Digital Resources',
-  'Other',
+  'Autonomous Systems & Engineering',
+  'Drone Photogrammetry & Bio-Spatial Digital Twins',
+  'High-Concurrency Full-Stack SaaS Development',
+  'Academic Research & Fellowship Collaboration',
+  'Voice Receptionists & Vector RAG Portals',
+  'Strategic AI Audits & Advisory',
+  'Other / Confidential Inquiry',
 ]
 
 export default function ContactForm() {
@@ -53,98 +52,98 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center">
-        <div className="w-16 h-16 bg-green-900/40 rounded-full flex items-center justify-center mb-4">
-          <CheckCircle className="w-8 h-8 text-green-400" />
+      <div className="flex flex-col items-center justify-center py-16 text-center space-y-4 font-sans">
+        <div className="w-12 h-12 bg-black border border-white/20 flex items-center justify-center">
+          <CheckCircle2 className="w-6 h-6 text-red-500" />
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-        <p className="text-neutral-400 mb-2 max-w-sm">
-          Thanks for reaching out. A confirmation email is on its way to you.
-        </p>
-        <p className="text-neutral-500 text-sm mb-6 max-w-sm">
-          Israel or a team member will get back to you within 24 hours.
+        <h3 className="font-serif text-2xl text-white">Inquiry Registered</h3>
+        <p className="font-sans text-xs text-zinc-400 max-w-sm font-light">
+          Thank you. Your dossier has been delivered directly to Israel Dare's executive inbox.
         </p>
         <button
           onClick={() => setStatus('idle')}
-          className="text-brand-400 hover:text-brand-300 text-sm underline"
+          className="font-mono text-xs text-red-400 hover:text-white uppercase tracking-wider underline pt-2"
         >
-          Send another message
+          Submit Another Inquiry
         </button>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <form onSubmit={handleSubmit} className="space-y-6 font-sans">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-neutral-300 mb-1.5">
-            First Name <span className="text-brand-500">*</span>
+          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
+            First Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             value={form.firstName}
             onChange={set('firstName')}
             required
-            placeholder="John"
-            className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-brand-500 transition-colors"
+            placeholder="Israel"
+            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-neutral-300 mb-1.5">
-            Last Name <span className="text-brand-500">*</span>
+          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
+            Last Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             value={form.lastName}
             onChange={set('lastName')}
             required
-            placeholder="Doe"
-            className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-brand-500 transition-colors"
+            placeholder="Dare"
+            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
+            Business Email <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            value={form.email}
+            onChange={set('email')}
+            required
+            placeholder="name@organization.com"
+            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
+          />
+        </div>
+        <div>
+          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
+            Phone / WhatsApp (Optional)
+          </label>
+          <input
+            type="tel"
+            value={form.phone}
+            onChange={set('phone')}
+            placeholder="+1 424 546 0129"
+            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-neutral-300 mb-1.5">
-          Email <span className="text-brand-500">*</span>
-        </label>
-        <input
-          type="email"
-          value={form.email}
-          onChange={set('email')}
-          required
-          placeholder="john@example.com"
-          className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-brand-500 transition-colors"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-neutral-300 mb-1.5">Phone (optional)</label>
-        <input
-          type="tel"
-          value={form.phone}
-          onChange={set('phone')}
-          placeholder="+1 424 546 0129"
-          className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-brand-500 transition-colors"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-neutral-300 mb-1.5">
-          Service Interest <span className="text-brand-500">*</span>
+        <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
+          Domain of Inquiry <span className="text-red-500">*</span>
         </label>
         <select
           value={form.service}
           onChange={set('service')}
           required
-          className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white focus:outline-none focus:border-brand-500 transition-colors appearance-none"
+          className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white focus:outline-none focus:border-white transition-colors appearance-none font-sans"
         >
-          <option value="" disabled>
-            Select a service...
+          <option value="" disabled className="bg-noir-950 text-zinc-500">
+            Select a specialization...
           </option>
           {SERVICES.map((s) => (
-            <option key={s} value={s}>
+            <option key={s} value={s} className="bg-noir-950 text-white">
               {s}
             </option>
           ))}
@@ -152,41 +151,41 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-neutral-300 mb-1.5">
-          Message <span className="text-brand-500">*</span>
+        <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
+          Executive Brief / Message <span className="text-red-500">*</span>
         </label>
         <textarea
           value={form.message}
           onChange={set('message')}
           required
           rows={5}
-          placeholder="Tell us about your project or business needs..."
-          className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-brand-500 transition-colors resize-none"
+          placeholder="Detail your engineering requirements, technical bottlenecks, or research proposal..."
+          className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors resize-none font-sans leading-relaxed"
         />
       </div>
 
-      {status === 'error' && <p className="text-red-400 text-sm">{errorMsg}</p>}
+      {status === 'error' && <p className="font-mono text-xs text-red-400">{errorMsg}</p>}
 
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full py-4 bg-brand-600 hover:bg-brand-500 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+        className="w-full py-4 bg-white text-black hover:bg-zinc-200 disabled:opacity-50 text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
       >
         {status === 'loading' ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin" />
-            Sending...
+            <Loader2 className="w-4 h-4 animate-spin text-black" />
+            Transmitting Brief...
           </>
         ) : (
           <>
-            <Send className="w-5 h-5" />
-            Send Message
+            <Send className="w-3.5 h-3.5" />
+            Transmit Executive Brief ↗
           </>
         )}
       </button>
 
-      <p className="text-neutral-600 text-xs text-center">
-        You'll receive a confirmation email immediately after submitting.
+      <p className="font-mono text-[9px] text-zinc-400 text-center uppercase tracking-widest">
+        Direct Confidential Transmission · 24h Executive Response Guarantee
       </p>
     </form>
   )
