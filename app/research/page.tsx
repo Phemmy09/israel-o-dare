@@ -217,7 +217,7 @@ export default function ResearchPage() {
           </p>
           <div className="pt-2">
             <a
-              href="mailto:phemmy09israel@gmail.com?subject=Academic%20Research%20Inquiry%20-%20Israel%20Dare"
+              href="mailto:israel@israeldare.com?subject=Academic%20Research%20Inquiry%20-%20Israel%20Dare"
               className="btn-luxury"
             >
               Request Full Academic Dossier &amp; Transcripts ↗

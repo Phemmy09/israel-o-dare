@@ -51,7 +51,7 @@
 ---
 
 ## 5. Engagement & Contact Details
-- **Email:** izzy.marketing.hub@gmail.com / phemmy09israel@gmail.com
+- **Email:** israel@israeldare.com
 - **WhatsApp / Phone:** +1 424 546 0129
 - **Calendly Booking:** https://Calendly.com/izzy-marketing-hub/30min
 - **Upwork Profile:** https://www.upwork.com/freelancers/~010297ccb4983d90e7

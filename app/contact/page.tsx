@@ -43,16 +43,10 @@ export default function ContactPage() {
                   Direct Executive Email
                 </p>
                 <a
-                  href="mailto:izzy.marketing.hub@gmail.com"
+                  href="mailto:israel@israeldare.com"
                   className="font-mono text-xs text-white hover:text-red-400 transition-colors block"
                 >
-                  izzy.marketing.hub@gmail.com
-                </a>
-                <a
-                  href="mailto:phemmy09israel@gmail.com"
-                  className="font-mono text-xs text-zinc-400 hover:text-white transition-colors block"
-                >
-                  phemmy09israel@gmail.com (Academic)
+                  israel@israeldare.com
                 </a>
               </div>
 

@@ -84,6 +84,7 @@ export default function Footer() {
                 {[
                   { label: 'Home / Headquarters', href: '/' },
                   { label: 'Narrative Biography', href: '/about' },
+                  { label: 'Media & Photo Gallery', href: '/gallery' },
                   { label: 'Systems & Advisory', href: '/services' },
                   { label: 'Products & IP Store', href: '/products' },
                   { label: 'Journal & Dispatches', href: '/journal' },
@@ -113,7 +114,7 @@ export default function Footer() {
                   { label: 'Upwork Top Rated', href: 'https://www.upwork.com/freelancers/~010297ccb4983d90e7' },
                   { label: 'Instagram', href: 'https://www.instagram.com/izzyautomation/' },
                   { label: 'TikTok', href: 'https://www.tiktok.com/@mail_izzy?_r=1&_t=ZN-92X156ksQti' },
-                  { label: 'Executive WhatsApp', href: 'https://wa.me/14245460129' },
+                  { label: 'WhatsApp (+1 424 546 0129)', href: 'https://wa.me/14245460129' },
                 ].map((item) => (
                   <li key={item.label}>
                     <a
@@ -130,31 +131,30 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Newsletter Dispatch */}
-          <div className="lg:col-span-3 space-y-4">
+          {/* Private Dispatch Newsletter */}
+          <div className="lg:col-span-4 space-y-4">
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400">
-              The Dispatch
+              Private Dispatch
             </p>
-            <p className="text-xs text-zinc-400 leading-relaxed font-light">
-              Intellectual memos on autonomous aerial robotics, bio-spatial photogrammetry, predictive models, and generational systems.
+            <p className="text-xs text-zinc-400 font-light leading-relaxed">
+              Periodic private memos on autonomous spatial intelligence, mathematical thermodynamics, and systems architecture.
             </p>
             <form onSubmit={handleNewsletter} className="space-y-2">
-              <div className="relative">
+              <div className="flex">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@organization.com"
+                  placeholder="Enter your executive email"
                   required
-                  className="w-full bg-noir-900 border border-white/10 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white transition-colors"
+                  className="bg-noir-900 border border-white/10 px-3.5 py-2 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-red-600 flex-1 font-mono"
                 />
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-zinc-400 hover:text-white transition-colors"
-                  aria-label="Subscribe"
+                  className="bg-white text-black px-4 py-2 font-mono text-xs font-semibold hover:bg-zinc-200 transition-colors disabled:opacity-50"
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  {status === 'loading' ? '...' : 'Join'}
                 </button>
               </div>
               {status === 'success' && (
@@ -168,10 +168,10 @@ export default function Footer() {
             {/* Direct Line */}
             <div className="pt-2 border-t border-white/[0.06] text-xs">
               <a
-                href="mailto:izzy.marketing.hub@gmail.com"
+                href="mailto:israel@israeldare.com"
                 className="font-mono text-[11px] text-zinc-400 hover:text-white transition-colors block"
               >
-                izzy.marketing.hub@gmail.com
+                israel@israeldare.com
               </a>
             </div>
           </div>

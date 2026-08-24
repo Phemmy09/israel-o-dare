@@ -28,40 +28,52 @@ const credentials = [
 
 const galleryImages = [
   {
-    src: '/images/DGF_6811 copy.jpg',
+    src: '/images/israel-portrait.jpg',
     title: 'Official Executive Portrait',
     category: 'Portrait',
     caption: 'Israel Dare, Chief Systems Architect & Spatial Intelligence Researcher.',
   },
   {
-    src: '/images/DGF_6818 copy.jpg',
+    src: '/images/israel-studio-05.jpg',
     title: 'Systems & Spatial Research Focus',
     category: 'Engineering',
     caption: 'Analyzing deterministic workflows and bio-spatial modeling frameworks.',
   },
   {
-    src: '/images/DGF_5199 copy (1).jpg',
-    title: 'Symphonic Concert Soloist',
-    category: 'Music',
-    caption: 'Performing violin solo at a university-wide symphonic orchestral concert.',
+    src: '/images/israel-studio-01.jpg',
+    title: 'Editorial Silhouette & Direction',
+    category: 'Editorial',
+    caption: 'Art-directed editorial portrait capturing code rigor and classical discipline.',
   },
   {
-    src: '/images/DGF_5213 copy.jpg',
+    src: '/images/israel-studio-02.jpg',
     title: 'Orchestra General Coordinator',
     category: 'Leadership',
     caption: 'Rehearsing with the campus orchestra and symphonic choir as General Coordinator.',
   },
   {
-    src: '/images/DGF_5744 copy.jpg',
+    src: '/images/israel-studio-03.jpg',
     title: 'APEXIUM Classroom Session',
     category: 'Social Impact',
     caption: 'Empowering rural youth with computational thinking and AI workflow literacy.',
   },
   {
-    src: '/images/DGF_5774 copy (1).jpg',
+    src: '/images/israel-studio-04.jpg',
     title: 'Closing the Digital Divide',
     category: 'APEXIUM',
     caption: 'Demonstrating AI agent creation across community halls in Nigeria.',
+  },
+  {
+    src: '/images/israel-studio-06.jpg',
+    title: 'Monochrome Precision',
+    category: 'Portrait',
+    caption: 'Clean, deterministic, and disciplined engineering execution.',
+  },
+  {
+    src: '/images/israel-studio-07.jpg',
+    title: 'Leadership & Vision',
+    category: 'Leadership',
+    caption: 'Leading engineering initiatives and sovereign technical infrastructure.',
   },
 ]
 

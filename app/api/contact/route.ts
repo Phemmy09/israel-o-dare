@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const OWNER_EMAIL = 'izzy.marketing.hub@gmail.com'
+const OWNER_EMAIL = 'israel@israeldare.com'
 
 function esc(str: string): string {
   return String(str ?? '')

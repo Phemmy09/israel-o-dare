@@ -217,7 +217,7 @@ How can I assist you further right now? You can ask about Israel's engineering s
 
       if (!res.ok) throw new Error('Failed to fetch response')
       const data = await res.json()
-      addMessage('assistant', data.reply || "Israel's schedule is currently open for strategic contracts. Please book via Calendly or email izzy.marketing.hub@gmail.com.")
+      addMessage('assistant', data.reply || "Israel's schedule is currently open for strategic contracts. Please book via Calendly or email israel@israeldare.com.")
     } catch {
       addMessage(
         'assistant',
