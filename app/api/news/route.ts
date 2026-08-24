@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import Parser from 'rss-parser'
 
+export const dynamic = 'force-static'
+export const revalidate = 3600
+
 type CustomItem = {
   'media:content': { $: { url: string } }
   'media:thumbnail': { $: { url: string } }
