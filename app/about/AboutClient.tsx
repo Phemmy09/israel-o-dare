@@ -101,7 +101,7 @@ export default function AboutClient() {
             <div className="relative aspect-[3/4] w-full bg-black border border-white/20 p-2 overflow-hidden shadow-2xl">
               <div className="relative w-full h-full overflow-hidden bg-zinc-900">
                 <Image
-                  src="/images/Izzy.jpg"
+                  src="/izzy_pose.jpg"
                   alt="Israel Dare"
                   fill
                   className="object-cover object-top filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100 transition-all duration-700"
