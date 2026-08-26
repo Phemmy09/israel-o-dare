@@ -1,390 +1,412 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  Award,
-  ShieldCheck,
-  Music,
-  Terminal,
-  Calendar,
-  X,
-  Maximize2,
-  BookOpen,
   ArrowRight,
-  Flame,
-  Plane,
-  Layers,
+  ArrowUpRight,
+  BookOpen,
+  Music,
+  Compass,
+  CheckCircle2,
+  Award,
+  Terminal,
 } from 'lucide-react'
-import Logo from '@/components/Logo'
 
-const credentials = [
-  { value: 'First Class', label: 'B.Eng. Honours (FUTA Top 3%)', icon: Award },
-  { value: 'Top Rated Plus', label: 'Upwork Talent (Top 3% Globally)', icon: ShieldCheck },
-  { value: '4 Instruments', label: 'Violin, Viola, Cello, Piano', icon: Music },
-  { value: '50+ Deployments', label: 'High-Concurrency Systems & Models', icon: Terminal },
-]
-
-const galleryImages = [
+const personalPrinciples = [
   {
-    src: '/images/israel-portrait.jpg',
-    title: 'Official Executive Portrait',
-    category: 'Portrait',
-    caption: 'Israel Dare, Chief Systems Architect & Spatial Intelligence Researcher.',
+    number: '01',
+    title: 'Deterministic Rigor Over Speculation',
+    description:
+      'Large language models and neural networks are stochastic by nature. Real-world systems must encapsulate this uncertainty inside deterministic verification loops, schema validation, and fail-safe recovery paths.',
   },
   {
-    src: '/images/israel-studio-05.jpg',
-    title: 'Systems & Spatial Research Focus',
-    category: 'Engineering',
-    caption: 'Analyzing deterministic workflows and bio-spatial modeling frameworks.',
+    number: '02',
+    title: 'First Principles Engineering',
+    description:
+      'Never borrow conclusions without inspecting the underlying physics. Whether calculating the thermal decay rate of root crops or optimizing vector database retrieval latency, ground the architecture in fundamental mathematics.',
   },
   {
-    src: '/images/israel-studio-01.jpg',
-    title: 'Editorial Silhouette & Direction',
-    category: 'Editorial',
-    caption: 'Art-directed editorial portrait capturing code rigor and classical discipline.',
+    number: '03',
+    title: 'Autonomy & Sovereignty',
+    description:
+      'True institutional resilience comes from owning the pipeline. I build systems where clients retain absolute control over their models, data embeddings, and orchestration infrastructure rather than remaining hostage to opaque black-box APIs.',
   },
   {
-    src: '/images/israel-studio-02.jpg',
-    title: 'Orchestra General Coordinator',
-    category: 'Leadership',
-    caption: 'Rehearsing with the campus orchestra and symphonic choir as General Coordinator.',
-  },
-  {
-    src: '/images/israel-studio-03.jpg',
-    title: 'APEXIUM Classroom Session',
-    category: 'Social Impact',
-    caption: 'Empowering rural youth with computational thinking and AI workflow literacy.',
-  },
-  {
-    src: '/images/israel-studio-04.jpg',
-    title: 'Closing the Digital Divide',
-    category: 'APEXIUM',
-    caption: 'Demonstrating AI agent creation across community halls in Nigeria.',
-  },
-  {
-    src: '/images/israel-studio-06.jpg',
-    title: 'Monochrome Precision',
-    category: 'Portrait',
-    caption: 'Clean, deterministic, and disciplined engineering execution.',
-  },
-  {
-    src: '/images/israel-studio-07.jpg',
-    title: 'Leadership & Vision',
-    category: 'Leadership',
-    caption: 'Leading engineering initiatives and sovereign technical infrastructure.',
+    number: '04',
+    title: 'Polymathic Discipline',
+    description:
+      'The polyphony of classical string instruments translates directly into concurrent software design. Discipline in one domain reinforces high precision across all technical pursuits.',
   },
 ]
 
-const coreCompetencies = [
-  'Autonomous Aerial Robotics & UAV Telemetry',
-  'Drone Photogrammetry & Dense 3D Point Clouds',
-  'Gaussian Process Regression (GPR) Modeling',
-  'Bio-Thermodynamic Post-Harvest Engineering',
-  'Deterministic Multi-Agent AI Architectures',
-  'High-Concurrency Python FastAPI & Next.js Apps',
-  'PostgreSQL pgvector Vector Database Indexing',
-  'Enterprise n8n, Make & API Orchestrations',
+const currentInquiries = [
+  {
+    topic: 'Non-Parametric Gaussian Process Kernels',
+    focus: 'Optimizing Matérn covariance functions for microclimate prediction with sparse sensor telemetry.',
+  },
+  {
+    topic: 'Edge Compute on Autonomous UAV Platforms',
+    focus: 'Real-time neural radiance field (NeRF) reconstruction aboard low-power drone companion computers.',
+  },
+  {
+    topic: 'Deterministic Multi-Agent State Synchronization',
+    focus: 'Designing transactional state guarantees for autonomous n8n and LangGraph multi-agent systems.',
+  },
 ]
 
 export default function AboutClient() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-
   return (
-    <div className="font-sans">
-      {/* 1. HERO BIOGRAPHICAL PROFILE */}
+    <div className="font-sans selection:bg-gold-500 selection:text-noir-950">
+      {/* 1. ESSAY OPENER & EDITORIAL PORTRAIT */}
       <section className="max-w-7xl mx-auto px-5 sm:px-8 pb-20 border-b border-white/[0.08]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left: Master Photography Card */}
-          <div className="lg:col-span-5 relative group mx-auto lg:mx-0 w-full max-w-md">
-            <div className="relative aspect-[3/4] w-full bg-black border border-white/20 p-2 overflow-hidden shadow-2xl">
-              <div className="relative w-full h-full overflow-hidden bg-zinc-900">
+        <div className="space-y-4 pb-12 border-b border-white/[0.08]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold-400 font-semibold">
+            Narrative & Philosophy
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-white tracking-tight leading-[0.95]">
+            The Journey of an Engineer
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pt-12">
+          {/* Portrait Column */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative aspect-[4/5] w-full border border-white/10 bg-noir-900 p-2 group shadow-2xl shadow-black/80">
+              <div className="relative w-full h-full overflow-hidden bg-noir-850">
                 <Image
-                  src="/izzy_pose.jpg"
-                  alt="Israel Dare"
+                  src="/images/editorial/israel-boardroom-executive.jpg"
+                  alt="Israel Dare — Executive Portrait"
                   fill
-                  className="object-cover object-top filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100 transition-all duration-700"
                   priority
-                  sizes="(max-width: 1024px) 100vw, 450px"
+                  sizes="(max-width: 768px) 100vw, 480px"
+                  className="object-cover object-[center_top] pt-0.5 transition-transform duration-700 group-hover:scale-[1.02] filter contrast-[1.02]"
                 />
               </div>
-              <div className="absolute bottom-4 left-4 right-4 p-3 bg-black/90 backdrop-blur-md border border-white/10 flex items-center justify-between">
-                <div>
-                  <p className="font-sans font-bold text-xs uppercase tracking-wider text-white">
-                    Israel Dare
-                  </p>
-                  <p className="font-mono text-[9px] text-red-500">Chief Systems Architect</p>
-                </div>
-                <Logo variant="monogram" size="sm" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between font-mono text-[9px] text-zinc-300 bg-noir-950/85 backdrop-blur-md px-3 py-1.5 border border-white/10">
+                <span>ISRAEL DARE</span>
+                <span className="text-gold-400">EXECUTIVE PORTRAIT</span>
               </div>
             </div>
 
-            {/* Quick Status Tag */}
-            <div className="mt-4 p-4 bg-noir-900 border border-white/[0.08] font-mono text-xs text-zinc-300 flex items-center justify-between">
-              <span className="text-zinc-500 uppercase">Focus:</span>
-              <span className="text-white font-semibold">Autonomous UAVs &amp; Spatial Models</span>
+            {/* Quick Bio Meta Strip */}
+            <div className="mt-6 p-6 border border-white/[0.08] bg-noir-900/40 space-y-4 font-mono text-xs text-zinc-400">
+              <div className="flex justify-between border-b border-white/[0.06] pb-2">
+                <span>EDUCATION</span>
+                <span className="text-white">First Class B.Eng. (FUTA)</span>
+              </div>
+              <div className="flex justify-between border-b border-white/[0.06] pb-2">
+                <span>DISCIPLINE</span>
+                <span className="text-white">AI Systems & Physical Modeling</span>
+              </div>
+              <div className="flex justify-between border-b border-white/[0.06] pb-2">
+                <span>GLOBAL PRACTICE</span>
+                <span className="text-gold-400">Top Rated Plus (Upwork Top 3%)</span>
+              </div>
+              <div className="flex justify-between">
+                <span>MUSICIANSHIP</span>
+                <span className="text-white">Violin, Viola, Cello, Piano</span>
+              </div>
             </div>
           </div>
 
-          {/* Right: Narrative Dossier */}
-          <div className="lg:col-span-7 space-y-8">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.3em] text-red-500 font-semibold mb-2">
-                NARRATIVE BIOGRAPHY
-              </p>
-              <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl text-white tracking-tight leading-[0.95] font-normal">
-                Israel Dare
-              </h1>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400 mt-2">
-                Systems Architect · Spatial Intelligence · Classical Musician
-              </p>
-            </div>
+          {/* Essay Opener Column */}
+          <div className="lg:col-span-7 space-y-8 text-parchment-200 text-base sm:text-lg font-light leading-relaxed">
+            <p className="font-serif text-2xl sm:text-3xl text-white italic leading-relaxed font-normal">
+              I am an engineer who builds at the intersection of mathematical theory, physical computing, and production machine intelligence.
+            </p>
 
-            {/* The Raw Reality Quote */}
-            <div className="p-6 bg-noir-900 border-l-2 border-red-600 space-y-2">
-              <p className="font-serif text-xl sm:text-2xl text-zinc-200 italic leading-relaxed font-light">
-                "I watched television for the first time at twelve. Got my first phone at sixteen. Where I grew up, owning a laptop made you a suspect, not a student. Today, I build systems that process hundreds of thousands of dollars on autopilot. Easy work bores me. Bring me the hard stuff."
-              </p>
-            </div>
+            <p>
+              I grew up in Nigeria, where constraints are not theoretical case studies—they are immediate physical realities. In an environment where electrical power grids, data infrastructure, and municipal logistics fluctuate, you learn very early that software cannot survive on optimism alone. It must be resilient, deterministic, and engineered to function under pressure.
+            </p>
 
-            <div className="space-y-5 text-sm sm:text-base text-zinc-300 font-light leading-relaxed">
-              <p>
-                During my final year of Agricultural and Environmental Engineering at the Federal University of Technology, Akure (FUTA), my world shattered. My father was tragically killed in a fatal motor accident, and my mother was left hospitalized in the same crash.
-              </p>
-              <p>
-                Overnight, at 22, I became the sole financial and moral anchor for my family. Staring at MATLAB code in university labs and coming home to a grieving household, I had no safety net, no startup capital, and no connections. Just a laptop and a decision: figure it out or fall apart.
-              </p>
-              <p>
-                I chose technology. I mastered modern API orchestrations, database architectures, predictive mathematical models, and autonomous workflow design. I graduated with <strong>First-Class Honours (Top 3%)</strong> and rapidly ascended to <strong>Top Rated Plus on Upwork (Top 3% worldwide)</strong>.
-              </p>
-              <p>
-                Today, my intellectual pursuits span the bleeding edge: <strong>autonomous aerial drone photogrammetry</strong>, <strong>Gaussian Process Regression</strong> for micro-climate thermodynamics, and <strong>deterministic enterprise AI systems</strong>.
-              </p>
-            </div>
+            <p>
+              This environment forged my fundamental perspective: technology is only as valuable as the certainty it delivers. Whether designing an enterprise automated document pipeline for a US construction firm or calculating the non-linear thermodynamic decay curves of tropical harvest storage, my objective is always the same—replace human friction with mathematically defensible software systems.
+            </p>
 
-            <div className="pt-4 flex flex-wrap gap-4">
-              <Link href="/contact" className="btn-luxury">
-                Initiate Inquiry ↗
-              </Link>
-              <a
-                href="https://www.upwork.com/freelancers/~010297ccb4983d90e7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-luxury-outline"
-              >
-                Upwork Verified Profile ↗
-              </a>
+            <div className="p-6 bg-noir-900/60 border-l-2 border-gold-500 font-serif italic text-xl text-white">
+              "The discipline of code and the physics of the physical world are one. We do not build toys; we engineer generational systems."
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. CREDENTIALS MATRIX */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 border-b border-white/[0.08]">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {credentials.map((c) => {
-            const Icon = c.icon
-            return (
+      {/* 2. THE STORY (4 Thematic Chapters) */}
+      <section className="max-w-4xl mx-auto px-5 sm:px-8 py-24 space-y-20">
+        {/* Chapter 1 */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-xs text-gold-400">01 // THE FOUNDATION</span>
+            <div className="h-px bg-white/10 flex-1" />
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl text-white">
+            The Engineering Crucible & First Class Honours
+          </h2>
+          <div className="space-y-4 text-parchment-300 leading-relaxed font-light">
+            <p>
+              At the Federal University of Technology Akure (FUTA), I pursued Agricultural and Environmental Engineering—a rigorous curriculum combining classical thermodynamics, fluid dynamics, continuum mechanics, and numerical analysis.
+            </p>
+            <p>
+              While many viewed engineering solely through hardware or civil works, I recognized that computation was the connective tissue. I spent nights implementing Bayesian Gaussian Process Regression (GPR) models to predict moisture migration in biological media, proving that non-parametric machine learning models could forecast physical deterioration with far greater precision than traditional empirical equations.
+            </p>
+            <p>
+              I graduated with First Class Honours, placing in the top percentile of the university, with an academic foundation anchored not in hype, but in the unforgiving laws of physics and mathematics.
+            </p>
+          </div>
+        </div>
+
+        {/* Pull Quote */}
+        <div className="pull-quote">
+          "When you understand the equations that govern heat transfer and fluid flow, understanding distributed software pipelines and vector embeddings becomes second nature."
+        </div>
+
+        {/* Chapter 2 */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-xs text-gold-400">02 // THE GLOBAL PROVING GROUND</span>
+            <div className="h-px bg-white/10 flex-1" />
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl text-white">
+            Adversity, Freelance Rigor, and Upwork Top Rated Plus
+          </h2>
+          <div className="space-y-4 text-parchment-300 leading-relaxed font-light">
+            <p>
+              In my final year of university, acute family financial adversity stripped away all safety nets. There was no margin for error. I turned my computational skills toward global freelance engineering on Upwork.
+            </p>
+            <p>
+              Competing against developers worldwide, I refused to offer generic web development. Instead, I specialized in high-complexity workflow automation (n8n, Make, Python) and custom AI integrations for enterprise clients across the United States, United Kingdom, and Europe.
+            </p>
+            <p>
+              Within months, I achieved the <span className="text-white font-medium">Top Rated Plus</span> badge—a distinction held by the top 3% of global talent—maintaining a flawless 100% Job Success Score across more than 50 enterprise client contracts. Every project was delivered with meticulous code, exhaustive architectural documentation, and zero downtime.
+            </p>
+          </div>
+        </div>
+
+        {/* Chapter 3 */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-xs text-gold-400">03 // INTELLECTUAL FRAMEWORK</span>
+            <div className="h-px bg-white/10 flex-1" />
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl text-white">
+            What I Believe About Artificial Intelligence
+          </h2>
+          <div className="space-y-4 text-parchment-300 leading-relaxed font-light">
+            <p>
+              The technology industry suffers from collective amnesia every five years. Today, large language models are treated as magical panaceas. They are not. They are probabilistic reasoning engines over dense token distributions.
+            </p>
+            <p>
+              If an enterprise feeds raw unvalidated prompts directly to an LLM and expects predictable operational workflows, failure is guaranteed. Real AI systems architecture requires strict boundary layers: schema enforcement, deterministic fallback paths, vector retrieval guarantees, and state machine verification.
+            </p>
+            <p>
+              I build AI systems that enterprise leadership can trust when millions of dollars and critical operational SLAs are at stake.
+            </p>
+          </div>
+        </div>
+
+        {/* Chapter 4 */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-xs text-gold-400">04 // THE HORIZON</span>
+            <div className="h-px bg-white/10 flex-1" />
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl text-white">
+            What I Am Building Toward
+          </h2>
+          <div className="space-y-4 text-parchment-300 leading-relaxed font-light">
+            <p>
+              The next decade belongs to the convergence of artificial intelligence and the physical world. Autonomous drone photogrammetry, real-time spatial digital twins, and edge-computed sensor telemetry will transform how humans manage physical assets, food reserves, and sovereign infrastructure.
+            </p>
+            <p>
+              My focus is actively divided between two frontiers: advising elite enterprise clients globally on resilient software architecture, and advancing spatial computing research that bridges the computational divide for emerging economies.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 2.5 VISUAL ESSAY & PHOTOGRAPHIC JOURNEY */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20 border-b border-white/[0.08]">
+        <div className="space-y-12">
+          <div className="space-y-2">
+            <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-gold-400 font-semibold">
+              Photographic Narrative
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-white">
+              Moments &amp; Milestones
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="border border-white/[0.08] bg-noir-900/40 p-4 space-y-3">
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-noir-950">
+                <Image
+                  src="/images/editorial/israel-advisory-portrait.jpg"
+                  alt="Israel Dare Executive Advisory"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  className="object-cover object-[center_top] pt-0.5 filter contrast-[1.02]"
+                />
+              </div>
+              <div className="space-y-1">
+                <p className="font-serif text-base text-white">Executive Advisory</p>
+                <p className="font-mono text-[10px] text-zinc-400">Guiding enterprise AI strategy and sovereign software architecture.</p>
+              </div>
+            </div>
+
+            <div className="border border-white/[0.08] bg-noir-900/40 p-4 space-y-3">
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-noir-950">
+                <Image
+                  src="/images/editorial/israel-tesla-gigafactory.jpg"
+                  alt="Israel Dare at Tesla Gigafactory"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  className="object-cover object-[center_top] pt-0.5 filter contrast-[1.02]"
+                />
+              </div>
+              <div className="space-y-1">
+                <p className="font-serif text-base text-white">Industrial AI &amp; Robotics</p>
+                <p className="font-mono text-[10px] text-zinc-400">High-scale manufacturing telemetry and autonomous systems evaluation.</p>
+              </div>
+            </div>
+
+            <div className="border border-white/[0.08] bg-noir-900/40 p-4 space-y-3">
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-noir-950">
+                <Image
+                  src="/images/editorial/israel-architect-chalet.jpg"
+                  alt="Israel Dare Systems Architecture"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  className="object-cover object-[center_top] pt-0.5 filter contrast-[1.02]"
+                />
+              </div>
+              <div className="space-y-1">
+                <p className="font-serif text-base text-white">Spatial Engineering</p>
+                <p className="font-mono text-[10px] text-zinc-400">Physical computing, digital twins, and UAV photogrammetry.</p>
+              </div>
+            </div>
+
+            <div className="border border-white/[0.08] bg-noir-900/40 p-4 space-y-3">
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-noir-950">
+                <Image
+                  src="/images/editorial/israel-observatory-cosmos.jpg"
+                  alt="Israel Dare at Observatory"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 300px"
+                  className="object-cover object-[center_top] pt-0.5 filter contrast-[1.02]"
+                />
+              </div>
+              <div className="space-y-1">
+                <p className="font-serif text-base text-white">Frontier Inquiries</p>
+                <p className="font-mono text-[10px] text-zinc-400">Stargazing observatory deck: mathematical modeling of cosmic systems.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. PERSONAL TEXTURE & PRINCIPLES */}
+      <section className="py-24 px-5 sm:px-8 border-t border-b border-white/[0.08] bg-noir-900/30">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="space-y-3">
+            <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-gold-400 font-semibold">
+              Operational Texture
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-white">
+              Principles &amp; Disciplines
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {personalPrinciples.map((principle) => (
               <div
-                key={c.label}
-                className="bg-noir-900 border border-white/[0.08] p-6 text-center space-y-2 hover:border-white/20 transition-colors"
+                key={principle.title}
+                className="p-8 border border-white/[0.08] bg-noir-950/60 space-y-4"
               >
-                <Icon className="w-5 h-5 text-red-500 mx-auto mb-2" />
-                <p className="font-serif text-2xl sm:text-3xl text-white font-normal">{c.value}</p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  {c.label}
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs text-gold-400">{principle.number}</span>
+                  <div className="w-2 h-2 rounded-full bg-white/20" />
+                </div>
+                <h3 className="font-serif text-2xl text-white">{principle.title}</h3>
+                <p className="text-sm text-parchment-300 font-light leading-relaxed">
+                  {principle.description}
                 </p>
               </div>
-            )
-          })}
-        </div>
-      </section>
-
-      {/* 3. THE HISTORICAL TIMELINE */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-24 sm:py-32 border-b border-white/[0.08]">
-        <div className="text-center space-y-4 max-w-2xl mx-auto mb-16">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-red-500 font-semibold">
-            CHRONOLOGY
-          </p>
-          <h2 className="font-serif text-4xl sm:text-5xl text-white">The Crucible &amp; Evolution</h2>
-        </div>
-
-        <div className="max-w-4xl mx-auto space-y-12 border-l border-white/[0.12] pl-8 sm:pl-12">
-          {/* Milestone 1 */}
-          <div className="relative space-y-3">
-            <div className="absolute -left-[37px] sm:-left-[53px] top-1.5 w-3 h-3 rounded-full bg-red-600 border-2 border-black" />
-            <span className="font-mono text-xs text-red-500 font-semibold uppercase tracking-wider">
-              2023 · The Crucible
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl text-white">
-              Forged in Tragedy &amp; Extreme Focus
-            </h3>
-            <p className="font-sans text-sm text-zinc-300 font-light leading-relaxed">
-              Tragic loss of his father and hospitalization of his mother during final-year engineering studies. Refusing despair, Israel transformed grief into an unrelenting study of systems engineering, APIs, and computation to sustain his family.
-            </p>
+            ))}
           </div>
 
-          {/* Milestone 2 */}
-          <div className="relative space-y-3">
-            <div className="absolute -left-[37px] sm:-left-[53px] top-1.5 w-3 h-3 rounded-full bg-red-600 border-2 border-black" />
-            <span className="font-mono text-xs text-red-500 font-semibold uppercase tracking-wider">
-              2023 · Academic Apex
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl text-white">
-              First Class Honours &amp; Gaussian Regression Thesis
-            </h3>
-            <p className="font-sans text-sm text-zinc-300 font-light leading-relaxed">
-              Graduated with First-Class Honours in Agricultural &amp; Environmental Engineering (Top 3% of class). Authored groundbreaking thesis modeling non-linear yam decay thermodynamics via Bayesian Gaussian Process Regression.
-            </p>
-          </div>
-
-          {/* Milestone 3 */}
-          <div className="relative space-y-3">
-            <div className="absolute -left-[37px] sm:-left-[53px] top-1.5 w-3 h-3 rounded-full bg-red-600 border-2 border-black" />
-            <span className="font-mono text-xs text-red-500 font-semibold uppercase tracking-wider">
-              2024 · Social Legacy
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl text-white">
-              Founding APEXIUM
-            </h3>
-            <p className="font-sans text-sm text-zinc-300 font-light leading-relaxed">
-              Established APEXIUM to teach AI literacy and automated workflow architectures to youth in community halls across Nigeria, democratizing access to high-tier computational tools.
-            </p>
-          </div>
-
-          {/* Milestone 4 */}
-          <div className="relative space-y-3">
-            <div className="absolute -left-[37px] sm:-left-[53px] top-1.5 w-3 h-3 rounded-full bg-red-600 border-2 border-black" />
-            <span className="font-mono text-xs text-red-500 font-semibold uppercase tracking-wider">
-              Present · Global Systems
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl text-white">
-              Top Rated Plus &amp; Spatial Intelligence Research
-            </h3>
-            <p className="font-sans text-sm text-zinc-300 font-light leading-relaxed">
-              Directing global AI architectures and advancing research in autonomous UAV photogrammetry, bio-spatial digital twins, and cyber-physical environmental infrastructure.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. SYMPHONIC HARMONY & CAPABILITIES */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-24 sm:py-32 border-b border-white/[0.08]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left: Musical Polyphony */}
-          <div className="lg:col-span-6 bg-noir-900 border border-white/[0.08] p-8 sm:p-12 space-y-6">
-            <div className="flex items-center gap-3">
-              <Music className="w-6 h-6 text-red-500" />
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-red-500 font-semibold">
-                THE SYMPHONIC MIND
-              </p>
-            </div>
-            <h3 className="font-serif text-3xl sm:text-4xl text-white font-normal">
-              Polyphonic Rigor: 4 Instruments
-            </h3>
-            <p className="font-sans text-sm text-zinc-300 font-light leading-relaxed">
-              Israel is an accomplished multi-instrumentalist playing the <strong>Violin, Viola, Cello, and Piano</strong>. He coordinated university symphonic concerts as General Coordinator from 2019 to 2023.
-            </p>
-            <p className="font-serif text-lg italic text-zinc-300 font-light">
-              "In music, every frequency, rhythm, and tension must resolve in architectural harmony. It is the exact same discipline required to engineer zero-loss computational systems."
-            </p>
-          </div>
-
-          {/* Right: Technical Competencies */}
-          <div className="lg:col-span-6 bg-noir-900 border border-white/[0.08] p-8 sm:p-12 space-y-6">
-            <p className="font-mono text-xs uppercase tracking-[0.24em] text-red-500 font-semibold">
-              TECHNICAL COMPETENCIES
-            </p>
-            <h3 className="font-serif text-3xl sm:text-4xl text-white font-normal">
-              Disciplines &amp; Tooling
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {coreCompetencies.map((comp) => (
-                <div key={comp} className="flex items-start gap-2.5 text-xs text-zinc-300 font-light">
-                  <span className="text-red-500 font-bold shrink-0">■</span>
-                  <span>{comp}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. INTERACTIVE PHOTOGRAPHY & MEDIA GALLERY */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-24 sm:py-32 border-b border-white/[0.08]">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-white/[0.08]">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-red-500 font-semibold mb-2">
-              ARCHIVE
-            </p>
-            <h2 className="font-serif text-4xl sm:text-5xl text-white">Visual Dossier</h2>
-          </div>
-          <p className="font-sans text-xs sm:text-sm text-zinc-400 max-w-sm font-light">
-            Records of professional engineering, orchestra coordination, and APEXIUM community sessions.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pt-12">
-          {galleryImages.map((img, idx) => (
-            <div
-              key={idx}
-              onClick={() => setLightboxIndex(idx)}
-              className="relative aspect-[3/4] bg-black border border-white/10 overflow-hidden cursor-pointer group"
-            >
-              <Image
-                src={img.src}
-                alt={img.title}
-                fill
-                className="object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
-                <span className="font-mono text-[9px] text-red-400 uppercase tracking-wider">
-                  {img.category}
-                </span>
-                <span className="font-sans text-[11px] text-white font-bold truncate">
-                  {img.title}
-                </span>
+          {/* Current Inquiries & Music */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-8 border-t border-white/[0.08]">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex items-center gap-3">
+                <BookOpen className="w-4 h-4 text-gold-400" />
+                <h3 className="font-mono text-xs uppercase tracking-[0.22em] text-white">
+                  Current Research & Technical Inquiries
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {currentInquiries.map((inquiry) => (
+                  <div
+                    key={inquiry.topic}
+                    className="p-5 border border-white/[0.06] bg-noir-950/40 space-y-1"
+                  >
+                    <p className="font-serif text-lg text-white">{inquiry.topic}</p>
+                    <p className="text-xs text-zinc-400 font-light leading-relaxed">
+                      {inquiry.focus}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* LIGHTBOX MODAL */}
-      {lightboxIndex !== null && (
-        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
-          <button
-            onClick={() => setLightboxIndex(null)}
-            className="absolute top-6 right-6 p-2 text-zinc-400 hover:text-white border border-white/20 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-          <div className="max-w-2xl w-full text-center space-y-4">
-            <div className="relative aspect-[3/4] w-full max-h-[70vh] bg-black border border-white/20 mx-auto overflow-hidden">
-              <Image
-                src={galleryImages[lightboxIndex].src}
-                alt={galleryImages[lightboxIndex].title}
-                fill
-                className="object-contain"
-                sizes="(max-width: 1024px) 100vw, 800px"
-              />
-            </div>
-            <div>
-              <span className="font-mono text-[10px] text-red-400 uppercase tracking-widest">
-                {galleryImages[lightboxIndex].category}
-              </span>
-              <h3 className="font-serif text-2xl text-white mt-1">
-                {galleryImages[lightboxIndex].title}
-              </h3>
-              <p className="font-sans text-sm text-zinc-400 font-light max-w-lg mx-auto mt-1">
-                {galleryImages[lightboxIndex].caption}
-              </p>
+            <div className="lg:col-span-5 p-8 border border-white/[0.08] bg-noir-950/60 space-y-6 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Music className="w-4 h-4 text-gold-400" />
+                  <h3 className="font-mono text-xs uppercase tracking-[0.22em] text-white">
+                    Classical Orchestral Leadership
+                  </h3>
+                </div>
+                <p className="text-sm text-parchment-300 font-light leading-relaxed">
+                  As former General Coordinator of the campus symphony orchestra, I directed multi-part rehearsals and played Violin, Viola, Cello, and Piano. The discipline of symphonic harmony directly mirrors high-concurrency asynchronous software engineering.
+                </p>
+              </div>
+
+              <div className="font-mono text-[10px] text-gold-400/90 pt-4 border-t border-white/[0.06]">
+                STRING QUARTET · POLYPHONY · PRECISION
+              </div>
             </div>
           </div>
         </div>
-      )}
+      </section>
+
+      {/* 4. CLOSING TRANSITION TO CREDENTIALS OR CONTACT */}
+      <section className="py-24 sm:py-32 px-5 sm:px-8 text-center bg-noir-950">
+        <div className="max-w-3xl mx-auto space-y-8">
+          <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-gold-400 font-semibold">
+            Next Steps
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-white">
+            Inspect the evidence or discuss an initiative.
+          </h2>
+          <p className="text-base text-parchment-200 font-light leading-relaxed">
+            Institutional reviewers and scholarship committees can inspect formal academic records, while prospective enterprise clients can review service packages or initiate a private discussion.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <Link
+              href="/credentials"
+              className="btn-luxury-gold"
+            >
+              Examine Institutional Credentials <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              href="/contact"
+              className="btn-luxury-outline"
+            >
+              Initiate Private Discussion
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

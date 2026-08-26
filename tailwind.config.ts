@@ -21,6 +21,22 @@ const config: Config = {
           800: '#181820', // Interactive container
           700: '#262632', // Structural borders
         },
+        gold: {
+          300: '#f3e5ab',
+          400: '#e5c07b',
+          500: '#d4af37', // Signature Warm Champagne Gold
+          600: '#c5a059',
+          700: '#99732e',
+          900: '#46320d',
+        },
+        parchment: {
+          50: '#fbfaf7',
+          100: '#f5f3ed',
+          200: '#ebe6db',
+          300: '#ddd5c5',
+          400: '#c5baa6',
+          500: '#a89c85',
+        },
         carmine: {
           500: '#ef4444',
           600: '#dc2626', // Signature statement red

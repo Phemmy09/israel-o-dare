@@ -61,35 +61,36 @@ export default function Footer() {
           {/* Brand Identity & Colophon */}
           <div className="lg:col-span-5 space-y-6">
             <Logo variant="full" size="lg" />
-            <p className="font-serif text-lg sm:text-xl text-zinc-300 italic leading-relaxed max-w-md font-light">
-              "The discipline of code and the physics of the physical world are one. We do not build toys; we engineer generational systems."
+            <p className="font-serif text-lg sm:text-xl text-parchment-200 italic leading-relaxed max-w-md font-light">
+              "The discipline of code and the physics of the physical world are one. We do not build ephemeral toys; we engineer generational systems."
             </p>
             <div className="flex items-center gap-6 pt-2 font-mono text-[11px] text-zinc-400">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse-subtle" />
-                <span>WAT (Lagos): {time || '12:00:00'}</span>
+                <span className="w-2 h-2 rounded-full bg-gold-400 animate-pulse-subtle" />
+                <span>WAT (Lagos / London / NY): {time || '12:00:00'}</span>
               </div>
               <span className="text-zinc-500">·</span>
-              <span>Available Globally</span>
+              <span className="text-gold-400/90">Available Globally</span>
             </div>
           </div>
 
           {/* Navigation Matrix */}
           <div className="lg:col-span-4 grid grid-cols-2 gap-8">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 mb-4">
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-gold-400/80 mb-4">
                 Directory
               </p>
               <ul className="space-y-2.5 text-xs tracking-wider">
                 {[
-                  { label: 'Home / Headquarters', href: '/' },
-                  { label: 'Narrative Biography', href: '/about' },
-                  { label: 'Media & Photo Gallery', href: '/gallery' },
-                  { label: 'Systems & Advisory', href: '/services' },
-                  { label: 'Products & IP Store', href: '/products' },
-                  { label: 'Journal & Dispatches', href: '/journal' },
-                  { label: 'Now Focus', href: '/now' },
-                  { label: 'Research & Whitepapers', href: '/research' },
+                  { label: 'Headquarters', href: '/' },
+                  { label: 'Narrative Story', href: '/about' },
+                  { label: 'Credentials & CV', href: '/credentials' },
+                  { label: 'Visual Gallery & Archive', href: '/gallery' },
+                  { label: 'Consulting & Services', href: '/services' },
+                  { label: 'Portfolio & Case Studies', href: '/projects' },
+                  { label: 'Shop & Systems Store', href: '/products' },
+                  { label: 'Journal & Essays', href: '/journal' },
+                  { label: 'Direct Inquiries', href: '/contact' },
                 ].map((item) => (
                   <li key={item.label}>
                     <Link
@@ -104,16 +105,15 @@ export default function Footer() {
             </div>
 
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 mb-4">
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-gold-400/80 mb-4">
                 Channels
               </p>
               <ul className="space-y-2.5 text-xs tracking-wider">
                 {[
-                  { label: 'X (Twitter)', href: 'https://x.com/izzy_automation' },
                   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/israel-dare-31a11318a' },
                   { label: 'Upwork Top Rated', href: 'https://www.upwork.com/freelancers/~010297ccb4983d90e7' },
-                  { label: 'Instagram', href: 'https://www.instagram.com/izzyautomation/' },
-                  { label: 'TikTok', href: 'https://www.tiktok.com/@mail_izzy?_r=1&_t=ZN-92X156ksQti' },
+                  { label: 'GitHub', href: 'https://github.com/Phemmy09' },
+                  { label: 'X (Twitter)', href: 'https://x.com/izzy_automation' },
                   { label: 'WhatsApp (+1 424 546 0129)', href: 'https://wa.me/14245460129' },
                 ].map((item) => (
                   <li key={item.label}>

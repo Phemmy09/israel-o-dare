@@ -1,25 +1,32 @@
 'use client'
 
 import { useState } from 'react'
-import { Send, Loader2, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
 
-const SERVICES = [
-  'Autonomous Systems & Engineering',
-  'Drone Photogrammetry & Bio-Spatial Digital Twins',
-  'High-Concurrency Full-Stack SaaS Development',
-  'Academic Research & Fellowship Collaboration',
-  'Voice Receptionists & Vector RAG Portals',
-  'Strategic AI Audits & Advisory',
+const PROJECT_TYPES = [
+  'Executive AI Strategy & Advisory ($3,500+)',
+  'Bespoke AI Application Development (From $8,500)',
+  'Enterprise Workflow Automation & n8n (From $4,000)',
+  'Spatial Intelligence & Digital Twins (From $12,000)',
+  'Fractional Chief Systems Architect Retainer ($8,000/mo)',
+  'Academic / Scholarship Review / Fellowship Inquiry',
   'Other / Confidential Inquiry',
+]
+
+const BUDGET_RANGES = [
+  'Under $5,000',
+  '$5,000 – $15,000',
+  '$15,000 – $50,000',
+  '$50,000+',
+  'Institutional / Fellowship / N/A',
 ]
 
 export default function ContactForm() {
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    phone: '',
-    service: '',
+    projectType: PROJECT_TYPES[0],
+    budget: BUDGET_RANGES[1],
     message: '',
   })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -34,37 +41,51 @@ export default function ContactForm() {
     e.preventDefault()
     setStatus('loading')
     setErrorMsg('')
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          firstName: form.name.split(' ')[0] || form.name,
+          lastName: form.name.split(' ').slice(1).join(' ') || '',
+          email: form.email,
+          service: `${form.projectType} [Budget: ${form.budget}]`,
+          message: form.message,
+        }),
       })
+
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Submission failed')
       setStatus('success')
-      setForm({ firstName: '', lastName: '', email: '', phone: '', service: '', message: '' })
+      setForm({
+        name: '',
+        email: '',
+        projectType: PROJECT_TYPES[0],
+        budget: BUDGET_RANGES[1],
+        message: '',
+      })
     } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please email directly.')
       setStatus('error')
     }
   }
 
   if (status === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center space-y-4 font-sans">
-        <div className="w-12 h-12 bg-black border border-white/20 flex items-center justify-center">
-          <CheckCircle2 className="w-6 h-6 text-red-500" />
+      <div className="flex flex-col items-center justify-center py-12 text-center space-y-4 font-sans">
+        <div className="w-12 h-12 border border-gold-500/40 bg-gold-500/10 flex items-center justify-center">
+          <CheckCircle2 className="w-6 h-6 text-gold-400" />
         </div>
-        <h3 className="font-serif text-2xl text-white">Inquiry Registered</h3>
-        <p className="font-sans text-xs text-zinc-400 max-w-sm font-light">
-          Thank you. Your dossier has been delivered directly to Israel Dare's executive inbox.
+        <h3 className="font-serif text-2xl text-white">Transmission Received</h3>
+        <p className="text-sm text-parchment-300 max-w-sm font-light leading-relaxed">
+          Thank you. Your message has been delivered directly to Israel Dare's executive inbox. You will receive a personal response within 24 hours.
         </p>
         <button
           onClick={() => setStatus('idle')}
-          className="font-mono text-xs text-red-400 hover:text-white uppercase tracking-wider underline pt-2"
+          className="font-mono text-xs text-gold-400 hover:text-white uppercase tracking-wider underline pt-4"
         >
-          Submit Another Inquiry
+          Send Another Message
         </button>
       </div>
     )
@@ -72,120 +93,108 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 font-sans">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
-            First Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            value={form.firstName}
-            onChange={set('firstName')}
-            required
-            placeholder="Israel"
-            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
-          />
-        </div>
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
-            Last Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            value={form.lastName}
-            onChange={set('lastName')}
-            required
-            placeholder="Dare"
-            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
-            Business Email <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            value={form.email}
-            onChange={set('email')}
-            required
-            placeholder="name@organization.com"
-            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
-          />
-        </div>
-        <div>
-          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
-            Phone / WhatsApp (Optional)
-          </label>
-          <input
-            type="tel"
-            value={form.phone}
-            onChange={set('phone')}
-            placeholder="+1 424 546 0129"
-            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
-          Domain of Inquiry <span className="text-red-500">*</span>
+      <div className="space-y-1">
+        <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+          Your Full Name <span className="text-gold-400">*</span>
         </label>
-        <select
-          value={form.service}
-          onChange={set('service')}
+        <input
+          type="text"
+          value={form.name}
+          onChange={set('name')}
           required
-          className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white focus:outline-none focus:border-white transition-colors appearance-none font-sans"
-        >
-          <option value="" disabled className="bg-noir-950 text-zinc-500">
-            Select a specialization...
-          </option>
-          {SERVICES.map((s) => (
-            <option key={s} value={s} className="bg-noir-950 text-white">
-              {s}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-2">
-          Executive Brief / Message <span className="text-red-500">*</span>
-        </label>
-        <textarea
-          value={form.message}
-          onChange={set('message')}
-          required
-          rows={5}
-          placeholder="Detail your engineering requirements, technical bottlenecks, or research proposal..."
-          className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-white transition-colors resize-none font-sans leading-relaxed"
+          placeholder="e.g. Elena Rostova"
+          className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-gold-400 transition-colors font-mono"
         />
       </div>
 
-      {status === 'error' && <p className="font-mono text-xs text-red-400">{errorMsg}</p>}
+      <div className="space-y-1">
+        <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+          Work Email Address <span className="text-gold-400">*</span>
+        </label>
+        <input
+          type="email"
+          value={form.email}
+          onChange={set('email')}
+          required
+          placeholder="name@company.com"
+          className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-gold-400 transition-colors font-mono"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-1">
+          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+            Project or Inquiry Type
+          </label>
+          <select
+            value={form.projectType}
+            onChange={set('projectType')}
+            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white focus:outline-none focus:border-gold-400 transition-colors font-mono"
+          >
+            {PROJECT_TYPES.map((type) => (
+              <option key={type} value={type} className="bg-noir-950 text-white">
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="space-y-1">
+          <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+            Estimated Budget
+          </label>
+          <select
+            value={form.budget}
+            onChange={set('budget')}
+            className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white focus:outline-none focus:border-gold-400 transition-colors font-mono"
+          >
+            {BUDGET_RANGES.map((b) => (
+              <option key={b} value={b} className="bg-noir-950 text-white">
+                {b}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="space-y-1">
+        <label className="block font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+          Brief / Project Thesis <span className="text-gold-400">*</span>
+        </label>
+        <textarea
+          rows={5}
+          value={form.message}
+          onChange={set('message')}
+          required
+          placeholder="Briefly describe the operational problem, target outcome, or research scope..."
+          className="w-full px-4 py-3 bg-noir-950 border border-white/10 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-gold-400 transition-colors font-sans leading-relaxed resize-none"
+        />
+      </div>
+
+      {errorMsg && (
+        <div className="p-3 border border-red-500/30 bg-red-950/20 font-mono text-xs text-red-400">
+          {errorMsg}
+        </div>
+      )}
 
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full py-4 bg-white text-black hover:bg-zinc-200 disabled:opacity-50 text-xs font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
+        className="btn-luxury-gold w-full text-xs inline-flex items-center justify-center gap-2"
       >
         {status === 'loading' ? (
           <>
-            <Loader2 className="w-4 h-4 animate-spin text-black" />
-            Transmitting Brief...
+            <Loader2 className="w-4 h-4 animate-spin" /> Transmitting...
           </>
         ) : (
           <>
-            <Send className="w-3.5 h-3.5" />
-            Transmit Executive Brief ↗
+            Transmit Inquiry <ArrowRight className="w-3.5 h-3.5" />
           </>
         )}
       </button>
 
-      <p className="font-mono text-[9px] text-zinc-400 text-center uppercase tracking-widest">
-        Direct Confidential Transmission · 24h Executive Response Guarantee
+      <p className="font-mono text-[10px] text-zinc-500 text-center">
+        Encrypted direct transmission · Zero marketing spam guaranteed
       </p>
     </form>
   )

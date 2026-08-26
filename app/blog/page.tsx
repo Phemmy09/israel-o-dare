@@ -1,36 +1,19 @@
 import type { Metadata } from 'next'
-import { getBlogPosts, getMemos } from '@/lib/blog'
+import { getBlogPosts } from '@/lib/blog'
 import JournalClient from '../journal/JournalClient'
 
 export const metadata: Metadata = {
-  title: 'Journal & Dispatches | ISRAEL DARE',
+  title: 'Journal & Essays | Israel Dare',
   description:
-    'Long-form technical essays, philosophical reflections, and short-form intellectual memos on autonomous drone photogrammetry, Gaussian Process models, and systems engineering by Israel Dare.',
+    'Essays, architectural case stories, and philosophical dispatches on artificial intelligence, physical computing, and engineering by Israel Dare.',
 }
 
 export default function BlogPage() {
   const posts = getBlogPosts()
-  const memos = getMemos()
 
   return (
-    <div className="bg-noir-950 text-zinc-100 min-h-screen pt-28 sm:pt-36 font-sans">
-      <section className="max-w-7xl mx-auto px-5 sm:px-8 pb-16 border-b border-white/[0.08]">
-        <div className="max-w-4xl space-y-6">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-red-500 font-semibold">
-            THE ISRAEL DARE SALON
-          </p>
-          <h1 className="font-serif text-5xl sm:text-7xl text-white tracking-tight leading-[0.95] font-normal">
-            Journal, Thoughts &amp; <span className="italic font-light">Dispatches</span>
-          </h1>
-          <p className="font-sans text-base sm:text-xl text-zinc-300 font-light leading-relaxed max-w-2xl">
-            A living record of intellectual output: technical essays on spatial robotics and bio-thermodynamics, paired with real-time short-form memos.
-          </p>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20">
-        <JournalClient posts={posts} memos={memos} />
-      </section>
+    <div className="bg-noir-950 text-parchment-100 min-h-screen pt-28 sm:pt-36 font-sans selection:bg-gold-500 selection:text-noir-950">
+      <JournalClient posts={posts} />
     </div>
   )
 }
