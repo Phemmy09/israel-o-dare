@@ -70,8 +70,8 @@
 - Direct Email: israel@israeldare.com
 - Direct WhatsApp Hotline: +1 (424) 546-0129
 - Strategy Booking: https://Calendly.com/izzy-marketing-hub/30min
-- Paystack $50 Gated Strategy Deposit Link: https://paystack.com/pay/israel-strategy-50
-- Paystack Beginner Plan ($800): https://paystack.com/pay/israel-beginner-800
-- Paystack Professional Plan ($2,500): https://paystack.com/pay/israel-professional-2500
-- Paystack Premium Plan ($5,000): https://paystack.com/pay/israel-premium-5000
-- Paystack Exclusive Partnership ($30,000): https://paystack.com/pay/israel-exclusive-30000
+- Paystack $50 Gated Strategy Deposit Link: https://paystack.com/pay/v9czx8c3p8
+- Paystack Beginner Plan ($800): https://paystack.com/pay/ofst3diom9
+- Paystack Professional Plan ($2,500): https://paystack.com/pay/9e1tye5cuz
+- Paystack Premium Plan ($5,000): https://paystack.com/pay/ei2-uzy7yb
+- Paystack Exclusive Partnership ($30,000): https://paystack.com/pay/25sryug2ue

@@ -21,27 +21,27 @@ export const PAYMENT_LINKS: PaymentLinks = {
   // $50 Gated Strategy Consultation Deposit (100% Credited Toward Contracts)
   strategyCall50:
     process.env.NEXT_PUBLIC_PAYSTACK_FEE_50 ||
-    'https://paystack.com/pay/israel-strategy-50',
+    'https://paystack.com/pay/v9czx8c3p8',
 
   // $800 Beginner Tier
   beginner800:
     process.env.NEXT_PUBLIC_PAYSTACK_PKG_800 ||
-    'https://paystack.com/pay/israel-beginner-800',
+    'https://paystack.com/pay/ofst3diom9',
 
   // $2,500 Professional Tier
   professional2500:
     process.env.NEXT_PUBLIC_PAYSTACK_PKG_2500 ||
-    'https://paystack.com/pay/israel-professional-2500',
+    'https://paystack.com/pay/9e1tye5cuz',
 
   // $5,000 Premium Tier
   premium5000:
     process.env.NEXT_PUBLIC_PAYSTACK_PKG_5000 ||
-    'https://paystack.com/pay/israel-premium-5000',
+    'https://paystack.com/pay/ei2-uzy7yb',
 
   // $30,000 Exclusive Tier
   exclusive30000:
     process.env.NEXT_PUBLIC_PAYSTACK_PKG_30000 ||
-    'https://paystack.com/pay/israel-exclusive-30000',
+    'https://paystack.com/pay/25sryug2ue',
 }
 
 /**
