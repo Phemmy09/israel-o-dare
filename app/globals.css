@@ -114,7 +114,56 @@ body {
     border-left: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  /* Seductive Glassmorphic & Ambient Utilities */
+  .glass-seduction {
+    background: rgba(14, 14, 20, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-seduction-hover {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glass-seduction-hover:hover {
+    border-color: rgba(225, 29, 72, 0.35);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 40px -10px rgba(190, 18, 60, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .glow-ambient-ruby {
+    position: absolute;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(190, 18, 60, 0.22) 0%, rgba(136, 19, 55, 0.12) 45%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .glow-ambient-gold {
+    position: absolute;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(153, 115, 46, 0.08) 50%, transparent 70%);
+    filter: blur(70px);
+    pointer-events: none;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #fff3c4 0%, #e5c07b 50%, #c5a059 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-ruby {
+    background: linear-gradient(135deg, #ffffff 0%, #fecdd3 40%, #fb7185 80%, #e11d48 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   /* Luxury Buttons */
+  .btn-seduction {
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-ruby-700 via-ruby-600 to-rose-600 text-white font-sans text-xs uppercase tracking-luxury font-bold transition-all duration-300 shadow-lg shadow-ruby-950/60 hover:shadow-ruby-600/30 hover:brightness-110 active:scale-[0.98] border border-rose-400/30;
+  }
+
   .btn-luxury {
     @apply inline-flex items-center justify-center gap-3 px-7 py-3.5 bg-white text-black font-sans text-xs uppercase tracking-luxury font-bold transition-all duration-300 hover:bg-parchment-100 hover:shadow-lg hover:shadow-white/5 active:scale-[0.99];
   }
@@ -137,6 +186,6 @@ body {
 
   /* Editorial Pull Quotes */
   .pull-quote {
-    @apply font-serif text-2xl sm:text-3xl md:text-4xl font-light italic leading-relaxed text-zinc-100 border-l-2 border-gold-500/70 pl-6 sm:pl-8 my-8;
+    @apply font-serif text-2xl sm:text-3xl md:text-4xl font-light italic leading-relaxed text-zinc-100 border-l-2 border-ruby-500/80 pl-6 sm:pl-8 my-8;
   }
 }

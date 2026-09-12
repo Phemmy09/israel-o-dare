@@ -2,6 +2,52 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { NextRequest, NextResponse } from 'next/server'
 
+// ─── 1. In-Memory Session & IP Rate Limiting ─────────────────────────────────
+// Protects against bot scrapers, infinite loop loops, and malicious token drainers.
+interface RateLimitEntry {
+  count: number
+  firstRequestTime: number
+  lastRequestTime: number
+}
+
+const rateLimitMap = new Map<string, RateLimitEntry>()
+const MAX_PER_MINUTE = 8
+const MAX_PER_SESSION = 22 // Requires contact capture / Calendly booking to continue
+const WINDOW_MS = 60 * 1000 // 1 minute
+const SESSION_WINDOW_MS = 24 * 60 * 60 * 1000 // 24 hours
+
+function checkRateLimit(ip: string): { allowed: boolean; reason?: 'burst' | 'session' } {
+  const now = Date.now()
+  const entry = rateLimitMap.get(ip)
+
+  if (!entry) {
+    rateLimitMap.set(ip, { count: 1, firstRequestTime: now, lastRequestTime: now })
+    return { allowed: true }
+  }
+
+  // Clean old sessions
+  if (now - entry.firstRequestTime > SESSION_WINDOW_MS) {
+    entry.count = 1
+    entry.firstRequestTime = now
+    entry.lastRequestTime = now
+    return { allowed: true }
+  }
+
+  // Check burst limit (per minute)
+  if (now - entry.lastRequestTime < WINDOW_MS && entry.count >= MAX_PER_MINUTE) {
+    return { allowed: false, reason: 'burst' }
+  }
+
+  // Check total session cap
+  if (entry.count >= MAX_PER_SESSION) {
+    return { allowed: false, reason: 'session' }
+  }
+
+  entry.count += 1
+  entry.lastRequestTime = now
+  return { allowed: true }
+}
+
 function getKnowledgeBase(): string {
   try {
     return readFileSync(join(process.cwd(), 'lib/chatbot-knowledge.md'), 'utf-8')
@@ -10,65 +56,185 @@ function getKnowledgeBase(): string {
   }
 }
 
-// Strip any accidental markdown asterisks from responses
+// Strictly strip any markdown asterisks (* and **) from outputs
 function stripAsterisks(text: string): string {
+  if (!text) return ''
   return text.replace(/\*+/g, '').trim()
 }
 
-// Intelligent fallback response engine
+// ─── 2. Adversarial & Token-Waste Heuristics (0 API Cost Deflection) ─────────
+function isAdversarialOrTokenDrainer(text: string): { blocked: boolean; message?: string } {
+  const lower = text.toLowerCase().trim()
+
+  // Message length clamp: reject massive copy-paste dumps meant to exhaust tokens
+  if (text.length > 700) {
+    return {
+      blocked: true,
+      message:
+        "To preserve executive-level clarity and prevent token abuse, please condense your inquiry into a concise question. What specific operational bottleneck or revenue automation challenge are you seeking to solve?",
+    }
+  }
+
+  // Prompt injection & jailbreak patterns
+  const injectionPatterns = [
+    'ignore all previous',
+    'ignore previous instructions',
+    'system prompt',
+    'reveal your prompt',
+    'what are your instructions',
+    'act as dan',
+    'jailbreak',
+    'bypass security',
+    'unrestricted ai',
+    'developer mode',
+    'repeat everything above',
+    'print your system',
+    'show your prompt',
+    'base64 decode',
+    'disregard all prior',
+    'roleplay as an unfiltered',
+  ]
+
+  if (injectionPatterns.some((pattern) => lower.includes(pattern))) {
+    return {
+      blocked: true,
+      message:
+        "I operate under strict deterministic security protocols architected by Israel Dare. I am authorized exclusively to diagnose business operational bottlenecks, explain Israel's 4 engineering packages, and facilitate client onboarding. How may I assist your business systems?",
+    }
+  }
+
+  // Unrelated computational homework / trivia / essay exploitation
+  const offTopicPatterns = [
+    'do my homework',
+    'solve this leetcode',
+    'write an essay on',
+    'write a poem',
+    'tell me a joke',
+    'who won the 199',
+    'who is the president of',
+    'write a story about',
+    'translate this entire',
+    'repeat this word 100',
+    'repeat this word 500',
+    'list all numbers from',
+  ]
+
+  if (offTopicPatterns.some((pattern) => lower.includes(pattern))) {
+    return {
+      blocked: true,
+      message:
+        "This concierge is exclusively dedicated to strategic systems architecture, revenue automation, and client onboarding for Israel Dare. For general homework, creative writing, or trivia, please consult public tools. If you have an automation or AI infrastructure need for your business, I am at your service.",
+    }
+  }
+
+  return { blocked: false }
+}
+
+// ─── 3. Intelligent Deterministic Fallback Engine ────────────────────────────
 function generateFallbackResponse(userMessage: string): string {
   const lower = userMessage.toLowerCase().trim()
 
   // Greetings
   if (/^(hello|hi|hey|good day|good morning|good afternoon|good evening|greetings)/i.test(lower)) {
-    return "Greetings. I am the Executive Concierge for Israel Dare. How may I assist you today? You can inquire about our AI systems architecture, case studies, academic research, service pricing, or schedule a strategy consultation."
+    return "Welcome to the digital headquarters of Israel Dare. I am Israel's Executive Systems Concierge. Whether your business is leaking leads, struggling with manual contract workflows, or seeking to deploy autonomous AI agents, I am here to assist. What operational challenge is currently slowing your business down?"
   }
 
-  // Identity / Bio / Story
-  if (lower.includes('who is') || lower.includes('about') || lower.includes('background') || lower.includes('story') || lower.includes('bio') || lower.includes('father')) {
-    return "Israel Dare is an AI Consultant, Chief Systems Architect, and Computational Modeler recognized as Upwork Top Rated Plus (Top 3% globally with a 100% Job Success Score). He graduated with First Class Honours in Agricultural & Environmental Engineering from FUTA, leading his department with a GPA exceeding 4.5/5.0 as an FGN Merit Scholar. He is certified by Anthropic in advanced Claude API architectures, founded the APEXIUM youth initiative, and is a classical multi-instrumentalist."
+  // Booking & Strategy Consultation ($50 Gated Fee)
+  if (
+    lower.includes('call') ||
+    lower.includes('book') ||
+    lower.includes('schedule') ||
+    lower.includes('consult') ||
+    lower.includes('meeting') ||
+    lower.includes('50') ||
+    lower.includes('fee')
+  ) {
+    return "Israel Dare accepts select high-ticket clients and gates private 30-minute discovery sessions with a $50 deposit to ensure high mutual intent. This $50 fee is 100% credited toward your package or service contract if you proceed.\n\nYou can secure your session immediately via Calendly at https://Calendly.com/izzy-marketing-hub/30min, or message Israel directly on WhatsApp at +1 (424) 546-0129."
   }
 
-  // Pricing / Rates / Services
-  if (lower.includes('price') || lower.includes('cost') || lower.includes('rate') || lower.includes('package') || lower.includes('pricing') || lower.includes('retainer') || lower.includes('fee')) {
-    return "Israel provides transparent, outcome-driven systems engineering engagements:\n\n• Executive AI Strategy & Technical Advisory: $3,500 per session (or $8,000/month ongoing advisory retainer)\n• Bespoke AI Application Development: From $8,500 (full-stack RAG, vector search, custom models)\n• Enterprise Workflow Automation & n8n Clusters: From $4,000 (resilient, self-healing data pipelines)\n• Spatial Intelligence & Bio-Physical Systems: From $12,000 / Bespoke (UAV photogrammetry, digital twins)\n• Fractional Chief Systems Architect: $8,000/month\n\nYou can book a direct strategy call at https://Calendly.com/izzy-marketing-hub/30min or email israel@israeldare.com."
+  // Pricing & Packages
+  if (
+    lower.includes('price') ||
+    lower.includes('cost') ||
+    lower.includes('rate') ||
+    lower.includes('package') ||
+    lower.includes('tier') ||
+    lower.includes('how much')
+  ) {
+    return "Israel provides 4 transparent, production-tested service packages:\n\n• BEGINNER ($800): Automated email sequences, instant SMS lead responders, social media 24/7 auto-responder, CRM sync.\n• PROFESSIONAL ($2,500): Complete sales funnel, custom website (up to 10 pages), marketing automation, 24/7 AI chatbot, CRM setup.\n• PREMIUM ($5,000 — Most Popular): Full brand identity, high-performance web platform, social media automation, custom AI Agent / Digital Twin, lead scoring CRM, 30 days priority tuning.\n• EXCLUSIVE ($30,000 / Year): Fractional CTO & enterprise systems architecture, 365-day workflow maintenance, dedicated AI twins, direct private hotline.\n\nWhich of these best matches your current growth stage?"
   }
 
-  // Academic / Research / Thesis / GPR
-  if (lower.includes('thesis') || lower.includes('academic') || lower.includes('research') || lower.includes('gpr') || lower.includes('gaussian') || lower.includes('futa') || lower.includes('scholarship')) {
-    return "Israel graduated First Class Honours from FUTA, finishing at the top of his department (GPA 4.5+/5.0) and was a Federal Government of Nigeria (FGN) Merit Scholarship recipient (2019–2023). His undergraduate thesis developed a non-parametric Gaussian Process Regression (GPR) model to predict environmental and moisture degradation in tropical harvest storage. He also served as Academic Director for AGEESA, tutoring engineering peers in numerical analysis and advanced mathematics."
+  // Lead Leaking / Voice AI / Solar / Outbound
+  if (
+    lower.includes('lead') ||
+    lower.includes('voice') ||
+    lower.includes('call') ||
+    lower.includes('solar') ||
+    lower.includes('sunrun') ||
+    lower.includes('vapi')
+  ) {
+    return "Slow lead response times kill conversion. For Sunrun Energy commercial solar partners, Israel engineered a low-latency autonomous voice AI system (Vapi + ElevenLabs + Twilio) that calls leads within 30 seconds, qualifies roof parameters and utility spend, and books appointments onto sales calendars. It produced over $300,000 in closed sales in 60 days with zero human qualification labor. Would you like to implement a similar voice pipeline in your business?"
   }
 
-  // Drone / Photogrammetry / Spatial / LiDAR / 3D
-  if (lower.includes('drone') || lower.includes('photogrammetry') || lower.includes('spatial') || lower.includes('lidar') || lower.includes('nerf') || lower.includes('twin')) {
-    return "Israel specializes in spatial intelligence and autonomous aerial robotics. His work bridges UAV multispectral LiDAR telemetry, RTK-GPS georeferencing, Structure-from-Motion (SfM), and 3D Gaussian Splatting to construct high-fidelity bio-spatial digital twins for infrastructure, environmental monitoring, and terrain modeling."
+  // Roofing / Documents / PDF / Scope
+  if (
+    lower.includes('roof') ||
+    lower.includes('pdf') ||
+    lower.includes('contract') ||
+    lower.includes('scope') ||
+    lower.includes('eagleview') ||
+    lower.includes('extract')
+  ) {
+    return "Through Roof Auto, Israel built an asynchronous AI engine that ingests complex 30-page aerial PDF blueprints and insurance contracts, extracting pitch angles, square footage, and bills of materials in 40 seconds (down from 4 hours manual calculation) with zero errors. We can build a custom document parser for your industry. What formats do your teams currently process manually?"
   }
 
-  // Flagship Projects / Case Studies
-  if (lower.includes('project') || lower.includes('case') || lower.includes('portfolio') || lower.includes('edutech') || lower.includes('roof') || lower.includes('mamaguard')) {
-    return "Key production systems built by Israel Dare include:\n\n• Edutech Global: Institutional admissions RAG ecosystem for Babcock University & ABU, cutting administrative query burden by 68% with sub-5s latency.\n• Roof Auto: Autonomous contract parser converting 30-page blueprint PDFs into itemized material lists in 40 seconds (down from 4 hours).\n• MamaGuard: Prenatal clinical diagnostic advisory platform supporting concurrent voice and text logging with Python FastAPI and aiosqlite."
+  // Credentials / Who is Israel
+  if (
+    lower.includes('who is') ||
+    lower.includes('about') ||
+    lower.includes('credential') ||
+    lower.includes('experience') ||
+    lower.includes('upwork')
+  ) {
+    return "Israel Oluwafemi Dare is an AI Systems Architect recognized as Upwork Top Rated Plus (Top 3% worldwide with a 100% Job Success Score across 40+ deployments). He holds First Class Honours in Agricultural Engineering from FUTA, is certified 6x by Anthropic on Claude, is a Microsoft Certified AI Red Teamer, and holds Securiti.ai Governance credentials. He separates reasoning from execution: AI decides, deterministic code acts."
   }
 
-  // Contact / Meeting / Booking
-  if (lower.includes('call') || lower.includes('meeting') || lower.includes('consult') || lower.includes('hire') || lower.includes('contact') || lower.includes('schedule') || lower.includes('book') || lower.includes('email') || lower.includes('whatsapp')) {
-    return "You can schedule a direct 30-minute strategic consultation with Israel Dare via Calendly at https://Calendly.com/izzy-marketing-hub/30min, message him on WhatsApp at +1 424 546 0129, or email directly at israel@israeldare.com."
+  // WhatsApp / Email / Contact
+  if (
+    lower.includes('contact') ||
+    lower.includes('whatsapp') ||
+    lower.includes('email') ||
+    lower.includes('phone') ||
+    lower.includes('reach')
+  ) {
+    return "You can reach Israel Dare directly via:\n\n• Email: israel@israeldare.com\n• Direct WhatsApp: +1 (424) 546-0129\n• $50 Gated Strategy Call: https://Calendly.com/izzy-marketing-hub/30min"
   }
 
-  // APEXIUM / Non-Profit / Impact
-  if (lower.includes('apexium') || lower.includes('charity') || lower.includes('non-profit') || lower.includes('teach') || lower.includes('youth') || lower.includes('community')) {
-    return "APEXIUM is a grassroots non-profit founded by Israel Dare that brings AI literacy, algorithmic thinking, and software programming workshops to underserved youth across rural Nigerian communities. The initiative is fully self-funded from his engineering and consulting earnings, having trained over 200 teenagers to date."
-  }
-
-  // Music / Polyphony / Violin
-  if (lower.includes('music') || lower.includes('violin') || lower.includes('orchestra') || lower.includes('piano') || lower.includes('cello')) {
-    return "Israel is a self-taught classical multi-instrumentalist (Violin, Viola, Cello, Piano) and former General Coordinator / Music Director for the FUTA campus orchestra and 60-member choir. He views the strict multi-voice counterpoint of J.S. Bach as the foundational mental model for architecting high-concurrency, asynchronous software pipelines."
-  }
-
-  return "Israel Dare's executive office is ready to assist with enterprise AI strategy, high-concurrency systems, autonomous n8n workflows, spatial digital twins, or institutional inquiries. Would you like to schedule a strategy briefing via Calendly (https://Calendly.com/izzy-marketing-hub/30min) or connect directly on WhatsApp (+1 424 546 0129)?"
+  return "Israel Dare specializes in high-concurrency autonomous systems, voice AI agents, GoHighLevel infrastructure, and deterministic document parsing. Would you like to discuss your operational bottleneck, explore our 4 service packages ($800 to $30,000), or lock in a $50 gated strategy call via Calendly (https://Calendly.com/izzy-marketing-hub/30min)?"
 }
 
 export async function POST(req: NextRequest) {
   try {
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      req.headers.get('cf-connecting-ip') ||
+      '127.0.0.1'
+
+    // 1. Rate Limit & Abuse Check
+    const rateCheck = checkRateLimit(ip)
+    if (!rateCheck.allowed) {
+      if (rateCheck.reason === 'burst') {
+        return NextResponse.json({
+          reply:
+            "Please pause a moment. To ensure dignified, high-availability service for all executives, responses are throttled. Please re-enter your question in 30 seconds.",
+        })
+      }
+      return NextResponse.json({
+        reply:
+          "You have reached the exploratory consultation limit for this session. To proceed with an in-depth architectural evaluation, please book a private $50 gated strategy briefing directly with Israel Dare (100% credited toward your package contract) at https://Calendly.com/izzy-marketing-hub/30min, or message directly on WhatsApp at +1 (424) 546-0129.",
+      })
+    }
+
     const { messages, lead } = await req.json()
 
     if (!messages || !Array.isArray(messages)) {
@@ -76,39 +242,132 @@ export async function POST(req: NextRequest) {
     }
 
     const latestUserMsg = messages[messages.length - 1]?.content || ''
+
+    // 2. Token-Drain & Adversarial Prompt Check (Zero API cost deflection)
+    const guard = isAdversarialOrTokenDrainer(latestUserMsg)
+    if (guard.blocked && guard.message) {
+      return NextResponse.json({ reply: stripAsterisks(guard.message) })
+    }
+
     const kb = getKnowledgeBase()
-    const leadContext = lead?.name && !/^(hello|hi|hey|good morning|test)/i.test(lead.name)
-      ? `\nClient Inquirer Dossier:\n- Name: ${lead.name}\n- Business Email: ${lead.email || 'N/A'}\n- Phone: ${lead.phone || 'N/A'}\n- Focus: ${lead.service || 'General Inquiry'}`
+    const leadDossier = lead?.name
+      ? `\nCURRENT VISITOR DOSSIER:\n• Name: ${lead.name}\n• Email: ${lead.email || 'Pending'}\n• Phone/WhatsApp: ${lead.phone || 'Pending'}\n• Business: ${lead.company || 'Not stated'}\n• Target Tier: ${lead.interest || 'Systems Architecture'}`
       : ''
 
-    const systemPrompt = `You are the Executive Concierge for ISRAEL DARE — AI Consultant, Chief Systems Architect, Computational Modeler, and First-Class Honours Engineer.
+    const systemPrompt = `You are the Executive Systems Concierge and Psychological Lead Closer for ISRAEL OLUWAFEMI DARE — Elite AI Systems Architect, Autonomous Revenue Infrastructure Consultant, Upwork Top Rated Plus (Top 3% worldwide with 100% Job Success across 40+ deployments), 6x Anthropic Certified, and Microsoft Certified AI Red Teamer.
 
-VOICE & PERSONA:
-- Ultra-sharp, intellectually formidable, articulate, confident, restrained, and elegant.
-- Speak with executive precision. Avoid buzzwords, fluff, or generic robotic phrasing.
-- Be extremely intelligent and helpful. You can explain deep mathematical, architectural, and engineering topics fluently.
-- Greet visitors warmly if they say hello without assuming their name is 'Hello' or forcing an interrogation.
-- If asked about Israel Dare, draw accurately and deeply from the knowledge base below.
+YOUR MISSION & ROLE:
+1. Provide authoritative, deeply intelligent answers grounded strictly in Israel Dare's verified knowledge base.
+2. Act as a high-ticket consultative closer: empathize with operational pain (leads leaking, manual SDR burnout, slow PDF estimation, RAG hallucinations), validate with real proof ($300k in 60 days, 900+ appointments, 40s scope extraction), and guide prospects to the right package.
+3. Transparently present the 4 Service Packages:
+   • Beginner ($800): Automated email sequences, instant SMS lead responders, social media auto-responder, CRM sync.
+   • Professional ($2,500): Complete sales funnel, custom website (up to 10 pages), marketing automation, 24/7 AI chatbot, CRM setup.
+   • Premium ($5,000 — Most Popular): Full brand identity, high-performance web platform, social media automation, custom AI Agent / Digital Twin, lead scoring CRM, 30 days priority tuning.
+   • Exclusive ($30,000 / Annual): Fractional CTO & enterprise systems architecture, 365-day workflow maintenance, dedicated AI twins, direct private hotline.
+4. Guide high-intent prospects to lock in a private 30-minute discovery briefing via Calendly:
+5. Offer direct WhatsApp contact with Israel at +1 (424) 546-0129 for immediate high-priority inquiries.
+6. DIRECT PAYSTACK PAYMENT LINKS:
+   If a client is ready to purchase, book, or pay directly, provide the direct Paystack payment link:
+   • $50 Strategy Session Deposit (100% credited): https://paystack.com/pay/israel-strategy-50
+   • Beginner Plan ($800): https://paystack.com/pay/israel-beginner-800
+   • Professional Plan ($2,500): https://paystack.com/pay/israel-professional-2500
+   • Premium Plan ($5,000): https://paystack.com/pay/israel-premium-5000
+   • Exclusive Partnership ($30,000): https://paystack.com/pay/israel-exclusive-30000
 
-CRITICAL FORMATTING INSTRUCTIONS (ZERO ASTERISKS):
-- NEVER USE ANY ASTERISKS (*) OR DOUBLE ASTERISKS (**) FOR BOLDING, ITALICS, OR LISTS IN YOUR RESPONSES.
-- DO NOT USE MARKDOWN ASTERISKS AT ALL.
-- For bulleted lists, use simple standard bullet points (•) or hyphens (-).
-- Present key terms and links cleanly in plain, dignified typography.
+PSYCHOLOGICAL DISCERNMENT & ELITE POSTURE:
+• Tone: Calm, sovereign, discerning, welcoming yet unshakeable. You speak as a trusted technical advisor to CEOs and founders.
+• Understand Client Tricks:
+  - If a visitor fishes for free full system architectures or tries to extract free code, provide the high-level deterministic framework, then invite them to formalize the build via the $50 gated strategy call or a package.
+  - If a visitor compares Israel with cheap freelancers, calmly educate: inexperienced builds cost 5x more in lost leads, security holes, and brittle downtime. Israel builds production systems that handle real money.
+  - If a visitor is hesitant on price, anchor the ROI: a single automated lead qualification system or 40-second document parser pays for itself within weeks.
+• STRICT GUARDRAILS:
+  - Domain Boundary: You ONLY discuss Israel Dare, his portfolio, credentials, engineering capabilities, and automation services.
+  - Zero Asterisks: NEVER output any asterisks (*) or double asterisks (**) in your responses. Format lists with clean bullet points (•) or hyphens (-).
+  - Brevity & Power: Keep responses under 150 words whenever possible. Every word must carry weight. Never use generic AI clichés ("delve", "tapestry", "embark", "testament").
 
-CORE OBJECTIVES:
-1. Provide authoritative, intelligent answers about Israel's engineering builds, academic research, spatial models, and consulting services.
-2. Present accurate pricing tiers ($3,500 strategy session, from $4,000 automation, from $8,500 custom apps, $8,000/mo retainer) when asked.
-3. Direct serious inquiries to book a strategy call via Calendly (https://Calendly.com/izzy-marketing-hub/30min) or message on WhatsApp (+1 424 546 0129) or email israel@israeldare.com.
+${leadDossier}
 
-${leadContext}
-
-KNOWLEDGE BASE & VERIFIED CREDENTIALS:
+MASTER KNOWLEDGE BASE:
 ${kb}`
 
-    // 1. Try Anthropic Claude API first (Claude 3.5 Sonnet / 3 Haiku)
-    const anthropicKey = process.env.ANTHROPIC_API_KEY || process.env.CLAUDE_API_KEY
-    if (anthropicKey) {
+    // 3. Sliding Context Window: To maximize cost-efficiency and eliminate token waste,
+    // only send the last 4 messages (2 conversation turns) to the model.
+    const recentMessages = messages.slice(-4).map((m: any) => ({
+      role: m.role === 'assistant' ? 'assistant' : 'user',
+      content: String(m.content).slice(0, 600), // Clamp individual past turn length
+    }))
+
+    // 4. Try OpenAI (GPT-5.6 Luna) First
+    const openAiKey = process.env.OPENAI_API_KEY
+    if (openAiKey) {
+      const targetModel = process.env.OPENAI_CHAT_MODEL || 'gpt-5.6-luna'
+      const isReasoningModel =
+        targetModel.includes('luna') ||
+        targetModel.includes('gpt-5') ||
+        targetModel.includes('o1') ||
+        targetModel.includes('o3')
+
+      try {
+        const payload: Record<string, any> = {
+          model: targetModel,
+          messages: [{ role: 'system', content: systemPrompt }, ...recentMessages],
+          max_completion_tokens: 450,
+        }
+
+        // Configure reasoning models for speed, intelligence, and lowest token waste
+        if (isReasoningModel) {
+          payload.reasoning_effort = 'low'
+        } else {
+          payload.temperature = 0.5
+        }
+
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${openAiKey}`,
+          },
+          body: JSON.stringify(payload),
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          const rawReply = data.choices?.[0]?.message?.content
+          if (rawReply) {
+            return NextResponse.json({ reply: stripAsterisks(rawReply) })
+          }
+        } else {
+          // If gpt-5.6-luna returns an unexpected error, attempt quick fallback to gpt-4o-mini
+          console.warn(`Primary OpenAI model (${targetModel}) returned ${response.status}. Attempting fast fallback to gpt-4o-mini...`)
+          const fallbackRes = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${openAiKey}`,
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              messages: [{ role: 'system', content: systemPrompt }, ...recentMessages],
+              max_completion_tokens: 400,
+              temperature: 0.5,
+            }),
+          })
+          if (fallbackRes.ok) {
+            const fbData = await fallbackRes.json()
+            const fbReply = fbData.choices?.[0]?.message?.content
+            if (fbReply) {
+              return NextResponse.json({ reply: stripAsterisks(fbReply) })
+            }
+          }
+        }
+      } catch (openAiErr) {
+        console.warn('OpenAI call error:', openAiErr)
+      }
+    }
+
+    // 5. Try Anthropic Claude API as Secondary Provider
+    const anthropicKey = process.env.ANTHROPIC_API_KEY
+    if (anthropicKey && anthropicKey !== 'your_anthropic_api_key_here') {
       try {
         const response = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
@@ -120,12 +379,9 @@ ${kb}`
           body: JSON.stringify({
             model: 'claude-3-5-sonnet-20241022',
             system: systemPrompt,
-            messages: messages.map((m: any) => ({
-              role: m.role === 'assistant' ? 'assistant' : 'user',
-              content: m.content,
-            })),
-            max_tokens: 600,
-            temperature: 0.6,
+            messages: recentMessages,
+            max_tokens: 400,
+            temperature: 0.5,
           }),
         })
 
@@ -136,51 +392,19 @@ ${kb}`
             return NextResponse.json({ reply: stripAsterisks(rawReply) })
           }
         }
-      } catch (e) {
-        console.warn('Anthropic API attempt encountered an error, trying OpenAI/fallback:', e)
+      } catch (anthropicErr) {
+        console.warn('Anthropic API call failed:', anthropicErr)
       }
     }
 
-    // 2. Try OpenAI API if key exists
-    if (process.env.OPENAI_API_KEY) {
-      try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o-mini',
-            messages: [{ role: 'system', content: systemPrompt }, ...messages],
-            temperature: 0.6,
-            max_tokens: 600,
-          }),
-        })
-
-        if (response.ok) {
-          const data = await response.json()
-          const rawReply = data.choices?.[0]?.message?.content
-          if (rawReply) {
-            return NextResponse.json({ reply: stripAsterisks(rawReply) })
-          }
-        }
-      } catch (e) {
-        console.warn('OpenAI API call encountered an error, falling back:', e)
-      }
-    }
-
-    // 3. Guaranteed High-Intelligence Native Fallback Engine
-    const fallbackReply = generateFallbackResponse(latestUserMsg)
-    return NextResponse.json({ reply: stripAsterisks(fallbackReply) })
+    // 6. Native High-Intelligence Fallback Engine (Zero latency, zero cost)
+    const fallback = generateFallbackResponse(latestUserMsg)
+    return NextResponse.json({ reply: stripAsterisks(fallback) })
   } catch (err) {
     console.error('Chat API Error:', err)
-    return NextResponse.json(
-      {
-        reply:
-          "Israel Dare's executive office has received your inquiry. You may book directly via Calendly at https://Calendly.com/izzy-marketing-hub/30min, message on WhatsApp at +1 424 546 0129, or email israel@israeldare.com.",
-      },
-      { status: 200 }
-    )
+    return NextResponse.json({
+      reply:
+        "Israel Dare's executive office has received your inquiry. You can lock in a $50 gated strategy consultation directly via Calendly at https://Calendly.com/izzy-marketing-hub/30min, connect on WhatsApp at +1 (424) 546-0129, or email israel@israeldare.com.",
+    })
   }
 }

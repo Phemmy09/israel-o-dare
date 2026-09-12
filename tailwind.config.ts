@@ -15,11 +15,27 @@ const config: Config = {
       },
       colors: {
         noir: {
-          950: '#070709', // Deepest obsidian luxury canvas
-          900: '#0c0c10', // Dark foundation surface
-          850: '#121217', // Editorial panel slate
-          800: '#181820', // Interactive container
-          700: '#262632', // Structural borders
+          950: '#060609', // Deepest obsidian luxury canvas
+          900: '#0a0a0f', // Dark foundation surface
+          850: '#101017', // Editorial panel slate
+          800: '#161622', // Interactive container
+          700: '#222230', // Structural borders
+        },
+        obsidian: {
+          950: '#040406',
+          900: '#07070a',
+          850: '#0c0c12',
+          800: '#12121a',
+          700: '#1c1c28',
+        },
+        ruby: {
+          950: '#2c040e',
+          900: '#4c0519',
+          800: '#881337', // Deep velvet wine
+          700: '#9f1239',
+          600: '#be123c', // Seductive statement ruby
+          500: '#e11d48', // Luminous glow crimson
+          400: '#fb7185',
         },
         gold: {
           300: '#f3e5ab',
@@ -52,6 +68,12 @@ const config: Config = {
           900: '#1e3a8a',
           950: '#0f172a',
         },
+      },
+      boxShadow: {
+        'glow-ruby': '0 0 50px -10px rgba(225, 29, 72, 0.35)',
+        'glow-wine': '0 0 60px -15px rgba(136, 19, 55, 0.45)',
+        'glow-gold': '0 0 40px -10px rgba(212, 175, 55, 0.25)',
+        'card-seductive': '0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(190, 18, 60, 0.15)',
       },
       letterSpacing: {
         'luxury': '0.22em',
