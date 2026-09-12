@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
+import { CurrencyProvider } from '@/context/CurrencyContext'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -221,10 +222,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-noir-950 text-zinc-200 antialiased selection:bg-ruby-600 selection:text-white">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <ChatWidget />
+        <CurrencyProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <ChatWidget />
+        </CurrencyProvider>
       </body>
     </html>
   )

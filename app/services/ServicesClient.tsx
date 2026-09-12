@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PAYMENT_LINKS } from '@/lib/payment-links'
+import PricingSection from '@/components/PricingSection'
 import {
   Search,
   BrainCircuit,
@@ -182,82 +183,6 @@ const detailedServices: ServiceDetail[] = [
       'custom web app', 'next.js', 'fastapi', 'saas development', 'stripe integration', 'full stack ai',
       'react portal', 'enterprise software', 'bespoke application', 'sovereign code'
     ],
-  },
-]
-
-const servicePackages = [
-  {
-    name: 'BEGINNER',
-    price: '$800',
-    frequency: 'one-time investment',
-    badge: 'Foundation',
-    paystackUrl: PAYMENT_LINKS.beginner800,
-    description: 'For growing operators needing quick operational relief from repetitive inbound messaging and lead follow-up.',
-    features: [
-      'Automated Email Sequences & Smart Follow-Up',
-      'Instant SMS Lead Response Workflows',
-      'Social Media 24/7 Auto Responder',
-      'Basic Lead Capture & Spreadsheet/CRM Sync',
-      '7 Days Post-Launch Validation',
-    ],
-    popular: false,
-    cta: 'Secure Beginner Plan ($800)',
-  },
-  {
-    name: 'PROFESSIONAL',
-    price: '$2,500',
-    frequency: 'one-time investment',
-    badge: 'High Conversion',
-    paystackUrl: PAYMENT_LINKS.professional2500,
-    description: 'Complete high-converting sales engine and custom web infrastructure engineered to turn cold traffic into booked deals.',
-    features: [
-      'Complete High-Converting Sales Funnel',
-      'Bespoke Website Design (Up to 10 Pages)',
-      'End-to-End Marketing Automation Pipelines',
-      '24/7 Conversational AI Chatbot Support',
-      'CRM Integration (GoHighLevel, HubSpot, or Zoho)',
-      '14 Days Active Engineering Support',
-    ],
-    popular: false,
-    cta: 'Secure Professional Plan ($2,500)',
-  },
-  {
-    name: 'PREMIUM',
-    price: '$5,000',
-    frequency: 'one-time investment',
-    badge: 'Most Popular',
-    paystackUrl: PAYMENT_LINKS.premium5000,
-    description: 'The complete enterprise revenue stack: full brand prestige, custom AI twin/agent, and automated multi-channel growth.',
-    features: [
-      'Full Brand Identity Design & Asset Suite',
-      'Comprehensive High-Performance Web Platform',
-      'Social Media Management & Content Automation',
-      'Advanced Multi-Channel Marketing Automation',
-      'Custom Autonomous AI Agent / Digital Twin',
-      'CRM Architecture, Lead Scoring & Telemetry',
-      '30 Days Priority Optimization & Monitoring',
-    ],
-    popular: true,
-    cta: 'Secure Premium Plan ($5,000)',
-  },
-  {
-    name: 'EXCLUSIVE',
-    price: '$30,000',
-    frequency: 'annual executive partnership',
-    badge: 'Enterprise Sovereign',
-    paystackUrl: PAYMENT_LINKS.exclusive30000,
-    description: 'Full-year fractional CTO & AI systems architecture. We handle every facet of your brand, software, and autonomous pipelines.',
-    features: [
-      'Full Brand Identity & Continuous Creative Evolution',
-      'Comprehensive Website Design & Infrastructure / year',
-      '365-Day Social Media Management & Distribution',
-      'Enterprise End-to-End Marketing Automation / year',
-      'Custom Dedicated AI Agent / Twin Infrastructure / year',
-      'Continuous Red-Teaming, Security & Performance Tuning',
-      'Direct Private Hotline to Israel Dare',
-    ],
-    popular: false,
-    cta: 'Request Executive Partnership ($30k)',
   },
 ]
 
@@ -539,108 +464,12 @@ export default function ServicesClient() {
         )}
       </section>
 
-      {/* 4. THE 4 TRANSPARENT SERVICE PACKAGES (From User's Slide Blueprint) */}
+      {/* 4. THE 4 TRANSPARENT SERVICE PACKAGES */}
       <section id="pricing" className="max-w-7xl mx-auto px-5 sm:px-8 py-20 border-b border-white/[0.08]">
-        <div className="space-y-16">
-          <div className="space-y-3 text-center max-w-3xl mx-auto">
-            <span className="font-mono text-[11px] uppercase tracking-luxury text-ruby-400 font-semibold">
-              Defined Offerings & Scope
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white">
-              Service Packages
-            </h2>
-            <p className="text-sm sm:text-base text-zinc-400 font-light leading-relaxed">
-              Fixed-scope, transparent pricing with clear outcomes.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
-            {servicePackages.map((pkg) => (
-              <div
-                key={pkg.name}
-                className={`glass-seduction p-8 flex flex-col justify-between relative transition-all duration-300 ${
-                  pkg.popular
-                    ? 'border-2 border-ruby-500 shadow-2xl shadow-ruby-950/60'
-                    : 'border border-white/[0.08] hover:border-white/20'
-                }`}
-              >
-                {pkg.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-ruby-600 text-white font-mono text-[9px] uppercase tracking-widest font-bold">
-                    {pkg.badge}
-                  </div>
-                )}
-
-                <div className="space-y-6">
-                  <div className="space-y-2">
-                    <span className="font-mono text-xs tracking-widest text-zinc-400 uppercase font-semibold">
-                      {pkg.name}
-                    </span>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-serif text-4xl sm:text-5xl text-white font-normal text-gradient-ruby">
-                        {pkg.price}
-                      </span>
-                    </div>
-                    <span className="font-mono text-[10px] text-zinc-500 block uppercase">
-                      {pkg.frequency}
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-zinc-300 font-light leading-relaxed">
-                    {pkg.description}
-                  </p>
-
-                  <div className="space-y-3 pt-4 border-t border-white/[0.06]">
-                    <span className="font-mono text-[10px] uppercase text-gold-400 tracking-wider block font-medium">
-                      What's Included
-                    </span>
-                    <ul className="space-y-2.5">
-                      {pkg.features.map((feat) => (
-                        <li key={feat} className="flex items-start gap-2.5 text-xs text-zinc-200">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-ruby-400 shrink-0 mt-0.5" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="pt-8 space-y-2.5">
-                  <a
-                    href={pkg.paystackUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`block text-center py-3.5 text-xs uppercase tracking-luxury font-bold transition-all duration-300 ${
-                      pkg.popular
-                        ? 'btn-seduction w-full'
-                        : 'bg-white/5 border border-white/15 text-white hover:bg-white hover:text-black w-full'
-                    }`}
-                  >
-                    Pay with Paystack ({pkg.price}) ↗
-                  </a>
-                  <Link
-                    href={`/contact?plan=${encodeURIComponent(pkg.name)}`}
-                    className="block text-center font-mono text-[10px] text-zinc-400 hover:text-white uppercase tracking-wider py-1"
-                  >
-                    Or Inquire / Consult First
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Customized Solution Banner */}
-          <div className="max-w-3xl mx-auto p-6 glass-seduction border border-white/10 text-center space-y-3">
-            <p className="text-sm text-zinc-300 font-light">
-              If you're seeking a package customized to your business needs, offering a variety of bespoke engineering services for a personalized solution, please contact us directly.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-luxury text-ruby-400 hover:text-white font-semibold"
-            >
-              Initiate Bespoke Consultation <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
+        <PricingSection
+          title="Service Architecture Packages"
+          subtitle="Fixed-scope, transparent pricing with clear outcomes. Paystack multi-currency checkout accepted worldwide."
+        />
       </section>
 
       {/* 5. 6-STEP PROCESS */}

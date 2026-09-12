@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useCurrency } from '@/context/CurrencyContext'
 import {
   ProductItem,
   ProductTier,
@@ -52,6 +53,7 @@ const tiers: { label: string; value: ProductTier | 'All'; description: string }[
 export default function ProductsClient({ products }: ProductsClientProps) {
   const [selectedTier, setSelectedTier] = useState<ProductTier | 'All'>('All')
   const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null)
+  const { currency, info, format } = useCurrency()
 
   const filteredProducts =
     selectedTier === 'All'
@@ -154,7 +156,9 @@ export default function ProductsClient({ products }: ProductsClientProps) {
               {/* Pricing & CTA */}
               <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-4">
                 <div>
-                  <span className="font-serif text-2xl text-white">{product.priceDisplay}</span>
+                  <span className="font-serif text-2xl text-white">
+                    {product.priceValue ? format(product.priceValue) : product.priceDisplay}
+                  </span>
                   <p className="font-mono text-[9px] text-zinc-500 uppercase">
                     {product.isHighTicket ? 'Application Required' : 'Instant Access'}
                   </p>
@@ -255,7 +259,9 @@ export default function ProductsClient({ products }: ProductsClientProps) {
                 {selectedProduct.tier} Tier · {selectedProduct.format}
               </span>
               <h2 className="font-serif text-3xl text-white">{selectedProduct.title}</h2>
-              <p className="font-serif text-2xl text-gold-300">{selectedProduct.priceDisplay}</p>
+              <p className="font-serif text-2xl text-gold-300">
+                {selectedProduct.priceValue ? format(selectedProduct.priceValue) : selectedProduct.priceDisplay}
+              </p>
             </div>
 
             <p className="text-sm text-parchment-200 font-light leading-relaxed">
